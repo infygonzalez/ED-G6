@@ -6,6 +6,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JComboBox;
+import javax.swing.JButton;
 
 public class Bienvenida extends JFrame {
 
@@ -38,6 +40,14 @@ public class Bienvenida extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(297, 98, 30, 22);
+		contentPane.add(comboBox);
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.setBounds(113, 98, 89, 23);
+		contentPane.add(btnNewButton);
 	}
-
 }
