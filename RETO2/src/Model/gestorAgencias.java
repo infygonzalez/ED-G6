@@ -20,16 +20,14 @@ public class gestorAgencias {
 		String nombre = SQLQueries.SELECT_NOMBRE_AGENCIAS; //damos nombre al select que vamos a hacer
 		String contr= SQLQueries.SELECT_CONTRA_AGENCIAS;//otra vez lo mismo
 		
-		
-		//Dan errores porque hay que meterlo entre try catch//
 		try {
 			Class.forName(DBUtils.DRIVER);
 			conexion = DBUtils.getConexion();//Iniciamos la conexion
-			stmt = conexion.prepareStatement(nombre);
+			stmt = conexion.prepareStatement(nombre);//preparamos la sentencia con la query del nombre
 			stmt.setString(1, agencia.getNombre());//le pasamos el nombre de la agencia
-			rs = stmt.executeQuery();
+			rs = stmt.executeQuery();//ejecuta el resultado
 			if (!rs.next()) {
-			    return false; // Nombre no encontrado
+			    return false; // Nombre no encontrado; si lo encuentra, va a verificar la contraseña directamente
 			}
 
 			// Verificar si la contraseña coincide
