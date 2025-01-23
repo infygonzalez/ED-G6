@@ -8,12 +8,19 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
+import java.awt.Canvas;
+import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class Bienvenida extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
+	private login panelogin;
 	/**
 	 * Launch the application.
 	 */
@@ -34,20 +41,35 @@ public class Bienvenida extends JFrame {
 	 * Create the frame.
 	 */
 	public Bienvenida() {
+		setTitle("Viajes Erreka-Mari");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
+		
+		panelogin = new login();
+		panelogin.setLayout(new BorderLayout());
+		
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBounds(297, 98, 30, 22);
-		contentPane.add(comboBox);
+		JLabel lblTextoBienvenida = new JLabel("Bienvenido (Click para iniciar sesion)");
+		lblTextoBienvenida.setFont(new Font("Verdana", Font.BOLD, 15));
+		lblTextoBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTextoBienvenida.setBounds(38, 87, 360, 69);
+		contentPane.add(lblTextoBienvenida);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.setBounds(113, 98, 89, 23);
-		contentPane.add(btnNewButton);
+		JButton btnBienvenida = new JButton("");
+		btnBienvenida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(panelogin);
+				revalidate(); // Revalidar el JFrame para que se actualice
+                repaint();    // Repaint para que el cambio sea reflejado
+			}
+		});
+		btnBienvenida.setVerticalAlignment(SwingConstants.TOP);
+		btnBienvenida.setIcon(new ImageIcon("C:\\Users\\in1dm3-a\\Downloads\\Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg"));
+		btnBienvenida.setBounds(0, 0, 434, 261);
+		contentPane.add(btnBienvenida);
 	}
 }
