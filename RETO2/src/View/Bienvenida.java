@@ -61,7 +61,7 @@ public class Bienvenida extends JFrame {
 		lblTextoBienvenida.setLabelFor(contentPane);
 		lblTextoBienvenida.setFont(new Font("Verdana", Font.BOLD, 15));
 		lblTextoBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextoBienvenida.setBounds(37, 96, 360, 69);
+		lblTextoBienvenida.setBounds(37, 11, 360, 69);
 		contentPane.add(lblTextoBienvenida);
 		
 		ImageIcon icono = new ImageIcon(imgURL);
