@@ -10,8 +10,15 @@ public class Agencia {
 	private String color;
 	private int numeroEmpleados;
 	private String tipoAgencia;
+	private String contra;
 	
 
+	public String getContra() {
+		return contra;
+	}
+	public void setContra(String contra) {
+		this.contra = contra;
+	}
 	public String getID() {
 		return ID;
 	}
@@ -52,7 +59,7 @@ public class Agencia {
 	@Override
 	public String toString() {
 		return "Agencia [ID=" + ID + ", nombre=" + nombre + ", logo=" + logo + ", color=" + color + ", numeroEmpleados="
-				+ numeroEmpleados + ", tipoAgencia=" + tipoAgencia + "]";
+				+ numeroEmpleados + ", tipoAgencia=" + tipoAgencia + ", contraseña=" + contra + "]";
 	}
 	
 	
