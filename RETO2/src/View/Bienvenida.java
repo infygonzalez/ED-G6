@@ -2,7 +2,6 @@ package View;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -15,6 +14,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URL;
+
 
 public class Bienvenida extends JFrame {
 
@@ -47,6 +48,7 @@ public class Bienvenida extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
+		URL imgURL = getClass().getClassLoader().getResource("Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg");
 		panelogin = new login();
 		panelogin.setLayout(new BorderLayout());
 		
@@ -59,7 +61,9 @@ public class Bienvenida extends JFrame {
 		lblTextoBienvenida.setBounds(38, 87, 360, 69);
 		contentPane.add(lblTextoBienvenida);
 		
-		JButton btnBienvenida = new JButton("");
+		ImageIcon icono = new ImageIcon(imgURL);
+		JButton btnBienvenida = new JButton(icono);
+		
 		btnBienvenida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(panelogin);
@@ -68,7 +72,6 @@ public class Bienvenida extends JFrame {
 			}
 		});
 		btnBienvenida.setVerticalAlignment(SwingConstants.TOP);
-		btnBienvenida.setIcon(new ImageIcon("C:\\Users\\in1dm3-a\\Downloads\\Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg"));
 		btnBienvenida.setBounds(0, 0, 434, 261);
 		contentPane.add(btnBienvenida);
 	}
