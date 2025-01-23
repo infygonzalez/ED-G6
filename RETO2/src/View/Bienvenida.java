@@ -15,6 +15,7 @@ import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.net.URL;
+import javax.swing.JTextField;
 
 
 public class Bienvenida extends JFrame {
@@ -22,6 +23,7 @@ public class Bienvenida extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private login panelogin;
+	private JLabel lblTextoBienvenida;
 	/**
 	 * Launch the application.
 	 */
@@ -55,15 +57,17 @@ public class Bienvenida extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTextoBienvenida = new JLabel("Bienvenido (Click para iniciar sesion)");
+		lblTextoBienvenida = new JLabel("Bienvenido (Click para iniciar sesion)");
+		lblTextoBienvenida.setLabelFor(contentPane);
 		lblTextoBienvenida.setFont(new Font("Verdana", Font.BOLD, 15));
 		lblTextoBienvenida.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTextoBienvenida.setBounds(38, 87, 360, 69);
+		lblTextoBienvenida.setBounds(37, 96, 360, 69);
 		contentPane.add(lblTextoBienvenida);
 		
 		ImageIcon icono = new ImageIcon(imgURL);
 		JButton btnBienvenida = new JButton(icono);
-		
+		btnBienvenida.setContentAreaFilled(false); // No dibuja fondo para mostrar la imagen
+        btnBienvenida.setBorderPainted(false);    // No dibuja borde
 		btnBienvenida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(panelogin);
@@ -71,7 +75,6 @@ public class Bienvenida extends JFrame {
                 repaint();    // Repaint para que el cambio sea reflejado
 			}
 		});
-		btnBienvenida.setVerticalAlignment(SwingConstants.TOP);
 		btnBienvenida.setBounds(0, 0, 434, 261);
 		contentPane.add(btnBienvenida);
 	}
