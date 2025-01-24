@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Agencia;
+import Model.gestorAgencias;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Canvas;
@@ -70,7 +74,7 @@ public class Bienvenida extends JFrame {
         btnBienvenida.setBorderPainted(false);    // No dibuja borde
 		btnBienvenida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setContentPane(panelogin);
+				panelogin.setVisible(true);
 				revalidate(); // Revalidar el JFrame para que se actualice
                 repaint();    // Repaint para que el cambio sea reflejado
 			}
