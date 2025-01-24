@@ -13,10 +13,39 @@ public class Viajes {
 	private String servicios;
 	private String ID_agencia;
 	
+	//constructor
+	public Viajes() {
+		ID = "";
+		this.nombre = "";
+		this.descripcion = "";
+		this.tipo_viaje = "";
+		this.fecInicio = "";
+		this.fecFin = "";
+		this.duracion = "";
+		this.pais = "";
+		this.servicios = "";
+		ID_agencia = "";
+	}
 	
+	public Viajes(String iD, String nombre, String descripcion, String tipo_viaje, String fecInicio, String fecFin,
+			String duracion, String pais, String servicios, String iD_agencia) {
+		this.ID= iD;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.tipo_viaje = tipo_viaje;
+		this.fecInicio = fecInicio;
+		this.fecFin = fecFin;
+		this.duracion = duracion;
+		this.pais = pais;
+		this.servicios = servicios;
+		this.ID_agencia= iD_agencia;
+	}
+	
+	//getters y setters
 	public String getID() {
 		return ID;
 	}
+	
 	public void setID(String iD) {
 		ID = iD;
 	}
