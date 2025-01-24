@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="estilos.css">
+    
+</head>
+<body>
+    <!-- Header con logo y menú -->
+    <header class="header">
+        <div class="logo">
+            <img src="media/logosin.png" alt="Logo" class="logo-img"> 
+        </div>
+        <nav class="menu">
+            <ul>
+                <li><a href="#">Quiénes somos</a></li>
+                <li><a href="#">Más información</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenedor de Login -->
+    <div class="login">
+        <h1>Iniciar Sesión</h1>
+        <input type="text" id="usuario" placeholder="Usuario">
+        <input type="password" id="contrasena" placeholder="Contraseña">
+        <button onclick="login()">Ingresar</button>
+        <p class="error" id="error-message" style="display: none;">Usuario o contraseña incorrectos.</p>
+    </div>
+
+    <script>
+        function login() {
+            const usuario = document.getElementById('usuario').value;
+            const contrasena = document.getElementById('contrasena').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (usuario === "admin" && contrasena === "1234") {
+                alert("Inicio de sesión exitoso");
+                errorMessage.style.display = "none";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>

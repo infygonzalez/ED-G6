@@ -1,0 +1,92 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #d3a14f; /* Color dorado para el texto */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4; /* Fondo claro para el resto de la página */
+}
+
+header {
+    width: 100%;
+    background-color: #131524; /* Fondo oscuro para el header */
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo img {
+    height: 40px; /* Tamaño del logo */
+}
+
+nav.menu ul {
+    list-style-type: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav.menu a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+nav.menu a:hover {
+    background-color: #339ab4; /* Azul claro para hover */
+}
+
+.login {
+    background: #18344f; /* Azul oscuro para el fondo del formulario */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    text-align: center;
+    padding-right: 20px;
+    margin-top: 20px;
+}
+
+.login h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #d3a14f; /* Color dorado para el título */
+}
+
+.login input {
+    width: calc(100% - 50px); /* Ajuste de tamaño de los inputs */
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 0.5px solid #6b593a; /* Color marrón suave para los bordes */
+    border-radius: 4px;
+    font-size: 16px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.login button {
+    width: 91%;
+    padding: 10px;
+    background-color: #339ab4; /* Azul claro para el botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.login button:hover {
+    background-color: #1b799e; /* Azul medio para el hover del botón */
+}
+
+.error {
+    color: #d3a14f; /* Color dorado para el mensaje de error */
+    font-size: 14px;
+    margin-top: 10px;
+}
