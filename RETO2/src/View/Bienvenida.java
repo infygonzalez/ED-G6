@@ -5,6 +5,10 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Model.Agencia;
+import Model.gestorAgencias;
+
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.Canvas;
@@ -45,7 +49,7 @@ public class Bienvenida extends JFrame {
 	 */
 	public Bienvenida() {
 		setTitle("Viajes Erreka-Mari");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -7,9 +7,9 @@ public class Controlador {
 		gestorAgencias gestorAgencias = new gestorAgencias();
 		gestorAgencias.comprobarAgencia(Agencia);
 	}
-	public void crearAgencia() {
+	public void crearAgencia(Agencia agencia) {
 		gestorAgencias gestorAgencias = new gestorAgencias();
-		gestorAgencias.crearAgencia();
+		gestorAgencias.crearAgencia(agencia);
 	}
 	
 }

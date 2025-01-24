@@ -7,12 +7,19 @@ import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import Model.*;
+import View.Bienvenida;
+
 
 public class login extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
-	private JPasswordField txtContraseña;
+	private JLabel lblMensaje;
+	Agencia agencia = new Agencia();
+	private JTextField txtContraseña;
 
 	/**
 	 * Create the panel.
@@ -42,21 +49,50 @@ public class login extends JPanel {
 		add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		txtContraseña = new JPasswordField();
-		txtContraseña.setBounds(195, 118, 162, 20);
-		add(txtContraseña);
-		
 		JButton btnValidar = new JButton("Validar");
+		btnValidar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombreusu = txtUsuario.getText();
+				String contraseña = txtContraseña.getText();
+				validarAgencia(nombreusu, contraseña, null, null);
+			}
+		});
 		btnValidar.setFont(new Font("Verdana", Font.PLAIN, 11));
 		btnValidar.setBackground(Color.GRAY);
 		btnValidar.setBounds(67, 181, 89, 23);
 		add(btnValidar);
 		
 		JButton btnCrearUsuario = new JButton("Crear usuario");
+		btnCrearUsuario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+					crearagencia frame = new crearagencia();
+					frame.setVisible(true);					
+			}
+		});
 		btnCrearUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
 		btnCrearUsuario.setBackground(Color.GRAY);
 		btnCrearUsuario.setBounds(243, 181, 114, 23);
 		add(btnCrearUsuario);
+		
+		lblMensaje = new JLabel("");
+		lblMensaje.setFont(new Font("Verdana", Font.PLAIN, 14));
+		lblMensaje.setBounds(122, 240, 206, 14);
+		add(lblMensaje);
+		
+		txtContraseña = new JTextField();
+		txtContraseña.setBounds(197, 118, 160, 20);
+		add(txtContraseña);
+		txtContraseña.setColumns(10);
+		
 
+	}
+	public void validarAgencia(String nombreusu, String contraseña,Agencia agencia, gestorAgencias gestor) {
+		agencia.setNombre(nombreusu);
+		agencia.setContra(contraseña);
+		if (gestor.comprobarAgencia(agencia)==true) {
+			lblMensaje.setText("Inicio de sesion correcto");
+		}else {
+			lblMensaje.setText("Error, Usuario o contraseña incorrectos");
+		}
 	}
 }
