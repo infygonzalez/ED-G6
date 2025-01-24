@@ -74,7 +74,7 @@ public class Bienvenida extends JFrame {
         btnBienvenida.setBorderPainted(false);    // No dibuja borde
 		btnBienvenida.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panelogin.setVisible(true);
+				setContentPane(panelogin);
 				revalidate(); // Revalidar el JFrame para que se actualice
                 repaint();    // Repaint para que el cambio sea reflejado
 			}
