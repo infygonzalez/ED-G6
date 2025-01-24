@@ -18,7 +18,6 @@ public class login extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private JTextField txtUsuario;
 	private JLabel lblMensaje;
-	private crearagencia crearagencia;
 	Agencia agencia = new Agencia();
 	private JTextField txtContraseña;
 
@@ -28,7 +27,6 @@ public class login extends JPanel {
 	public login() {
 		setForeground(new Color(192, 192, 192));
 		setLayout(null);
-		crearagencia = new crearagencia();
 		
 		JLabel lblNewLabel = new JLabel("Iniciar sesion");
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -67,9 +65,8 @@ public class login extends JPanel {
 		JButton btnCrearUsuario = new JButton("Crear usuario");
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				crearagencia.setVisible(true);
-				revalidate(); // Revalidar el JFrame para que se actualice
-                repaint();    // Repaint para que el cambio sea reflejado
+					crearagencia frame = new crearagencia();
+					frame.setVisible(true);					
 			}
 		});
 		btnCrearUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));

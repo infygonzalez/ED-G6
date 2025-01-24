@@ -9,9 +9,9 @@ public class Viajes {
 	private String fecInicio;
 	private String fecFin;
 	private String duracion;
-	private String pais;
 	private String servicios;
 	private Agencia agencia;
+	private Paises pais;
 	
 	//constructor
 	public Viajes() {
@@ -22,13 +22,13 @@ public class Viajes {
 		this.fecInicio = "";
 		this.fecFin = "";
 		this.duracion = "";
-		this.pais = "";
+		this.pais = new Paises();
 		this.servicios = "";
 		agencia = new Agencia();
 	}
 	
 	public Viajes(String iD, String nombre, String descripcion, String tipo_viaje, String fecInicio, String fecFin,
-			String duracion, String pais, String servicios, Agencia agencia) {
+			String duracion, Paises pais, String servicios, Agencia agencia) {
 		this.ID= iD;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -85,12 +85,6 @@ public class Viajes {
 	public void setDuracion(String duracion) {
 		this.duracion = duracion;
 	}
-	public String getPais() {
-		return pais;
-	}
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
 	public String getServicios() {
 		return servicios;
 	}
@@ -101,6 +95,14 @@ public class Viajes {
 		return agencia;
 	}
 
+	public Paises getPais() {
+		return pais;
+	}
+
+	public void setPais(Paises pais) {
+		this.pais = pais;
+	}
+
 	public void setAgencia(Agencia agencia) {
 		this.agencia = agencia;
 	}
@@ -108,8 +110,8 @@ public class Viajes {
 	@Override
 	public String toString() {
 		return "Viajes [ID=" + ID + ", nombre=" + nombre + ", descripcion=" + descripcion + ", tipo_viaje=" + tipo_viaje
-				+ ", fecInicio=" + fecInicio + ", fecFin=" + fecFin + ", duracion=" + duracion + ", pais=" + pais
-				+ ", servicios=" + servicios + ", agencia=" + agencia + "]";
+				+ ", fecInicio=" + fecInicio + ", fecFin=" + fecFin + ", duracion=" + duracion + ", servicios="
+				+ servicios + ", agencia=" + agencia + ", pais=" + pais + "]";
 	}
 	
 	
