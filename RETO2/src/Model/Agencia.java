@@ -1,4 +1,7 @@
 package Model;
+
+import java.util.ArrayList;
+
 /*
  * Este es el modelo pojos de la clase Agencia, vamos a generar sus getters y setters
  */
@@ -11,6 +14,7 @@ public class Agencia {
 	private int numeroEmpleados;
 	private String tipoAgencia;
 	private String contra;
+	private ArrayList<Viajes>viajes;
 	
 	//constructores
 	public Agencia() {
@@ -21,10 +25,11 @@ public class Agencia {
 		this.numeroEmpleados = 0;
 		this.tipoAgencia = "";
 		this.contra = "";
+		ArrayList<Viajes> viajes = new ArrayList();
 	}
 	
 	public Agencia(String ID, String nombre, String logo, String color, int numeroEmpleados, String tipoAgencia,
-			String contra) {
+			String contra, ArrayList<Viajes> viajes) {
 		this.ID = ID;
 		this.nombre = nombre;
 		this.logo = logo;
@@ -32,6 +37,7 @@ public class Agencia {
 		this.numeroEmpleados = numeroEmpleados;
 		this.tipoAgencia = tipoAgencia;
 		this.contra = contra;
+		this.viajes=viajes;
 	}
 	
 	//getters y setters
@@ -78,12 +84,18 @@ public class Agencia {
 		this.tipoAgencia = tipoAgencia;
 	}
 	
-	
-	//toString
+	public ArrayList<Viajes> getViajes() {
+		return viajes;
+	}
+
+	public void setViajes(ArrayList<Viajes> viajes) {
+		this.viajes = viajes;
+	}
+
 	@Override
 	public String toString() {
 		return "Agencia [ID=" + ID + ", nombre=" + nombre + ", logo=" + logo + ", color=" + color + ", numeroEmpleados="
-				+ numeroEmpleados + ", tipoAgencia=" + tipoAgencia + ", contraseña=" + contra + "]";
+				+ numeroEmpleados + ", tipoAgencia=" + tipoAgencia + ", contra=" + contra + ", viajes=" + viajes + "]";
 	}
 	
 	
