@@ -2,7 +2,7 @@ package Model;
 
 public class OtrosEventos {
 	
-	public String ID;
+	public String id_eventos;
 	public String nombre;
 	public String fecha;
 	public String descripcion;
@@ -10,7 +10,7 @@ public class OtrosEventos {
 
 	//constructor
 	public OtrosEventos() {
-		ID = "";
+		id_eventos = "";
 		this.nombre = "";
 		this.fecha = "";
 		this.descripcion = "";
@@ -18,7 +18,7 @@ public class OtrosEventos {
 	}
 	
 	public OtrosEventos(String iD, String nombre, String fecha, String descripcion, String precio) {
-		ID = iD;
+		id_eventos = iD;
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.descripcion = descripcion;
@@ -27,12 +27,12 @@ public class OtrosEventos {
 
 	
 	//getters y setters
-	public String getID() {
-		return ID;
+	public String getid_eventos() {
+		return id_eventos;
 	}
 
-	public void setID(String iD) {
-		ID = iD;
+	public void setid_eventos(String iD) {
+		id_eventos = iD;
 	}
 
 	public String getNombre() {
@@ -71,7 +71,7 @@ public class OtrosEventos {
 	
 	@Override
 	public String toString() {
-		return "OtrosEventos [ID=" + ID + ", nombre=" + nombre + ", fecha=" + fecha + ", descripcion=" + descripcion
+		return "OtrosEventos [ID=" + id_eventos + ", nombre=" + nombre + ", fecha=" + fecha + ", descripcion=" + descripcion
 				+ ", precio=" + precio + "]";
 	}
 	
