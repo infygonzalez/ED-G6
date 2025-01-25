@@ -54,7 +54,7 @@ public class gestorAgencias {
 				
 	}
 
-	public void crearAgencia(Agencia agencia) {
+	public static void crearAgencia(Agencia agencia) {
 		Connection conexion = null;
 		Statement sentencia = null;
 		

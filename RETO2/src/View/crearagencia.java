@@ -15,6 +15,10 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.awt.event.ActionEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import Model.Agencia;
+import Model.gestorAgencias;
+
 import java.nio.file.StandardCopyOption;
 import javax.swing.JSlider;
 import javax.swing.JComboBox;
@@ -26,8 +30,8 @@ public class crearagencia extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
-	private JTextField textField;
-	private JTextField txtIntroduceLaUrl;
+	private JTextField txtColor;
+	private JTextField txtLogo;
 
 	/**
 	 * Launch the application.
@@ -102,42 +106,66 @@ public class crearagencia extends JFrame {
 		lblNewLabel_4.setBounds(10, 154, 218, 14);
 		contentPane.add(lblNewLabel_4);
 		
-		textField = new JTextField();
-		textField.setBounds(238, 152, 186, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtColor = new JTextField();
+		txtColor.setBounds(238, 152, 186, 20);
+		contentPane.add(txtColor);
+		txtColor.setColumns(10);
 		
 		JLabel lblNewLabel_5 = new JLabel("Numero de empleados:");
 		lblNewLabel_5.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblNewLabel_5.setBounds(10, 190, 145, 14);
 		contentPane.add(lblNewLabel_5);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Verdana", Font.PLAIN, 11));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
-		comboBox.setBounds(165, 187, 198, 22);
-		contentPane.add(comboBox);
+		JComboBox numeroEmple = new JComboBox();
+		numeroEmple.setFont(new Font("Verdana", Font.PLAIN, 11));
+		numeroEmple.setModel(new DefaultComboBoxModel(new String[] {"Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
+		numeroEmple.setBounds(165, 187, 198, 22);
+		contentPane.add(numeroEmple);
 		
 		JLabel lblNewLabel_6 = new JLabel("Tipo de agencia:");
 		lblNewLabel_6.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblNewLabel_6.setBounds(10, 225, 110, 14);
 		contentPane.add(lblNewLabel_6);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Mayorista", "Minorista", "Mayorista-Minorista"}));
-		comboBox_1.setBounds(117, 222, 157, 22);
-		contentPane.add(comboBox_1);
+		JComboBox tipoAgencia = new JComboBox();
+		tipoAgencia.setModel(new DefaultComboBoxModel(new String[] {"Mayorista", "Minorista", "Mayorista-Minorista"}));
+		tipoAgencia.setBounds(117, 222, 157, 22);
+		contentPane.add(tipoAgencia);
 		
-		txtIntroduceLaUrl = new JTextField();
-		txtIntroduceLaUrl.setFont(new Font("Verdana", Font.ITALIC, 11));
-		txtIntroduceLaUrl.setText("Introduce la URL de internet");
-		txtIntroduceLaUrl.setBounds(66, 113, 318, 20);
-		contentPane.add(txtIntroduceLaUrl);
-		txtIntroduceLaUrl.setColumns(10);
+		txtLogo = new JTextField();
+		txtLogo.setFont(new Font("Verdana", Font.ITALIC, 11));
+		txtLogo.setText("Introduce la URL de internet");
+		txtLogo.setBounds(66, 113, 318, 20);
+		contentPane.add(txtLogo);
+		txtLogo.setColumns(10);
 		
 		JButton btnNewButton = new JButton("Crear Agencia");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String usuario = txtUsuario.getText();
+				String contrase = txtContraseña.getText();
+				String logo = txtLogo.getText();
+				String color = txtColor.getText();
+				String empleados = numeroEmple.getSelectedItem().toString();
+				String tipoagencia = tipoAgencia.getSelectedItem().toString();
+				
+				mandarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
+				
+			}
+		});
 		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 11));
 		btnNewButton.setBounds(131, 285, 171, 23);
 		contentPane.add(btnNewButton);
+	}
+	
+	public void mandarAgencia(String nombre, String contra,String logo, String color, String empleados, String tipoAgencia) {
+		Agencia agencia = new Agencia();
+		agencia.setNombre(nombre);
+		agencia.setContra(contra);
+		agencia.setLogo(logo);
+		agencia.setColor(color);
+		agencia.setNumeroEmpleados(empleados);
+		agencia.setTipoAgencia(tipoAgencia);
+		gestorAgencias.crearAgencia(agencia);
 	}
 }
