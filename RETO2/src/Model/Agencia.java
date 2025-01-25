@@ -11,7 +11,7 @@ public class Agencia {
 	private String nombre;
 	private String logo;
 	private String color;
-	private int numeroEmpleados;
+	private String numeroEmpleados;
 	private String tipoAgencia;
 	private String contra;
 	private ArrayList<Viajes>viajes;
@@ -22,13 +22,13 @@ public class Agencia {
 		this.nombre = "";
 		this.logo = "";
 		this.color = "";
-		this.numeroEmpleados = 0;
+		this.numeroEmpleados = "";
 		this.tipoAgencia = "";
 		this.contra = "";
 		ArrayList<Viajes> viajes = new ArrayList();
 	}
 	
-	public Agencia(String ID, String nombre, String logo, String color, int numeroEmpleados, String tipoAgencia,
+	public Agencia(String ID, String nombre, String logo, String color, String numeroEmpleados, String tipoAgencia,
 			String contra, ArrayList<Viajes> viajes) {
 		this.ID = ID;
 		this.nombre = nombre;
@@ -71,10 +71,10 @@ public class Agencia {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public int getNumeroEmpleados() {
+	public String getNumeroEmpleados() {
 		return numeroEmpleados;
 	}
-	public void setNumeroEmpleados(int numeroEmpleados) {
+	public void setNumeroEmpleados(String numeroEmpleados) {
 		this.numeroEmpleados = numeroEmpleados;
 	}
 	public String getTipoAgencia() {
