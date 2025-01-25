@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.nio.file.StandardCopyOption;
 import javax.swing.JSlider;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class crearagencia extends JFrame {
 
@@ -24,8 +26,8 @@ public class crearagencia extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JTextField txtContraseña;
-	private JLabel lblarchivoLabel;
 	private JTextField textField;
+	private JTextField txtIntroduceLaUrl;
 
 	/**
 	 * Launch the application.
@@ -95,38 +97,6 @@ public class crearagencia extends JFrame {
 		lblNewLabel_3.setBounds(10, 113, 46, 14);
 		contentPane.add(lblNewLabel_3);
 		
-		JButton btnSubirlogo = new JButton("Subir logo");
-		btnSubirlogo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Crear JFileChooser para seleccionar archivo
-                JFileChooser fileChooser = new JFileChooser();
-                fileChooser.setDialogTitle("Seleccionar un archivo PNG");
-
-                // Usar FileNameExtensionFilter para aceptar solo PNG
-                FileNameExtensionFilter filtro = new FileNameExtensionFilter("Archivos PNG (*.png)", "png");
-                fileChooser.setFileFilter(filtro);
-
-                // Mostrar el diálogo y obtener la respuesta
-                int respuesta = fileChooser.showOpenDialog(frame);
-
-                if (respuesta == JFileChooser.APPROVE_OPTION) {
-                    // Obtener el archivo seleccionado
-                    File archivoSeleccionado = fileChooser.getSelectedFile();
-                    lblarchivoLabel.setText("Archivo seleccionado: " + archivoSeleccionado.getName());
-                } else {
-                    lblarchivoLabel.setText("No se seleccionó ningún archivo.");
-                }
-            }
-		});
-		btnSubirlogo.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnSubirlogo.setBounds(66, 108, 110, 26);
-		contentPane.add(btnSubirlogo);
-		
-		lblarchivoLabel = new JLabel("");
-		lblarchivoLabel.setFont(new Font("Verdana", Font.PLAIN, 11));
-		lblarchivoLabel.setBounds(186, 113, 238, 14);
-		contentPane.add(lblarchivoLabel);
-		
 		JLabel lblNewLabel_4 = new JLabel("Color de la Agencia(hexadecimal):");
 		lblNewLabel_4.setFont(new Font("Verdana", Font.PLAIN, 11));
 		lblNewLabel_4.setBounds(10, 154, 218, 14);
@@ -142,14 +112,32 @@ public class crearagencia extends JFrame {
 		lblNewLabel_5.setBounds(10, 190, 145, 14);
 		contentPane.add(lblNewLabel_5);
 		
-		JSlider slider = new JSlider();
-		slider.setMaximum(1000);
-		slider.setMinimum(1);
-		slider.setBounds(176, 188, 238, 26);
-		contentPane.add(slider);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setFont(new Font("Verdana", Font.PLAIN, 11));
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
+		comboBox.setBounds(165, 187, 198, 22);
+		contentPane.add(comboBox);
 		
-		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setBounds(279, 216, 46, 14);
+		JLabel lblNewLabel_6 = new JLabel("Tipo de agencia:");
+		lblNewLabel_6.setFont(new Font("Verdana", Font.PLAIN, 11));
+		lblNewLabel_6.setBounds(10, 225, 110, 14);
 		contentPane.add(lblNewLabel_6);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"Mayorista", "Minorista", "Mayorista-Minorista"}));
+		comboBox_1.setBounds(117, 222, 157, 22);
+		contentPane.add(comboBox_1);
+		
+		txtIntroduceLaUrl = new JTextField();
+		txtIntroduceLaUrl.setFont(new Font("Verdana", Font.ITALIC, 11));
+		txtIntroduceLaUrl.setText("Introduce la URL de internet");
+		txtIntroduceLaUrl.setBounds(66, 113, 318, 20);
+		contentPane.add(txtIntroduceLaUrl);
+		txtIntroduceLaUrl.setColumns(10);
+		
+		JButton btnNewButton = new JButton("Crear Agencia");
+		btnNewButton.setFont(new Font("Verdana", Font.PLAIN, 11));
+		btnNewButton.setBounds(131, 285, 171, 23);
+		contentPane.add(btnNewButton);
 	}
 }

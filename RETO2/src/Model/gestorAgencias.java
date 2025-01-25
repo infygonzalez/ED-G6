@@ -23,7 +23,7 @@ public class gestorAgencias {
 			conexion = DBUtils.getConexion();//Iniciamos la conexion
 			stmt = conexion.prepareStatement(nombre);//preparamos la sentencia con la query del nombre
 			stmt.setString(1, agencia.getNombre());//le pasamos el nombre de la agencia
-			rs = stmt.executeQuery();//ejecuta el resultado
+			rs = stmt.executeQuery();//ejecuta
 			if (!rs.next()) {
 			    return false; // Nombre no encontrado; si lo encuentra, va a verificar la contraseña directamente
 			}
