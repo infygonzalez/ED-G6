@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Alojamientos {
 
-	public String id_evento;
+	public ArrayList<Eventos>eventos;
 	public String nombre_hotel;
 	public String ciudad;
 	public int precio;
@@ -13,7 +15,7 @@ public class Alojamientos {
 	
 	//constructor
 	public Alojamientos() {
-		this.id_evento = "";
+		ArrayList<Eventos>eventos = new ArrayList();
 		this.nombre_hotel = "";
 		this.ciudad = "";
 		this.precio = 0;
@@ -22,10 +24,10 @@ public class Alojamientos {
 		this.tipo_hab = "";
 	}
 	
-	
-	public Alojamientos(String id_evento, String nombre_hotel, String ciudad, int precio, String f_entrada,
+
+	public Alojamientos(ArrayList<Eventos> eventos, String nombre_hotel, String ciudad, int precio, String f_entrada,
 			String f_salida, String tipo_hab) {
-		this.id_evento = id_evento;
+		this.eventos = eventos;
 		this.nombre_hotel = nombre_hotel;
 		this.ciudad = ciudad;
 		this.precio = precio;
@@ -34,19 +36,24 @@ public class Alojamientos {
 		this.tipo_hab = tipo_hab;
 	}
 
+
+
+
 	//getters y setters
-	public String getId_evento() {
-		return id_evento;
-	}
-
-
-	public void setId_evento(String id_evento) {
-		this.id_evento = id_evento;
-	}
 
 
 	public String getNombre_hotel() {
 		return nombre_hotel;
+	}
+
+
+	public ArrayList<Eventos> getEventos() {
+		return eventos;
+	}
+
+
+	public void setEventos(ArrayList<Eventos> eventos) {
+		this.eventos = eventos;
 	}
 
 
@@ -107,13 +114,9 @@ public class Alojamientos {
 	//toString
 	@Override
 	public String toString() {
-		return "Alojamientos [id_evento=" + id_evento + ", nombre_hotel=" + nombre_hotel + ", ciudad=" + ciudad
+		return "Alojamientos [eventos=" + eventos + ", nombre_hotel=" + nombre_hotel + ", ciudad=" + ciudad
 				+ ", precio=" + precio + ", f_entrada=" + f_entrada + ", f_salida=" + f_salida + ", tipo_hab="
 				+ tipo_hab + "]";
 	}
-	
-	
-	
-	
-	
+
 }

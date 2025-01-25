@@ -1,12 +1,14 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class Vuelos {
 	
-	public String id_evento;
+	private ArrayList<Eventos>eventos;
 	public String aero_origen;
 	public String aero_destino;
 	public String cod_vuelo_ida;
-	public String aerolinea_ida;
+	public Aerolineas aerolinea_ida;
 	public int precio;
 	public String f_salida;
 	public String h_salida;
@@ -16,15 +18,15 @@ public class Vuelos {
 	public String h_vuelta;
 	public String duracion_vuelta;
 	public String cod_vuelo_vuelta;
-	public String aerolinea_vuelta;
+	public Aerolineas aerolinea_vuelta;
 	
 	//constructor
 	public Vuelos() {
-		this.id_evento ="";
-		this.aero_origen ="";
-		this.aero_destino ="";
+		ArrayList <Eventos> eventos = new ArrayList();
+		this.aero_origen = "";
+		this.aero_destino = "";
 		this.cod_vuelo_ida = "";
-		this.aerolinea_ida = "";
+		this.aerolinea_ida = new Aerolineas();
 		this.precio = 0;
 		this.f_salida = "";
 		this.h_salida = "";
@@ -34,15 +36,16 @@ public class Vuelos {
 		this.h_vuelta = "";
 		this.duracion_vuelta = "";
 		this.cod_vuelo_vuelta = "";
-		this.aerolinea_vuelta = "";
+		this.aerolinea_vuelta = new Aerolineas();
 	}
+
 	
-	
-	public Vuelos(String id_evento, String aero_origen, String aero_destino, String cod_vuelo_ida,
-			String aerolinea_ida, int precio, String f_salida, String h_salida, String duracion_ida,
+
+	public Vuelos(ArrayList<Eventos> eventos, String aero_origen, String aero_destino, String cod_vuelo_ida,
+			Aerolineas aerolinea_ida, int precio, String f_salida, String h_salida, String duracion_ida,
 			String tipo_vuelo, String f_vuelta, String h_vuelta, String duracion_vuelta, String cod_vuelo_vuelta,
-			String aerolinea_vuelta) {
-		this.id_evento = id_evento;
+			Aerolineas aerolinea_vuelta) {
+		this.eventos = eventos;
 		this.aero_origen = aero_origen;
 		this.aero_destino = aero_destino;
 		this.cod_vuelo_ida = cod_vuelo_ida;
@@ -59,19 +62,23 @@ public class Vuelos {
 		this.aerolinea_vuelta = aerolinea_vuelta;
 	}
 
+
+
 	//getters y setters
-	public String getId_evento() {
-		return id_evento;
-	}
-
-
-	public void setId_evento(String id_evento) {
-		this.id_evento = id_evento;
-	}
 
 
 	public String getAero_origen() {
 		return aero_origen;
+	}
+
+
+	public ArrayList<Eventos> getEventos() {
+		return eventos;
+	}
+
+
+	public void setEventos(ArrayList<Eventos> eventos) {
+		this.eventos = eventos;
 	}
 
 
@@ -97,16 +104,6 @@ public class Vuelos {
 
 	public void setCod_vuelo_ida(String cod_vuelo_ida) {
 		this.cod_vuelo_ida = cod_vuelo_ida;
-	}
-
-
-	public String getAerolinea_ida() {
-		return aerolinea_ida;
-	}
-
-
-	public void setAerolinea_ida(String aerolinea_ida) {
-		this.aerolinea_ida = aerolinea_ida;
 	}
 
 
@@ -200,24 +197,38 @@ public class Vuelos {
 	}
 
 
-	public String getAerolinea_vuelta() {
+	public Aerolineas getAerolinea_ida() {
+		return aerolinea_ida;
+	}
+
+
+
+	public void setAerolinea_ida(Aerolineas aerolinea_ida) {
+		this.aerolinea_ida = aerolinea_ida;
+	}
+
+
+
+	public Aerolineas getAerolinea_vuelta() {
 		return aerolinea_vuelta;
 	}
 
 
-	public void setAerolinea_vuelta(String aerolinea_vuelta) {
+
+	public void setAerolinea_vuelta(Aerolineas aerolinea_vuelta) {
 		this.aerolinea_vuelta = aerolinea_vuelta;
 	}
 
-	//toString
+
+	//to String
 	@Override
 	public String toString() {
-		return "Alojamientos [id_evento=" + id_evento + ", aero_origen=" + aero_origen + ", aero_destino="
-				+ aero_destino + ", cod_vuelo_ida=" + cod_vuelo_ida + ", aerolinea_ida=" + aerolinea_ida + ", precio="
-				+ precio + ", f_salida=" + f_salida + ", h_salida=" + h_salida + ", duracion_ida=" + duracion_ida
+		return "Vuelos [eventos=" + eventos + ", aero_origen=" + aero_origen + ", aero_destino=" + aero_destino
+				+ ", cod_vuelo_ida=" + cod_vuelo_ida + ", aerolinea_ida=" + aerolinea_ida + ", precio=" + precio
+				+ ", f_salida=" + f_salida + ", h_salida=" + h_salida + ", duracion_ida=" + duracion_ida
 				+ ", tipo_vuelo=" + tipo_vuelo + ", f_vuelta=" + f_vuelta + ", h_vuelta=" + h_vuelta
 				+ ", duracion_vuelta=" + duracion_vuelta + ", cod_vuelo_vuelta=" + cod_vuelo_vuelta
 				+ ", aerolinea_vuelta=" + aerolinea_vuelta + "]";
 	}
-	
+
 }

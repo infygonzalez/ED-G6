@@ -1,8 +1,10 @@
 package Model;
 
+import java.util.ArrayList;
+
 public class OtrosEventos {
 	
-	public String id_eventos;
+	public ArrayList<Eventos>eventos;
 	public String nombre;
 	public String fecha;
 	public String descripcion;
@@ -10,34 +12,40 @@ public class OtrosEventos {
 
 	//constructor
 	public OtrosEventos() {
-		id_eventos = "";
+		ArrayList<Eventos>eventos = new ArrayList();
 		this.nombre = "";
 		this.fecha = "";
 		this.descripcion = "";
 		this.precio = "";
 	}
 	
-	public OtrosEventos(String iD, String nombre, String fecha, String descripcion, String precio) {
-		id_eventos = iD;
+	
+	public OtrosEventos(ArrayList<Eventos> eventos, String nombre, String fecha, String descripcion, String precio) {
+		this.eventos = eventos;
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.descripcion = descripcion;
 		this.precio = precio;
 	}
 
-	
-	//getters y setters
-	public String getid_eventos() {
-		return id_eventos;
-	}
 
-	public void setid_eventos(String iD) {
-		id_eventos = iD;
-	}
+
+	//getters y setters
+
 
 	public String getNombre() {
 		return nombre;
 	}
+
+	public ArrayList<Eventos> getEventos() {
+		return eventos;
+	}
+
+
+	public void setEventos(ArrayList<Eventos> eventos) {
+		this.eventos = eventos;
+	}
+
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
@@ -68,11 +76,10 @@ public class OtrosEventos {
 	}
 
 	//tostring
-	
 	@Override
 	public String toString() {
-		return "OtrosEventos [ID=" + id_eventos + ", nombre=" + nombre + ", fecha=" + fecha + ", descripcion=" + descripcion
-				+ ", precio=" + precio + "]";
+		return "OtrosEventos [eventos=" + eventos + ", nombre=" + nombre + ", fecha=" + fecha + ", descripcion="
+				+ descripcion + ", precio=" + precio + "]";
 	}
-	
+
 }
