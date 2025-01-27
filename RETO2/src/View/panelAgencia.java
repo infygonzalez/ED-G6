@@ -179,25 +179,6 @@ public class panelAgencia extends JFrame {
 	}
 
 	private Color agenciaColor(Agencia agenciaColor) {
-		Color color;
-		switch (agenciaColor.getColor().toLowerCase()) {
-		case "negro":
-			return color = Color.black;
-		case "rojo":
-			return color = Color.red;
-		case "verde":
-			return color = Color.green;
-		case "amarillo":
-			return color = Color.yellow;
-		case "azul":
-			return color = Color.blue;
-		case "gris":
-			return color = Color.gray;
-		case "morado":
-			return color = Color.magenta;
-		case "rosa":
-			return color = Color.pink;
-		}
 		Color colordefault = Color.white;
 		return colordefault;
 	}

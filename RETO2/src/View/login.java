@@ -68,7 +68,7 @@ public class login extends JPanel {
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					crearagencia frame = new crearagencia();
-					frame.setVisible(true);					
+					frame.setVisible(true);
 			}
 		});
 		btnCrearUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
