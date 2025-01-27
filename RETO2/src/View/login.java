@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import Model.*;
 import View.Bienvenida;
+import javax.swing.SwingConstants;
 
 
 public class login extends JPanel {
@@ -19,12 +20,13 @@ public class login extends JPanel {
 	private JTextField txtUsuario;
 	private JLabel lblMensaje;
 	Agencia agencia = new Agencia();
+	gestorAgencias gestor = new gestorAgencias();
 	private JTextField txtContraseña;
 
 	/**
 	 * Create the panel.
 	 */
-	public login() {
+	public login(Agencia agencia) {
 		setForeground(new Color(192, 192, 192));
 		setLayout(null);
 		
@@ -54,7 +56,7 @@ public class login extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String nombreusu = txtUsuario.getText();
 				String contraseña = txtContraseña.getText();
-				validarAgencia(nombreusu, contraseña, null, null);
+				validarAgencia(nombreusu, contraseña, agencia, gestor);
 			}
 		});
 		btnValidar.setFont(new Font("Verdana", Font.PLAIN, 11));
@@ -75,8 +77,9 @@ public class login extends JPanel {
 		add(btnCrearUsuario);
 		
 		lblMensaje = new JLabel("");
+		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensaje.setFont(new Font("Verdana", Font.PLAIN, 14));
-		lblMensaje.setBounds(122, 240, 206, 14);
+		lblMensaje.setBounds(67, 240, 306, 14);
 		add(lblMensaje);
 		
 		txtContraseña = new JTextField();

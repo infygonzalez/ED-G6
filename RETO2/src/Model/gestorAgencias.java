@@ -15,21 +15,13 @@ public class gestorAgencias {
 		Connection conexion = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String nombre = SQLQueries.SELECT_NOMBRE_AGENCIAS; //damos nombre al select que vamos a hacer
-		String contr= SQLQueries.SELECT_CONTRA_AGENCIAS;//otra vez lo mismo
+		String verificar= SQLQueries.SELECT_CONTRA_AGENCIAS;//otra vez lo mismo
 		
 		try {
 			Class.forName(DBUtils.DRIVER);
 			conexion = DBUtils.getConexion();//Iniciamos la conexion
-			stmt = conexion.prepareStatement(nombre);//preparamos la sentencia con la query del nombre
-			stmt.setString(1, agencia.getNombre());//le pasamos el nombre de la agencia
-			rs = stmt.executeQuery();//ejecuta
-			if (!rs.next()) {
-			    return false; // Nombre no encontrado; si lo encuentra, va a verificar la contraseña directamente
-			}
-
-			// Verificar si la contraseña coincide
-			stmt = conexion.prepareStatement(contr);
+			// Verificar si el usuario y la contraseña coincide
+			stmt = conexion.prepareStatement(verificar);
 			stmt.setString(1, agencia.getNombre());
 			stmt.setString(2, agencia.getContra());
 			rs = stmt.executeQuery();
@@ -55,23 +47,45 @@ public class gestorAgencias {
 	}
 
 	public static void crearAgencia(Agencia agencia) {
-		Connection conexion = null;
-		Statement sentencia = null;
-		
-		try {
-			Class.forName(DBUtils.DRIVER);
-			conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
-			sentencia = conexion.createStatement();
-			String sql = SQLQueries.INSERT_AGENCIAS + agencia.getID() + SQLQueries.SEPARATOR + agencia.getNombre() + SQLQueries.SEPARATOR + agencia.getLogo()
-						+ SQLQueries.SEPARATOR + agencia.getColor() + SQLQueries.SEPARATOR + agencia.getNumeroEmpleados() + SQLQueries.SEPARATOR + agencia.getTipoAgencia()
-						+ SQLQueries.END_BLOCK;
-			sentencia.executeUpdate(sql);
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	    Connection conexion = null;
+	    PreparedStatement preparedStatement = null;
+
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+	        
+	        String sql = "INSERT INTO agencias (id_agencia, nombre, logo, color_marca, numero_empleados, tipo_agencia, contraseña) VALUES (?, ?, ?, ?, ?, ?)";
+	        preparedStatement = conexion.prepareStatement(sql);
+	        
+	        // Establecer los parámetros
+	        preparedStatement.setString(1, agencia.getID());
+	        preparedStatement.setString(2, agencia.getNombre());
+	        preparedStatement.setString(3, agencia.getLogo());
+	        preparedStatement.setString(4, agencia.getColor());
+	        preparedStatement.setString(5, agencia.getNumeroEmpleados());
+	        preparedStatement.setString(6, agencia.getTipoAgencia());
+	        
+	        // Ejecutar la actualización
+	        preparedStatement.executeUpdate();
+	    } catch (ClassNotFoundException e) {
+	        System.out.println("No se ha encontrado la clase, mal introducida la agencia");
+	        e.printStackTrace();
+	    } catch (SQLException e) {
+	        System.out.println("SQLException, no se ha podido conectar con la base");
+	        e.printStackTrace();
+	    } finally {
+	        // Cierre de recursos
+	        try {
+	            if (preparedStatement != null) {
+	                preparedStatement.close();
+	            }
+	            if (conexion != null) {
+	                conexion.close();
+	            }
+	        } catch (SQLException e) {
+	            System.out.println("Error al cerrar los recursos");
+	            e.printStackTrace();
+	        }
+	    }
 	}
 }

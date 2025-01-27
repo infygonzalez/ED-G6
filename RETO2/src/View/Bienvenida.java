@@ -32,10 +32,12 @@ public class Bienvenida extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
 		EventQueue.invokeLater(new Runnable() {
+			Agencia agencia = new Agencia();
 			public void run() {
 				try {
-					Bienvenida frame = new Bienvenida();
+					Bienvenida frame = new Bienvenida(agencia);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,7 +49,7 @@ public class Bienvenida extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Bienvenida() {
+	public Bienvenida(Agencia agencia) {
 		setTitle("Viajes Erreka-Mari");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
@@ -55,7 +57,7 @@ public class Bienvenida extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		
 		URL imgURL = getClass().getClassLoader().getResource("Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg");
-		panelogin = new login();
+		panelogin = new login(agencia);
 		panelogin.setLayout(new BorderLayout());
 		
 		setContentPane(contentPane);
