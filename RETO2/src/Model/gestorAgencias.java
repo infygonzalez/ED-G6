@@ -54,17 +54,16 @@ public class gestorAgencias {
 	        Class.forName(DBUtils.DRIVER);
 	        conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 	        
-	        String sql = "INSERT INTO agencias (id_agencia, nombre, contraseña, logo, color_marca, numero_empleados, tipo_agencia) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO agencias (nombre, contraseña, logo, color_marca, numero_empleados, tipo_agencia) VALUES (?, ?, ?, ?, ?, ?)";
 	        preparedStatement = conexion.prepareStatement(sql);
 	        
 	        // Establecer los parámetros
-	        preparedStatement.setString(1, agencia.getID());
-	        preparedStatement.setString(2, agencia.getNombre());
-	        preparedStatement.setString(3, agencia.getContra());
-	        preparedStatement.setString(4, agencia.getLogo());
-	        preparedStatement.setString(5, agencia.getColor());
-	        preparedStatement.setString(6, agencia.getNumeroEmpleados());
-	        preparedStatement.setString(7, agencia.getTipoAgencia());
+	        preparedStatement.setString(1, agencia.getNombre());
+	        preparedStatement.setString(2, agencia.getContra());
+	        preparedStatement.setString(3, agencia.getLogo());
+	        preparedStatement.setString(4, agencia.getColor());
+	        preparedStatement.setString(5, agencia.getNumeroEmpleados());
+	        preparedStatement.setString(6, agencia.getTipoAgencia());
 	        
 	        // Ejecutar la actualización
 	        preparedStatement.executeUpdate();
