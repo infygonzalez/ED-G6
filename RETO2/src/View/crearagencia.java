@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -117,8 +119,15 @@ public class crearagencia extends JFrame {
 		contentPane.add(lblNewLabel_5);
 		
 		JComboBox numeroEmple = new JComboBox();
+		numeroEmple.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(numeroEmple.getSelectedItem().equals("")) {
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
 		numeroEmple.setFont(new Font("Verdana", Font.PLAIN, 11));
-		numeroEmple.setModel(new DefaultComboBoxModel(new String[] {"Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
+		numeroEmple.setModel(new DefaultComboBoxModel(new String[] {"", "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
 		numeroEmple.setBounds(165, 187, 198, 22);
 		contentPane.add(numeroEmple);
 		
@@ -128,7 +137,14 @@ public class crearagencia extends JFrame {
 		contentPane.add(lblNewLabel_6);
 		
 		JComboBox tipoAgencia = new JComboBox();
-		tipoAgencia.setModel(new DefaultComboBoxModel(new String[] {"Mayorista", "Minorista", "Mayorista-Minorista"}));
+		tipoAgencia.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(numeroEmple.getSelectedItem().equals("")) {
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+		tipoAgencia.setModel(new DefaultComboBoxModel(new String[] {"", "Mayorista", "Minorista", "Mayorista-Minorista"}));
 		tipoAgencia.setBounds(117, 222, 157, 22);
 		contentPane.add(tipoAgencia);
 		
