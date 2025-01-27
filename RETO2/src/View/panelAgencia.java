@@ -24,6 +24,7 @@ public class panelAgencia extends JFrame {
 	private JTable tablaViajes;
 	private JTable tablaEventos;
 	private JLabel lblColor;
+	private Agencia agenciaColor;
 
 	/**
 	 * Launch the application.
@@ -45,7 +46,7 @@ public class panelAgencia extends JFrame {
 	 * Create the frame.
 	 */
 	public panelAgencia() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 774, 554);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -173,34 +174,31 @@ public class panelAgencia extends JFrame {
 		lblColor = new JLabel("");
 		lblColor.setForeground(Color.BLACK);
 		lblColor.setBounds(0, 0, 758, 110);
-		Agencia agencia = new Agencia();
-		lblColor.setBackground(agenciaColor(agencia));
+		lblColor.setBackground(agenciaColor(agenciaColor));
 		contentPane.add(lblColor);
 	}
 
-	private Color agenciaColor(Agencia agencia) {
-		Color color = Color.white;
-		switch (agencia.getColor().toLowerCase()) {
+	private Color agenciaColor(Agencia agenciaColor) {
+		Color color;
+		switch (agenciaColor.getColor().toLowerCase()) {
 		case "negro":
-			color = Color.black;
-			break;
+			return color = Color.black;
 		case "rojo":
-			color = Color.red;
-			break;
+			return color = Color.red;
 		case "verde":
-			color = Color.green;
+			return color = Color.green;
 		case "amarillo":
-			color = Color.yellow;
+			return color = Color.yellow;
 		case "azul":
-			color = Color.blue;
+			return color = Color.blue;
 		case "gris":
-			color = Color.gray;
+			return color = Color.gray;
 		case "morado":
-			color = Color.magenta;
+			return color = Color.magenta;
 		case "rosa":
-			color = Color.pink;
+			return color = Color.pink;
 		}
-		return color;
-		
+		Color colordefault = Color.white;
+		return colordefault;
 	}
 }
