@@ -10,7 +10,7 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import Model.*;
-import View.Bienvenida;
+import View.*;
 import javax.swing.SwingConstants;
 
 
@@ -94,6 +94,8 @@ public class login extends JPanel {
 		agencia.setContra(contraseña);
 		if (gestor.comprobarAgencia(agencia)==true) {
 			lblMensaje.setText("Inicio de sesion correcto");
+			panelAgencia frame = new panelAgencia();
+			frame.setVisible(true);
 		}else {
 			lblMensaje.setText("Error, Usuario o contraseña incorrectos");
 		}
