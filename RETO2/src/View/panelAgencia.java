@@ -16,6 +16,8 @@ import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import Model.*;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class panelAgencia extends JFrame {
 
@@ -108,6 +110,13 @@ public class panelAgencia extends JFrame {
 		contentPane.add(tablaViajes);
 		
 		JButton btnCrearViaje = new JButton("Crear Viaje");
+		btnCrearViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				nuevoViaje frame2 = new nuevoViaje();
+				frame2.setVisible(true);
+				dispose();
+			}
+		});
 		btnCrearViaje.setFont(new Font("Verdana", Font.PLAIN, 11));
 		btnCrearViaje.setBounds(559, 154, 120, 23);
 		contentPane.add(btnCrearViaje);
