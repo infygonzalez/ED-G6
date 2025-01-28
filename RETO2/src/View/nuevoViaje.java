@@ -108,14 +108,12 @@ public class nuevoViaje extends JFrame {
 		lblFinViaje.setBounds(71, 201, 121, 35);
 		contentPane.add(lblFinViaje);
 		
-		txtDias = new JTextField(calcularDias());
+		txtDias = new JTextField();
 		txtDias.setBounds(237, 255, 86, 20);
 		contentPane.add(txtDias);
 		txtDias.setColumns(10);
 		txtDias.setEditable(false);
-		
-	}
-	public int calcularDias() {
+				
 		try {
             Date fechaSeleccionada = dateInicio.getDate();
             int dias = Integer.parseInt(txtDias.getText());
@@ -127,10 +125,10 @@ public class nuevoViaje extends JFrame {
 
             // Estableciendo la fecha resultante
             dateFin.setDate(calendario.getTime());
-            return dias;
+            
         } catch (Exception e) {
         	
         }
-		return 0;
 	}
+	
 }
