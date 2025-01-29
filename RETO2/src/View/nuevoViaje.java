@@ -161,7 +161,7 @@ public class nuevoViaje extends JFrame {
 				String nombrepais = comboBoxPaises.getSelectedItem().toString();
 				paises.setNombre(nombrepais);
 				
-				mandarViaje(nombre, tipoViaje, fecInicio, fecFin, dias, descripcion, servicios, paises);
+				mandarViaje(nombre, tipoViaje, fecInicio, fecFin, dias, descripcion, servicios, paises, nombreAgencia);
 				
 			}
 
@@ -226,7 +226,7 @@ public class nuevoViaje extends JFrame {
 	}
 	
 	public void mandarViaje(String nombre, String tipoViaje, String fecInicio, String fecFin, String dias,
-			String descripcion, String servicios, Paises paises) {
+			String descripcion, String servicios, Paises paises, String nombreAgencia) {
 		
 		Viajes viajes = new Viajes();
 		viajes.setNombre(nombre);
@@ -236,7 +236,7 @@ public class nuevoViaje extends JFrame {
 		viajes.setFecInicio(fecInicio);
 		viajes.setPais(paises);
 		viajes.setServicios(servicios);
-		viajes.setAgencia();
+		
 		
 	}
 	

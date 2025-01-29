@@ -27,6 +27,7 @@ public class panelAgencia extends JFrame {
 	private JTable tablaEventos;
 	private JLabel lblColor;
 	private Agencia agenciaColor;
+	private nuevoViaje crear;
 
 	/**
 	 * Launch the application.
@@ -117,8 +118,9 @@ public class panelAgencia extends JFrame {
 		btnCrearViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nuevoViaje frame2 = new nuevoViaje(nombreAgencia);
-				frame2.setVisible(true);
-				dispose();
+				setContentPane(crear);
+				revalidate();
+                repaint(); 
 			}
 		});
 		btnCrearViaje.setFont(new Font("Verdana", Font.PLAIN, 11));
@@ -189,6 +191,12 @@ public class panelAgencia extends JFrame {
 		lblColor.setBounds(0, 0, 758, 110);
 		lblColor.setBackground(agenciaColor(agenciaColor));
 		contentPane.add(lblColor);
+		
+		JLabel lblIdAgencia = new JLabel("ID Agencia: " + nombreAgencia);
+		lblIdAgencia.setBounds(559, 462, 120, 31);
+		contentPane.add(lblIdAgencia);
+		
+		System.out.println(nombreAgencia);
 	}
 
 	private Color agenciaColor(Agencia agenciaColor) {

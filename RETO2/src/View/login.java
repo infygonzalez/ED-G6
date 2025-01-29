@@ -22,6 +22,7 @@ public class login extends JPanel {
 	Agencia agencia = new Agencia();
 	gestorAgencias gestor = new gestorAgencias();
 	private JTextField txtContraseña;
+	private panelAgencia panel;
 
 	/**
 	 * Create the panel.
@@ -54,10 +55,11 @@ public class login extends JPanel {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.setForeground(new Color(255, 255, 255));
 		btnValidar.addActionListener(new ActionListener() {
+			
 			public void actionPerformed(ActionEvent e) {
-				String nombreusu = txtUsuario.getText();
-				String contraseña = txtContraseña.getText();
-				validarAgencia(nombreusu, contraseña, agencia, gestor);
+				
+			
+				
 			}
 		});
 		btnValidar.setFont(new Font("Verdana", Font.PLAIN, 11));
@@ -69,8 +71,7 @@ public class login extends JPanel {
 		btnCrearUsuario.setForeground(new Color(255, 255, 255));
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-					crearagencia frame = new crearagencia();
-					frame.setVisible(true);
+				
 			}
 		});
 		btnCrearUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
