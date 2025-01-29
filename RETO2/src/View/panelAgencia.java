@@ -33,13 +33,17 @@ public class panelAgencia extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run(String nombreAgencia) {
 				try {
-					panelAgencia frame = new panelAgencia();
+					panelAgencia frame = new panelAgencia(nombreAgencia);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub
 			}
 		});
 	}
@@ -47,7 +51,7 @@ public class panelAgencia extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public panelAgencia() {
+	public panelAgencia(String nombreAgencia) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 774, 554);
 		contentPane = new JPanel();
@@ -112,7 +116,7 @@ public class panelAgencia extends JFrame {
 		JButton btnCrearViaje = new JButton("Crear Viaje");
 		btnCrearViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				nuevoViaje frame2 = new nuevoViaje();
+				nuevoViaje frame2 = new nuevoViaje(nombreAgencia);
 				frame2.setVisible(true);
 				dispose();
 			}

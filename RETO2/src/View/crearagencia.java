@@ -166,7 +166,7 @@ public class crearagencia extends JFrame {
 		contentPane.add(btnCrearAgencia);
 	}
 	
-	public void mandarAgencia(String nombre, String contra,String logo, String color, String empleados, String tipoAgencia) {
+	public void mandarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
 		Agencia agencia = new Agencia();
 		agencia.setNombre(nombre);
 		agencia.setContra(contra);

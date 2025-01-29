@@ -1,7 +1,6 @@
 package View;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -9,19 +8,22 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
-
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JSlider;
-import com.toedter.components.JLocaleChooser;
-import com.toedter.calendar.JMonthChooser;
-import com.toedter.calendar.JDayChooser;
 import com.toedter.calendar.JDateChooser;
-import com.toedter.components.JSpinField;
+import java.awt.TextArea;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Color;
+import Model.*;
+ 
 
 public class nuevoViaje extends JFrame {
 
@@ -31,19 +33,25 @@ public class nuevoViaje extends JFrame {
 	private JTextField txtDias;
 	private JDateChooser dateInicio;
 	private JDateChooser dateFin;
+	private JButton btnBorrar;
+	private JButton btnGuardar;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run() {
+			public void run(String nombreAgencia) {
 				try {
-					nuevoViaje frame = new nuevoViaje();
+					nuevoViaje frame = new nuevoViaje(nombreAgencia);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
+			}
+			@Override
+			public void run() {
+				// TODO Auto-generated method stub	
 			}
 		});
 	}
@@ -51,84 +59,185 @@ public class nuevoViaje extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public nuevoViaje() {
+	public nuevoViaje(String nombreAgencia) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 774, 554);
+		setBounds(100, 100, 811, 690);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		JLabel lblIcono = new JLabel("");
-		lblIcono.setBounds(573, 0, 185, 141);
 
-		contentPane.add(lblIcono);
-		
 		JLabel lblNombreViaje = new JLabel("Nombre viaje:");
-		lblNombreViaje.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblNombreViaje.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblNombreViaje.setBounds(71, 64, 121, 35);
 		contentPane.add(lblNombreViaje);
-		
+
 		txtNombre = new JTextField();
 		txtNombre.setBounds(237, 72, 212, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
-		
+
 		JLabel lblTipoViaje = new JLabel("Tipo de viaje:");
-		lblTipoViaje.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblTipoViaje.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblTipoViaje.setBounds(71, 110, 121, 35);
 		contentPane.add(lblTipoViaje);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Novios", "Senior", "Grupos", "Grandes viajes (destinos exóticos)", "Combinado (vuelo+hotel)", "Escapadas", "Familias con niños menores"}));
-		comboBox.setBounds(237, 117, 212, 22);
-		contentPane.add(comboBox);
-		
-		JLabel lblNewLabel_2 = new JLabel("Días:");
-		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblNewLabel_2.setBounds(71, 247, 121, 35);
-		contentPane.add(lblNewLabel_2);
-		
+
+		JComboBox<String> comboBoxViaje = new JComboBox<>();
+		comboBoxViaje.setModel(new DefaultComboBoxModel(new String[] {"", "Novios", "Senior", "Grupos", "Grandes viajes (destinos exóticos)", "Combinado (vuelo+hotel)", "Escapadas", "Familias con niños menores"}));
+		comboBoxViaje.setBounds(237, 117, 212, 22);
+		contentPane.add(comboBoxViaje);
+
+		JLabel lblInicioViaje = new JLabel("Inicio viaje:");
+		lblInicioViaje.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblInicioViaje.setBounds(71, 152, 121, 35);
+		contentPane.add(lblInicioViaje);
+
 		dateInicio = new JDateChooser();
 		dateInicio.setBounds(237, 163, 212, 20);
 		contentPane.add(dateInicio);
-		
-		JLabel lblInicioViaje = new JLabel("Inicio viaje:");
-		lblInicioViaje.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblInicioViaje.setBounds(71, 152, 121, 35);
-		contentPane.add(lblInicioViaje);
-		
+
+		JLabel lblFinViaje = new JLabel("Fin viaje:");
+		lblFinViaje.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblFinViaje.setBounds(71, 201, 121, 35);
+		contentPane.add(lblFinViaje);
+
 		dateFin = new JDateChooser();
 		dateFin.setBounds(237, 213, 212, 20);
 		contentPane.add(dateFin);
-		
-		JLabel lblFinViaje = new JLabel("Fin viaje:");
-		lblFinViaje.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblFinViaje.setBounds(71, 201, 121, 35);
-		contentPane.add(lblFinViaje);
-		
+
+		JLabel lblDias = new JLabel("Días:");
+		lblDias.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblDias.setBounds(71, 247, 121, 35);
+		contentPane.add(lblDias);
+
 		txtDias = new JTextField();
 		txtDias.setBounds(237, 255, 86, 20);
+		txtDias.setEditable(false);
 		contentPane.add(txtDias);
 		txtDias.setColumns(10);
-		txtDias.setEditable(false);
+		
+		JLabel lblPaises = new JLabel("Países:");
+		lblPaises.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblPaises.setBounds(71, 293, 121, 35);
+		contentPane.add(lblPaises);
+		
+		JComboBox<String> comboBoxPaises = new JComboBox<String>();
+		comboBoxPaises.setModel(new DefaultComboBoxModel(new String[] {"", "ALEMANIA", "ARGENTINA", "AUSTRIA", "BÉLGICA", "BRASIL", "CANADA", "CROACIA", "REPUBLICA CHECA", "CUBA", "CHINA", "CHIPRE", "DINAMARCA", "EGIPTO", "ESPAÑA", "ESTADOS UNIDOS", "ESTONIA", "FINLANDIA", "FRANCIA", "GRECIA", "GUATEMALA", "HONG-KONG", "HUNGRIA", "INDIA", "INDONESIA", "IRLANDA", "ISLANDIA", "ISRAEL", "ITALIA", "jAMAICA", "JAPÓN", "KENIA", "LUXEMBURGO", "MALDIVAS", "MALTA", "MARRUECOS", "MEXICO", "MÓNACO", "NORUEGA", "PAISES BAJOS", "PANAMÁ", "PERÚ", "POLONIA", "PORTUGAL", "PUERTO RICO", "QATAR", "REINO UNIDO", "RUMANIA", "RUSIA", "SEYCHELLES", "SINGAPUR", "SUDÁFRICA", "SUECIA", "SUIZA", "TAILANDIA", "TANZANIA (INCLUYE ZANZIBAR)", "TÚNEZ", "TURQUIA", "VENEZUELA", "VIETNAM"}));
+		comboBoxPaises.setBounds(237, 300, 212, 22);
+		contentPane.add(comboBoxPaises);
+		
+		JLabel lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblDescripcion.setBounds(71, 353, 121, 35);
+		contentPane.add(lblDescripcion);
+		
+		TextArea txtAreaDescripcion = new TextArea();
+		txtAreaDescripcion.setBounds(237, 348, 301, 72);
+		contentPane.add(txtAreaDescripcion);
+		
+		JLabel lblServicios = new JLabel("Servicios no inc:");
+		lblServicios.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblServicios.setBounds(71, 444, 121, 35);
+		contentPane.add(lblServicios);
+		
+		TextArea txtAreaServicios = new TextArea();
+		txtAreaServicios.setBounds(237, 437, 301, 72);
+		contentPane.add(txtAreaServicios);
+		
+		btnGuardar = new JButton("Guardar");
+		btnGuardar.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnGuardar.setBackground(new Color(90, 128, 165));
+		btnGuardar.setForeground(new Color(255, 255, 255));
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Paises paises = new Paises();
+				String nombre = txtNombre.getText();
+				String tipoViaje = comboBoxViaje.getSelectedItem().toString();
+				String fecInicio = dateInicio.getDateFormatString();
+				String fecFin = dateFin.getDateFormatString();
+				String dias = txtDias.getText();
+				String descripcion = txtAreaDescripcion.getText();
+				String servicios = txtAreaServicios.getText();
+				String nombrepais = comboBoxPaises.getSelectedItem().toString();
+				paises.setNombre(nombrepais);
 				
-		try {
-            Date fechaSeleccionada = dateInicio.getDate();
-            int dias = Integer.parseInt(txtDias.getText());
+				mandarViaje(nombre, tipoViaje, fecInicio, fecFin, dias, descripcion, servicios, paises);
+				
+			}
 
-            // Usando Calendar para restar días
-            Calendar calendario = Calendar.getInstance();
-            calendario.setTime(fechaSeleccionada);
-            calendario.add(Calendar.DAY_OF_YEAR, - dias);
+			
+		});
+		btnGuardar.setBounds(417, 537, 121, 47);
+		contentPane.add(btnGuardar);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnBorrar.setForeground(new Color(255, 255, 255));
+		btnBorrar.setBackground(new Color(90, 128, 165));
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				txtNombre.setText("");
+				comboBoxViaje.setSelectedItem("");
+				dateInicio.setDate(null);
+				dateFin.setDate(null);
+				comboBoxPaises.setSelectedItem("");
+				txtAreaDescripcion.setText("");
+				txtAreaServicios.setText("");
+			}
+		});
+		btnBorrar.setBounds(237, 537, 121, 47);
+		contentPane.add(btnBorrar);
+		
+		JLabel lblIcono = new JLabel("");
+		lblIcono.setBounds(610, 0, 185, 141);
 
-            // Estableciendo la fecha resultante
-            dateFin.setDate(calendario.getTime());
-            
-        } catch (Exception e) {
-        	
-        }
+		contentPane.add(lblIcono);
+
+		// Agregar PropertyChangeListener a los JDateChooser
+		PropertyChangeListener listener = new PropertyChangeListener() {
+			@Override
+			public void propertyChange(PropertyChangeEvent evt) {
+				calcularDiferenciaDias();
+			}
+		};
+
+		dateInicio.addPropertyChangeListener("date", listener);
+		dateFin.addPropertyChangeListener("date", listener);
+	}
+
+	
+	private void calcularDiferenciaDias() {
+		
+		if (dateInicio.getDate() != null && dateFin.getDate() != null) {
+			LocalDate inicio = dateInicio.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			LocalDate fin = dateFin.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+			
+			if (inicio.isAfter(fin)) {
+				JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin.", "Error", JOptionPane.WARNING_MESSAGE);
+				txtDias.setText(""); 
+				return; 
+			}
+
+			long diasDiferencia = ChronoUnit.DAYS.between(inicio, fin);
+			txtDias.setText(String.valueOf(diasDiferencia));
+		} else {
+			txtDias.setText("");
+		}
+	}
+	
+	public void mandarViaje(String nombre, String tipoViaje, String fecInicio, String fecFin, String dias,
+			String descripcion, String servicios, Paises paises) {
+		
+		Viajes viajes = new Viajes();
+		viajes.setNombre(nombre);
+		viajes.setDescripcion(descripcion);
+		viajes.setDuracion(dias);
+		viajes.setFecFin(fecFin);
+		viajes.setFecInicio(fecInicio);
+		viajes.setPais(paises);
+		viajes.setServicios(servicios);
+		viajes.setAgencia();
+		
 	}
 	
 }
