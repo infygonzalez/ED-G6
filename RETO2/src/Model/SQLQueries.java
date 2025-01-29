@@ -10,4 +10,5 @@ public class SQLQueries {
 	public static final String INSERT_AGENCIAS = "insert into Agencias values ('";
 	public static final String SEPARATOR = "', '";
 	public static final String END_BLOCK = "')";
+	public static final String INSERT_VIAJE = "insert into viajes values ('";
 }

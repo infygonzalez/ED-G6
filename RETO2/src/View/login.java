@@ -52,6 +52,7 @@ public class login extends JPanel {
 		txtUsuario.setColumns(10);
 		
 		JButton btnValidar = new JButton("Validar");
+		btnValidar.setForeground(new Color(255, 255, 255));
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String nombreusu = txtUsuario.getText();
@@ -60,11 +61,12 @@ public class login extends JPanel {
 			}
 		});
 		btnValidar.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnValidar.setBackground(Color.GRAY);
+		btnValidar.setBackground(new Color(90, 121, 171));
 		btnValidar.setBounds(67, 181, 89, 23);
 		add(btnValidar);
 		
 		JButton btnCrearUsuario = new JButton("Crear usuario");
+		btnCrearUsuario.setForeground(new Color(255, 255, 255));
 		btnCrearUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					crearagencia frame = new crearagencia();
@@ -72,7 +74,7 @@ public class login extends JPanel {
 			}
 		});
 		btnCrearUsuario.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnCrearUsuario.setBackground(Color.GRAY);
+		btnCrearUsuario.setBackground(new Color(86, 119, 169));
 		btnCrearUsuario.setBounds(243, 181, 114, 23);
 		add(btnCrearUsuario);
 		
@@ -93,10 +95,11 @@ public class login extends JPanel {
 		agencia.setNombre(nombreusu);
 		agencia.setContra(contraseña);
 		if (gestor.comprobarAgencia(agencia)==true) {
+			String nombreAgencia = nombreusu;
 			lblMensaje.setText("Inicio de sesion correcto");
-			panelAgencia frame = new panelAgencia();
+			panelAgencia frame = new panelAgencia(nombreAgencia);
 			frame.setVisible(true);
-		}else {
+		} else {
 			lblMensaje.setText("Error, Usuario o contraseña incorrectos");
 		}
 	}
