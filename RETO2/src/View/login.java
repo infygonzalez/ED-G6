@@ -95,12 +95,15 @@ public class login extends JPanel {
 		agencia.setNombre(nombreusu);
 		agencia.setContra(contraseña);
 		if (gestor.comprobarAgencia(agencia)==true) {
-			String nombreAgencia = nombreusu;
+			String nombreAgencia = obtenerID(nombreusu);
 			lblMensaje.setText("Inicio de sesion correcto");
 			panelAgencia frame = new panelAgencia(nombreAgencia);
 			frame.setVisible(true);
 		} else {
 			lblMensaje.setText("Error, Usuario o contraseña incorrectos");
 		}
+	}
+	public String obtenerID(String nombreusu) {
+		return gestorAgencias.idAgencia(nombreusu);
 	}
 }
