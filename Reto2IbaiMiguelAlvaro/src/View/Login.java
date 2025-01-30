@@ -73,8 +73,8 @@ public class Login extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame4 = new PanelAgencia();
-				frame4.setVisible(true);
+				PanelAgencia frame3 = new PanelAgencia();
+				frame3.setVisible(true);
 				dispose();
 			}
 		});

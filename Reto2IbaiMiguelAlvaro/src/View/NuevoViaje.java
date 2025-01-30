@@ -228,7 +228,8 @@ public class NuevoViaje extends JFrame {
 			
 			if (inicio.isAfter(fin)) {
 				JOptionPane.showMessageDialog(this, "La fecha de inicio no puede ser posterior a la fecha de fin.", "Error", JOptionPane.WARNING_MESSAGE);
-				txtDias.setText(""); 
+				txtDias.setText("");
+				dateFin.setDate(null);
 				return; 
 			}
 

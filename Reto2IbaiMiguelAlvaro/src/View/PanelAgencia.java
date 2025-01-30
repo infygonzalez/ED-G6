@@ -115,31 +115,9 @@ public class PanelAgencia extends JFrame {
 		tablaViajes.setBounds(20, 183, 466, 87);
 		contentPane.add(tablaViajes);
 		
-		JButton btnCrearViaje = new JButton("Crear Viaje");
-		btnCrearViaje.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				 NuevoViaje frame3 = new NuevoViaje();
-				 frame3.setVisible(true);
-				 dispose();
-			}
-		});
-		btnCrearViaje.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnCrearViaje.setBounds(559, 154, 120, 23);
-		contentPane.add(btnCrearViaje);
-		
 		JScrollPane scrollPane = new JScrollPane(tablaViajes);
-		scrollPane.setBounds(47, 152, 466, 123);
+		scrollPane.setBounds(47, 152, 464, 129);
 		contentPane.add(scrollPane);
-		
-		JButton btnBorrarViaje = new JButton("Borrar Viaje");
-		btnBorrarViaje.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnBorrarViaje.setBounds(559, 205, 120, 23);
-		contentPane.add(btnBorrarViaje);
-		
-		JButton btnEditarViaje = new JButton("Editar Viaje");
-		btnEditarViaje.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnEditarViaje.setBounds(559, 252, 120, 23);
-		contentPane.add(btnEditarViaje);
 		
 		JLabel lblNewLabel_1 = new JLabel("Eventos");
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 13));
@@ -158,30 +136,11 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(tablaEventos);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(tablaEventos);
-		scrollPane_1.setBounds(47, 321, 464, 116);
+		scrollPane_1.setBounds(47, 321, 464, 129);
 		contentPane.add(scrollPane_1);
 		
-		JButton btnCrearEventos = new JButton("Crear Eventos");
-		btnCrearEventos.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnCrearEventos.setBounds(559, 324, 120, 23);
-		contentPane.add(btnCrearEventos);
-		
-		JButton btnBorrarEventos = new JButton("Borrar Eventos");
-		btnBorrarEventos.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnBorrarEventos.setBounds(559, 369, 120, 23);
-		contentPane.add(btnBorrarEventos);
-		
-		JButton btnEditarViajes = new JButton("Editar Viajes");
-		btnEditarViajes.setFont(new Font("Verdana", Font.PLAIN, 11));
-		btnEditarViajes.setBounds(559, 414, 120, 23);
-		contentPane.add(btnEditarViajes);
-		
-		JButton btnGenerarOferta = new JButton("Generar oferta para cliente");
-		btnGenerarOferta.setFont(new Font("Verdana", Font.BOLD, 11));
-		btnGenerarOferta.setBounds(47, 481, 222, 23);
-		contentPane.add(btnGenerarOferta);
-		
 		JButton btnNewButton = new JButton("Desconectar");
+		btnNewButton.setBackground(new Color(255, 91, 96));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Login frame1 = new Login();
@@ -202,6 +161,69 @@ public class PanelAgencia extends JFrame {
 		JLabel lblIdAgencia = new JLabel("ID Agencia: ");
 		lblIdAgencia.setBounds(559, 462, 120, 31);
 		contentPane.add(lblIdAgencia);
+		
+		JButton btnBorrar = new JButton("Borrar viaje");
+		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBorrar.setForeground(Color.WHITE);
+		btnBorrar.setBackground(new Color(98, 143, 200));
+		btnBorrar.setBounds(559, 196, 141, 37);
+		contentPane.add(btnBorrar);
+		
+		JButton btnCrearViaje = new JButton("Crear viaje");
+		btnCrearViaje.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCrearViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevoViaje frame4 = new NuevoViaje();
+				frame4.setVisible(true);
+				dispose();
+			}
+		});
+		btnCrearViaje.setForeground(Color.WHITE);
+		btnCrearViaje.setBackground(new Color(98, 143, 200));
+		btnCrearViaje.setBounds(559, 148, 141, 37);
+		contentPane.add(btnCrearViaje);
+		
+		JButton btnEditar = new JButton("Editar viaje");
+		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnEditar.setForeground(Color.WHITE);
+		btnEditar.setBackground(new Color(98, 143, 200));
+		btnEditar.setBounds(559, 244, 141, 37);
+		contentPane.add(btnEditar);
+		
+		JButton btnCrearEvento = new JButton("Crear evento");
+		btnCrearEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				NuevoEvento frame5 = new NuevoEvento();
+				frame5.setVisible(true);
+				dispose();
+			}
+		});
+		btnCrearEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnCrearEvento.setForeground(Color.WHITE);
+		btnCrearEvento.setBackground(new Color(98, 143, 200));
+		btnCrearEvento.setBounds(559, 318, 141, 37);
+		contentPane.add(btnCrearEvento);
+		
+		JButton btnBorrarEvento = new JButton("Borrar evento");
+		btnBorrarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnBorrarEvento.setForeground(Color.WHITE);
+		btnBorrarEvento.setBackground(new Color(98, 143, 200));
+		btnBorrarEvento.setBounds(559, 366, 141, 37);
+		contentPane.add(btnBorrarEvento);
+		
+		JButton btnEditarEvento = new JButton("Editar evento");
+		btnEditarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnEditarEvento.setForeground(Color.WHITE);
+		btnEditarEvento.setBackground(new Color(98, 143, 200));
+		btnEditarEvento.setBounds(559, 414, 141, 37);
+		contentPane.add(btnEditarEvento);
+		
+		JButton btnGeneraOferta = new JButton("Generar oferta para cliente");
+		btnGeneraOferta.setFont(new Font("Tahoma", Font.BOLD, 13));
+		btnGeneraOferta.setForeground(Color.WHITE);
+		btnGeneraOferta.setBackground(new Color(98, 143, 200));
+		btnGeneraOferta.setBounds(47, 473, 222, 31);
+		contentPane.add(btnGeneraOferta);
 		
 	}
 
