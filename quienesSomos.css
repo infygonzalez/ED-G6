@@ -1,0 +1,97 @@
+/* Animación para la caja */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #d3a14f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url(media/plane-GettyImages-1551471455.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Contenedor principal */
+.container {
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    padding: 20px;
+}
+
+/* Caja con animación de aparición */
+.content-box {
+    background: rgba(255, 255, 255, 0.1); /* Transparente con opacidad */
+    border: 2px solid black; /* Borde negro */
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    backdrop-filter: blur(10px); /* Efecto desenfoque */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.6); /* Sombra */
+    
+    /* Aplicando la animación */
+    opacity: 0;
+    animation: fadeInUp 1.5s ease-out forwards;
+}
+/* Encabezado */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuye el botón y el título correctamente */
+    width: 100%;
+    padding: 30px;
+    background-color: #23363e;
+    text-align: center;
+    position: relative;
+}
+
+/* Botón de volver atrás */
+.back-button {
+    background-color: #23363e;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 15px;
+    margin-left: 20px; /* Espacio desde el borde izquierdo */
+}
+
+.back-button:hover {
+    background-color: #1b799e;
+}
+
+/* Título centrado */
+.header-title {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    color: white;
+    margin: 0;
+}
+/* Títulos */
+h2 {
+    margin-bottom: 10px;
+}
+
+/* Párrafos */
+p {
+    line-height: 1.6;
+}

@@ -1,92 +1,82 @@
+/* Animación para el fondo */
+@keyframes moveBackground {
+    0% {
+        background-position: center top;
+    }
+    100% {
+        background-position: center bottom;
+    }
+}
+
 body {
     font-family: Arial, sans-serif;
-    color: #d3a14f; /* Color dorado para el texto */
+    color: #d3a14f; 
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #f4f4f4; /* Fondo claro para el resto de la página */
+    background-image: url(media/plane-GettyImages-1551471455.jpg);
+    background-size: cover;
+    background-position: center top;
+    animation: moveBackground 60s linear infinite; /* Animación de fondo */
+}
+
+/* Animación para hacer que los elementos aparezcan desde el fondo */
+@keyframes slideInFromBack {
+    0% {
+        transform: translateZ(-100px); /* Mueve el elemento hacia atrás en el espacio 3D */
+        opacity: 0;
+    }
+    100% {
+        transform: translateZ(0); /* Lo coloca en su posición final */
+        opacity: 1;
+    }
 }
 
 header {
     width: 100%;
-    background-color: #131524; /* Fondo oscuro para el header */
-    padding: 20px;
+    background-color: #23363e;
+    padding: 25px;
+    text-align: right;
+    /* No se aplica animación en el header */
+}
+
+button {
+    padding: 15px 30px; 
+    margin: 10px;
+    background-color: #d3a14f;
+    color: #131524;
+    border-radius: 6px;
+    border: none;
+    font-size: 16px; 
+    cursor: pointer; 
+}
+
+.registrarViaje button, .registrarServicio button {
+    padding: 5px 50px;
+    margin: 40px;
+    background-color: #23363e;
+    color: #d3a14f;
+    border: solid #d3a14f 2px;
+    font-size: 18px;
+    animation: slideInFromBack 1s ease-out; /* Animación para estos botones también */
+}
+
+.caja {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-}
-
-.logo img {
-    height: 40px; /* Tamaño del logo */
-}
-
-nav.menu ul {
-    list-style-type: none;
-    display: flex;
-    gap: 20px;
-}
-
-nav.menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-    padding: 5px 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-nav.menu a:hover {
-    background-color: #339ab4; /* Azul claro para hover */
-}
-
-.login {
-    background: #18344f; /* Azul oscuro para el fondo del formulario */
-    padding: 20px;
+    justify-content: center;
+    padding: 30px;
+    padding-left: 10%;
+    padding-right: 10%;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     width: 300px;
-    text-align: center;
-    padding-right: 20px;
-    margin-top: 20px;
-}
-
-.login h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #d3a14f; /* Color dorado para el título */
-}
-
-.login input {
-    width: calc(100% - 50px); /* Ajuste de tamaño de los inputs */
-    padding: 10px;
-    margin-bottom: 15px;
-    border: 0.5px solid #6b593a; /* Color marrón suave para los bordes */
-    border-radius: 4px;
-    font-size: 16px;
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-.login button {
-    width: 91%;
-    padding: 10px;
-    background-color: #339ab4; /* Azul claro para el botón */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.login button:hover {
-    background-color: #1b799e; /* Azul medio para el hover del botón */
-}
-
-.error {
-    color: #d3a14f; /* Color dorado para el mensaje de error */
-    font-size: 14px;
-    margin-top: 10px;
+    margin-top: 280px;
+    backdrop-filter: blur(10px); 
+    border: 3px solid black;
+    animation: slideInFromBack 1s ease-out; /* Animación para la caja */
 }

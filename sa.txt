@@ -1,0 +1,12 @@
+ function login() {
+            const usuario = document.getElementById('usuario').value;
+            const contrasena = document.getElementById('contrasena').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (usuario === "admin" && contrasena === "1234") {
+                alert("Inicio de sesión exitoso");
+                errorMessage.style.display = "none";
+            } else {
+                errorMessage.style.display = "block";
+            }
+        }

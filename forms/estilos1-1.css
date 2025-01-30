@@ -1,0 +1,49 @@
+form {
+    width: 18rem;
+    padding: 1rem;
+    margin: 10rem auto;
+}
+button {
+    width: 100%;
+    padding: .5rem;
+}
+label {
+    display: inline-block;
+    /* width: 5rem; */
+    width: 30%;
+    /* width: 33%;  */
+    /* Con el 33% puedo omitir el width del label */
+    /* margin-bottom: 1rem; */
+}
+input {
+    display: inline-block;
+    /* width: 11.3rem; */
+    /* width: 67.8%; */
+    /* width: auto; */
+    padding: .5rem;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* * {
+    margin: 0;
+} */
+
+/* * {
+    box-sizing: border-box;
+} */
+
+/* form label {
+    text-align: right;
+} */

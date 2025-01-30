@@ -1,28 +1,34 @@
-
+/* Animación para el fondo */
+@keyframes moveBackground {
+    0% {
+        background-position: center top;
+    }
+    100% {
+        background-position: center bottom;
+    }
+}
 
 body {
-    font-family: Arial, sans-serif;
-    color: #d3a14f; 
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #d3a14f;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     height: 100vh;
     margin: 0;
-    background-color: #131524; 
+    background-image: url(media/plane-GettyImages-1551471455.jpg);
+    background-size: cover;
+    background-position: center top;
+    animation: moveBackground 60s linear infinite; /* Añadir animación de fondo */
 }
 
 header {
     width: 100%;
-    background-color: #1a5d7f; 
-    padding: 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo img {
-    height: 80px; 
+    background-color: #23363e;
+    filter: progid: DXImageTransform.Microsoft.gradient( startColorstr="#FEAC74", endColorstr="#EDA691", GradientType=1 );
+    padding: 25px;
+    text-align: right;
 }
 
 nav.menu ul {
@@ -45,27 +51,40 @@ nav.menu a:hover {
 }
 
 .login {
-    background: #18344f; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
     width: 300px;
     text-align: center;
     padding-right: 20px;
-    margin-top: 20px;
+    margin-top: 250px;
+    backdrop-filter: blur(10px);
+    border: 3px solid black;
+    animation: slideUp 0.8s ease-out; /* Animación de deslizamiento para el login */
+}
+
+@keyframes slideUp {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .login h1 {
     margin-bottom: 20px;
     font-size: 24px;
-    color: #d3a14f; 
+    color: black;
 }
 
 .login input {
-    width: calc(100% - 50px); 
+    width: calc(100% - 50px);
     padding: 10px;
     margin-bottom: 15px;
-    border: 0.5px solid #6b593a; 
+    border: 0.5px solid #6b593a;
     border-radius: 4px;
     font-size: 16px;
     margin-left: 10px;
@@ -75,7 +94,7 @@ nav.menu a:hover {
 .login button {
     width: 91%;
     padding: 10px;
-    background-color: #339ab4; 
+    background-color: #23363e;
     color: white;
     border: none;
     border-radius: 4px;
@@ -84,11 +103,17 @@ nav.menu a:hover {
 }
 
 .login button:hover {
-    background-color: #1b799e; 
+    background-color: #1b799e;
+}
+
+.login-content {
+    position: relative;
+    z-index: 1;
+    padding: 20px;
 }
 
 .error {
-    color: #d3a14f; 
+    color: #000000;
     font-size: 14px;
     margin-top: 10px;
 }

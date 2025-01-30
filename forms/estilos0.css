@@ -1,0 +1,22 @@
+
+form {
+    background-color: darkgrey;
+    border-radius: 1rem;
+}
+label {
+    font-weight: bold;
+}
+input {
+    background-color: lightgrey;
+    border: none;
+    border-radius: .2rem;
+}
+button {
+    background-color: black;
+    color: lightgrey;
+    border: none;
+    border-radius: .2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
