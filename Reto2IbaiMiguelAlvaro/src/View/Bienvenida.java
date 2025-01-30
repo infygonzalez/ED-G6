@@ -71,7 +71,7 @@ public class Bienvenida extends JFrame {
 		contentPane.add(lblTextoBienvenida);
 		
 		
-		JButton btnBienvenida = new JButton(new ImageIcon("C:\\Users\\in1dm3-a\\eclipse-workspace\\Reto2IbaiMiguelAlvaro\\img\\Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg"));
+		JButton btnBienvenida = new JButton(new ImageIcon("img/Gemini_Generated_Image_tbwwatbwwatbwwat(2).jpg"));
 		btnBienvenida.setContentAreaFilled(false); // No dibuja fondo para mostrar la imagen
         btnBienvenida.setBorderPainted(false);    // No dibuja borde
 		btnBienvenida.addActionListener(new ActionListener() {
