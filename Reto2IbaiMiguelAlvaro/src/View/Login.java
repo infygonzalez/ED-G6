@@ -6,12 +6,15 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import Model.*;
 
 public class Login extends JFrame {
 
@@ -73,9 +76,16 @@ public class Login extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame3 = new PanelAgencia();
-				frame3.setVisible(true);
-				dispose();
+				/*
+				 * PanelAgencia frame3 = new PanelAgencia();
+				 * frame3.setVisible(true);
+				 * dispose();
+				 */
+				Agencia agencia = new Agencia();
+				String nombre = txtNombre.getText();
+				String contraseña = txtContraseña.getText();
+				validarCredenciales(agencia, nombre, contraseña);
+				
 			}
 		});
 		btnValidar.setForeground(new Color(255, 255, 255));
@@ -95,6 +105,18 @@ public class Login extends JFrame {
 		btnCrearCuenta.setBackground(new Color(98, 143, 200));
 		btnCrearCuenta.setBounds(301, 253, 141, 31);
 		contentPane.add(btnCrearCuenta);
+	}
+	public void validarCredenciales(Agencia agencia, String nombre, String contraseña) {
+		gestorAgencias gestor = new gestorAgencias();
+		agencia.setNombre(nombre);
+		agencia.setContra(contraseña);
+		if (gestor.comprobarAgencia(agencia)==true) {
+			PanelAgencia frame3 = new PanelAgencia();
+			frame3.setVisible(true);
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 }
