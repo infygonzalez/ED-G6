@@ -41,17 +41,16 @@ public class NuevoViaje extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run(String nombreAgencia) {
+			public void run() {
 				try {
-					NuevoViaje frame = new NuevoViaje();
+					gestorAgencias gestor = new gestorAgencias();
+					int id = Sesion.getIdAgencia();
+					String nombreID = gestor.nombreAgencia(id);
+					NuevoViaje frame = new NuevoViaje(id, nombreID);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-			}
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub	
 			}
 		});
 	}
@@ -59,7 +58,7 @@ public class NuevoViaje extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoViaje() {
+	public NuevoViaje(int id, String nombreID) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 690);
 		contentPane = new JPanel();
@@ -196,8 +195,7 @@ public class NuevoViaje extends JFrame {
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int id = Sesion.getIdAgencia();
-				PanelAgencia frame4 = new PanelAgencia(id);
+				PanelAgencia frame4 = new PanelAgencia(id, nombreID);
 				frame4.setVisible(true);
 				dispose();
 			}

@@ -21,6 +21,7 @@ import com.toedter.calendar.JMonthChooser;
 import com.toedter.components.JSpinField;
 
 import Model.Sesion;
+import Model.gestorAgencias;
 
 import com.toedter.components.JLocaleChooser;
 import javax.swing.JButton;
@@ -52,8 +53,10 @@ public class NuevoEvento extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
-					NuevoEvento frame = new NuevoEvento(id);
+					String nombreID = gestor.nombreAgencia(id);
+					NuevoEvento frame = new NuevoEvento(id, nombreID);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,7 +68,7 @@ public class NuevoEvento extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoEvento(int idAgencia) {
+	public NuevoEvento(int idAgencia, String nombreID) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 965, 616);
 		contentPane = new JPanel();
@@ -209,7 +212,7 @@ public class NuevoEvento extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame3 = new PanelAgencia(idAgencia);
+				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
 				frame3.setVisible(true);
 				dispose();
 			}

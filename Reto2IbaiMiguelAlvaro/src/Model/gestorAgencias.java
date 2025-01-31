@@ -112,6 +112,43 @@ public class gestorAgencias {
 	    return idAgencia;
 	   
 	}
+	public String nombreAgencia(int id) {
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    String nombre = null; // Variable para almacenar el resultado
+
+	    try {
+	        // Establecer la conexión
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+
+	        // Preparar la consulta
+	        stmt = conexion.prepareStatement(SQLQueries.SELECT_NOMBRE_AGENCIA);
+	        stmt.setInt(1, id);
+
+	        // Ejecutar la consulta
+	        rs = stmt.executeQuery();
+
+	        // Obtener el resultado
+	        if (rs.next()) {
+	            nombre = rs.getString(1); // recoge el String de la segunda columna de la BD, es decir, el nombre
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace(); // Manejo básico de errores
+	    } finally {
+	        // Cerrar los recursos
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (Exception ex) {
+	            ex.printStackTrace();
+	        }
+	    }
+
+	    return nombre; // Devuelve el nombre de la agencia o null si no se encontró
+	}
 	
 	//public Color seleccionarColor(Sesion sesion) {
 		Connection conexion = null;

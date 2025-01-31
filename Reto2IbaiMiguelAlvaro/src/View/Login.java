@@ -105,7 +105,6 @@ public class Login extends JFrame {
 	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor) {
 		agencia.setNombre(nombre);
 		agencia.setContra(contraseña);
-		Sesion sesion = new Sesion();
 		if (gestor.comprobarAgencia(agencia)==true) {
 			int id = gestor.autenticarAgencia(nombre, contraseña);
 			if (id != -1) {
@@ -115,7 +114,8 @@ public class Login extends JFrame {
 			    System.out.println("Credenciales incorrectas");
 			}
 			int idAgencia = Sesion.getIdAgencia();
-			PanelAgencia frame3 = new PanelAgencia(idAgencia);
+			String nombreID = gestor.nombreAgencia(id);
+			PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
 			frame3.setVisible(true);
 			dispose();
 		} else {
