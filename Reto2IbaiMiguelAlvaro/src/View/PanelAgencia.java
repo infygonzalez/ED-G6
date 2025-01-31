@@ -155,10 +155,9 @@ public class PanelAgencia extends JFrame {
 		lblColor = new JLabel("");
 		lblColor.setForeground(Color.BLACK);
 		lblColor.setBounds(0, 0, 758, 110);
-		lblColor.setBackground(agenciaColor(agenciaColor));
 		contentPane.add(lblColor);
 		
-		JLabel lblIdAgencia = new JLabel("ID Agencia: ");
+		JLabel lblIdAgencia = new JLabel("ID Agencia: " + Sesion.getIdAgencia());
 		lblIdAgencia.setBounds(559, 462, 120, 31);
 		contentPane.add(lblIdAgencia);
 		
@@ -227,8 +226,4 @@ public class PanelAgencia extends JFrame {
 		
 	}
 
-	private Color agenciaColor(Agencia agenciaColor) {
-		Color colordefault = Color.white;
-		return colordefault;
-	}
 }

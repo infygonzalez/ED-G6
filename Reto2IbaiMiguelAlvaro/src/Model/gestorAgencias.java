@@ -88,26 +88,26 @@ public class gestorAgencias {
 	        }
 	    }
 	}
-	public static String idAgencia(String nombreusu) {
-		Connection conexion = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String recogerID= SQLQueries.SELECT_ID_AGENCIAS;
-		
-		try {
-			Class.forName(DBUtils.DRIVER);
-			conexion = DBUtils.getConexion();
-			stmt = conexion.prepareStatement(recogerID);
-			stmt.setString(1, nombreusu);
-			rs = stmt.executeQuery();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		return rs.toString();
+	public int autenticarAgencia(String usuario, String contraseña) {
+	    int idAgencia = -1; // Valor por defecto si la autenticación falla
+	    String sql = "SELECT id_agencia FROM agencias WHERE nombre = ? AND contraseña = ?";
+	    
+	    try (Connection conn = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
+	         PreparedStatement stmt = conn.prepareStatement(sql)) {
+	        
+	        stmt.setString(1, usuario);
+	        stmt.setString(2, contraseña);
+	        
+	        ResultSet rs = stmt.executeQuery();
+	        
+	        if (rs.next()) {
+	            idAgencia = rs.getInt("id_agencia"); // Obtiene el ID de la agencia
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return idAgencia;
 	}
 }

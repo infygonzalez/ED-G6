@@ -76,15 +76,11 @@ public class Login extends JFrame {
 		JButton btnValidar = new JButton("Validar");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/*
-				 * PanelAgencia frame3 = new PanelAgencia();
-				 * frame3.setVisible(true);
-				 * dispose();
-				 */
 				Agencia agencia = new Agencia();
+				gestorAgencias gestor = new gestorAgencias();
 				String nombre = txtNombre.getText();
 				String contraseña = txtContraseña.getText();
-				validarCredenciales(agencia, nombre, contraseña);
+				validarCredenciales(agencia, nombre, contraseña, gestor);
 				
 			}
 		});
@@ -106,14 +102,20 @@ public class Login extends JFrame {
 		btnCrearCuenta.setBounds(301, 253, 141, 31);
 		contentPane.add(btnCrearCuenta);
 	}
-	public void validarCredenciales(Agencia agencia, String nombre, String contraseña) {
-		gestorAgencias gestor = new gestorAgencias();
+	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor) {
 		agencia.setNombre(nombre);
 		agencia.setContra(contraseña);
 		if (gestor.comprobarAgencia(agencia)==true) {
 			PanelAgencia frame3 = new PanelAgencia();
 			frame3.setVisible(true);
 			dispose();
+			int id = gestor.autenticarAgencia(nombre, contraseña);
+			if (id != -1) {
+			    Sesion.setIdAgencia(id); // Guarda el ID de la agencia en la sesión
+			    System.out.println("Sesión iniciada con ID: " + Sesion.getIdAgencia());
+			} else {
+			    System.out.println("Credenciales incorrectas");
+			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.WARNING_MESSAGE);
 		}
