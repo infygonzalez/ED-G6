@@ -1,5 +1,6 @@
 package Model;
 
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -109,5 +110,18 @@ public class gestorAgencias {
 	    }
 	    
 	    return idAgencia;
+	   
 	}
-}
+	
+	//public Color seleccionarColor(Sesion sesion) {
+		Connection conexion = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String color= SQLQueries.SELECT_COLOR_AGENCIA;
+		
+		//Class.forName(DBUtils.DRIVER);
+		//conexion = DBUtils.getConexion();
+		
+	}
+	
+//}

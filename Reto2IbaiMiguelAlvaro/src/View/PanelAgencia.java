@@ -190,7 +190,7 @@ public class PanelAgencia extends JFrame {
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoEvento frame5 = new NuevoEvento();
+				NuevoEvento frame5 = new NuevoEvento(idAgencia);
 				frame5.setVisible(true);
 				dispose();
 			}
