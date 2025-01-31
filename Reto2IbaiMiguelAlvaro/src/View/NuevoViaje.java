@@ -196,7 +196,8 @@ public class NuevoViaje extends JFrame {
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame4 = new PanelAgencia();
+				int id = Sesion.getIdAgencia();
+				PanelAgencia frame4 = new PanelAgencia(id);
 				frame4.setVisible(true);
 				dispose();
 			}

@@ -12,7 +12,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.Scrollbar;
 import com.toedter.calendar.JDateChooser;
-import com.raven.swing.TimePicker;
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.components.JSpinField;
