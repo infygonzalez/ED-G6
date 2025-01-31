@@ -5,10 +5,17 @@ import java.awt.Font;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentListener;
+import javax.swing.event.DocumentEvent;
+import Controller.Controlador;
+import Model.Agencia;
+import Model.gestorAgencias;
+
 import javax.swing.JSeparator;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
@@ -99,14 +106,52 @@ public class CrearCuenta extends JFrame {
 		lblColorDeLa.setBounds(79, 199, 232, 26);
 		contentPane.add(lblColorDeLa);
 		
-		txtColor = new JTextField();
-		txtColor.setColumns(10);
-		txtColor.setBounds(362, 201, 121, 26);
-		contentPane.add(txtColor);
-		
 		JPanel panel = new JPanel();
 		panel.setBounds(493, 201, 50, 24);
 		contentPane.add(panel);
+		
+		
+		txtColor = new JTextField();
+		txtColor.setText("#");
+		// Añadir DocumentListener al JTextField para detectar cambios
+        txtColor.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarColor();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarColor();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarColor();
+            }
+            
+            // Método que valida y actualiza el color del panel
+            private void actualizarColor() {
+                String hexColor = txtColor.getText().trim();
+                
+                // Validación de color hexadecimal
+                if (Controlador.validacionColor(hexColor)) {
+                    try {
+                        // Cambiar el color del panel si es válido
+                        panel.setBackground(Color.decode(hexColor));
+                    } catch (Exception ex) {
+                        // Si el color no se puede interpretar correctamente, dejar blanco
+                        panel.setBackground(Color.WHITE);
+                    }
+                } else {
+                    // Si no es un color válido, mostrar color blanco
+                    panel.setBackground(Color.WHITE);
+                }
+            }
+        });
+		txtColor.setColumns(10);
+		txtColor.setBounds(362, 201, 121, 26);
+		contentPane.add(txtColor);
 		
 		JLabel lblNumEmpleados = new JLabel("Numero de empleados:");
 		lblNumEmpleados.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -131,9 +176,23 @@ public class CrearCuenta extends JFrame {
 		JButton btnCrear = new JButton("Crear cuenta");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login frame1 = new Login();
-				frame1.setVisible(true);
-				dispose();
+				String usuario = textField.getText();
+				String contrase = txtContraseña.getText();
+				String logo = txtLogo.getText();
+				String color = txtColor.getText();
+				String empleados = comboBox.getSelectedItem().toString();
+				String tipoagencia = comboBox_1.getSelectedItem().toString();
+				
+				mandarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
+				
+				if(comboBox.getSelectedItem().equals("") && comboBox_1.getSelectedItem().equals("")) {
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Se ha añadido correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+					Login frame1 = new Login();
+					frame1.setVisible(true);
+					dispose();
+				}
 			}
 		});
 		btnCrear.setForeground(new Color(255, 255, 255));
@@ -156,5 +215,15 @@ public class CrearCuenta extends JFrame {
 	
 	
 		
+	}
+	public void mandarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
+		Agencia agencia = new Agencia();
+		agencia.setNombre(nombre);
+		agencia.setContra(contra);
+		agencia.setLogo(logo);
+		agencia.setColor(color);
+		agencia.setNumeroEmpleados(empleados);
+		agencia.setTipoAgencia(tipoAgencia);
+		gestorAgencias.crearAgencia(agencia);
 	}
 }
