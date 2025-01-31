@@ -157,8 +157,8 @@ public class PanelAgencia extends JFrame {
 		lblColor.setBounds(0, 0, 758, 110);
 		contentPane.add(lblColor);
 		
-		JLabel lblIdAgencia = new JLabel(Sesion.getIdAgencia()+"\n" + nombreID);
-		lblIdAgencia.setBounds(559, 462, 120, 31);
+		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
+		lblIdAgencia.setBounds(449, 11, 161, 24);
 		contentPane.add(lblIdAgencia);
 		
 		JButton btnBorrar = new JButton("Borrar viaje");
@@ -223,6 +223,10 @@ public class PanelAgencia extends JFrame {
 		btnGeneraOferta.setBackground(new Color(98, 143, 200));
 		btnGeneraOferta.setBounds(47, 473, 222, 31);
 		contentPane.add(btnGeneraOferta);
+		
+		JLabel lblNombreAgencia = new JLabel("Nombre: "+ nombreID);
+		lblNombreAgencia.setBounds(449, 33, 161, 24);
+		contentPane.add(lblNombreAgencia);
 		
 	}
 
