@@ -35,25 +35,23 @@ public class PanelAgencia extends JFrame {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
-			public void run(String nombreAgencia) {
+			public void run() {
 				try {
-					PanelAgencia frame = new PanelAgencia();
+					int id = Sesion.getIdAgencia();
+					PanelAgencia frame = new PanelAgencia(id);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-			}
+			
 		});
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public PanelAgencia() {
+	public PanelAgencia(int idAgencia) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 774, 554);
 		contentPane = new JPanel();
@@ -157,7 +155,7 @@ public class PanelAgencia extends JFrame {
 		lblColor.setBounds(0, 0, 758, 110);
 		contentPane.add(lblColor);
 		
-		JLabel lblIdAgencia = new JLabel("ID Agencia: " + Sesion.getIdAgencia());
+		JLabel lblIdAgencia = new JLabel(Sesion.getIdAgencia()+"");
 		lblIdAgencia.setBounds(559, 462, 120, 31);
 		contentPane.add(lblIdAgencia);
 		
