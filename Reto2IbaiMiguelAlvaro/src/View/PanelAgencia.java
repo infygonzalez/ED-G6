@@ -25,7 +25,6 @@ public class PanelAgencia extends JFrame {
 	private JPanel contentPane;
 	private JTable tablaViajes;
 	private JTable tablaEventos;
-	private JLabel lblColor;
 	private Agencia agenciaColor;
 	private JFrame frame;
 	//private nuevoViaje crear;
@@ -54,6 +53,8 @@ public class PanelAgencia extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelAgencia(int idAgencia, String nombreID) {
+		gestorAgencias gestor = new gestorAgencias();
+		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 774, 554);
 		contentPane = new JPanel();
@@ -68,7 +69,7 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblIcono = new JLabel("");
-		lblIcono.setBounds(0, 0, 185, 141);
+		lblIcono.setBounds(0, 0, 185, 110);
 		contentPane.add(lblIcono);
 		
 		JLabel lblNewLabel_2 = new JLabel("Viajes");
@@ -152,10 +153,7 @@ public class PanelAgencia extends JFrame {
 		btnNewButton.setBounds(620, 15, 128, 23);
 		contentPane.add(btnNewButton);
 		
-		lblColor = new JLabel("");
-		lblColor.setForeground(Color.BLACK);
-		lblColor.setBounds(0, 0, 758, 110);
-		contentPane.add(lblColor);
+		
 		
 		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
 		lblIdAgencia.setBounds(449, 11, 161, 24);
@@ -228,6 +226,10 @@ public class PanelAgencia extends JFrame {
 		lblNombreAgencia.setBounds(449, 33, 161, 24);
 		contentPane.add(lblNombreAgencia);
 		
+		JPanel colorAgencia = new JPanel();
+		colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
+		colorAgencia.setBounds(0, 0, 758, 110);
+		contentPane.add(colorAgencia);
+		
 	}
-
 }

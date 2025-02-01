@@ -150,15 +150,51 @@ public class gestorAgencias {
 	    return nombre; // Devuelve el nombre de la agencia o null si no se encontró
 	}
 	
-	//public Color seleccionarColor(Sesion sesion) {
+	public Color seleccionarColor(int id) {
 		Connection conexion = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String color= SQLQueries.SELECT_COLOR_AGENCIA;
-		
-		//Class.forName(DBUtils.DRIVER);
-		//conexion = DBUtils.getConexion();
-		
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        String colorString = null;
+        Color color = null;
+        
+        try {
+            Class.forName(DBUtils.DRIVER);
+            conexion = DBUtils.getConexion();
+            stmt = conexion.prepareStatement(SQLQueries.SELECT_COLOR_AGENCIA);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+
+            if (rs.next()) {  // Verifica si hay resultados
+                colorString = rs.getString(1);
+                if (colorString != null && !colorString.isEmpty()) {
+                    color = Color.decode(colorString);
+                } else {
+                    System.out.println("Advertencia: Código de color vacío o nulo.");
+                }
+            } else {
+                System.out.println("Advertencia: No se encontró un color para la agencia con ID " + id);
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Error: Formato incorrecto en código de color almacenado: " + colorString);
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: Clase del driver de la base de datos no encontrada.");
+            e.printStackTrace();
+        } catch (SQLException e) {
+            System.out.println("Error SQL al intentar obtener el color de la agencia.");
+            e.printStackTrace();
+        } finally {
+            // Cerrar recursos en orden inverso de apertura
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException e) {
+                System.out.println("Error cerrando recursos.");
+                e.printStackTrace();
+            }
+        }
+        return color;
 	}
 	
-//}
+}
