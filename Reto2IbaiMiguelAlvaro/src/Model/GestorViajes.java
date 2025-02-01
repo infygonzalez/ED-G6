@@ -12,45 +12,51 @@ public class GestorViajes {
 	Viajes viajes = new Viajes();
 	
 	
-	public static void crearViaje(Viajes viajes) {
+	public static void crearViaje(Viajes viajes) { //METODO SIN TERMINAR, LA BASE DE DATOS HAY QUE EDITARLA CREO
 		Connection conexion = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		String crearViaje = SQLQueries.INSERT_VIAJE;
-		
-		try {
-			stmt = conexion.prepareStatement(crearViaje);
-			
-			// Establecer los parámetros
-			stmt.setString(1, viajes.getNombre());
-			stmt.setString(2, viajes.getDescripcion());
-			stmt.setString(3, viajes.getFecFin());
-			stmt.setString(4, viajes.getFecFin());
-			stmt.setString(5, viajes.getDescripcion());
-			stmt.setString(6, viajes.getTipo_viaje());
-			stmt.setString(7, viajes.getPais().toString());
-			stmt.setString(8, viajes.getAgencia().toString());
-			stmt.setString(9, viajes.getServicios());
+        PreparedStatement stmt = null;
+        String crearViaje = SQLQueries.INSERT_VIAJE;
 
-			stmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-	        // Cierre de recursos
-	        try {
-	            if (stmt != null) {
-	                stmt.close();
-	            }
-	            if (conexion != null) {
-	                conexion.close();
-	            }
-	        } catch (SQLException e) {
-	            System.out.println("Error al cerrar los recursos");
-	            e.printStackTrace();
-	        }
+        try {
+            conexion = DBUtils.getConexion();  // Se inicializa la conexión
+            stmt = conexion.prepareStatement(crearViaje);
+
+            // Establecer los parámetros
+            stmt.setString(1, viajes.getNombre());
+            stmt.setString(2, viajes.getDescripcion());
+            stmt.setString(3, viajes.getFecInicio()); // Corregido
+            stmt.setString(4, viajes.getFecFin());
+            stmt.setString(5, viajes.getDescripcion()); // ¿Duplicado? Verificar si debería ser otro campo
+            stmt.setString(6, viajes.getTipo_viaje());
+            stmt.setString(7, viajes.getPais().getNombre()); // Asegurar que sea un String
+            stmt.setString(8, viajes.getAgencia().getNombre()); // Asegurar que sea un String
+            stmt.setString(9, viajes.getServicios());
+
+            int filasAfectadas = stmt.executeUpdate();
+            if (filasAfectadas > 0) {
+                System.out.println("Viaje creado exitosamente.");
+            } else {
+                System.out.println("No se pudo crear el viaje.");
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error SQL al insertar el viaje.");
+            e.printStackTrace();
+        } finally {
+            // Cierre de recursos
+            try {
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException e) {
+                System.out.println("Error al cerrar los recursos.");
+                e.printStackTrace();
+            }
 	    }
 
+	}
+	
+	public void mostrarViajes() {
+		
 	}
 	
 }
