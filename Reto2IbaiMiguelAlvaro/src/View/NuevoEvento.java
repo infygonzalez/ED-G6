@@ -59,6 +59,11 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblDuracionVuelta;
 	private JTextField txtDuracionVuelta;
 	private JPanel panelAlojamiento;
+	private JLabel lblPrecioAlojamiento;
+	private JLabel lblFechaEntrada;
+	private JLabel lblFechaSalida;
+	private JTextField txtCiudad;
+	private JTextField txtPrecioAlojamiento;
 
 	/**
 	 * Launch the application.
@@ -321,7 +326,7 @@ public class NuevoEvento extends JFrame {
 		
 		txtPrecioVuelo = new JTextField();
 		txtPrecioVuelo.setColumns(10);
-		txtPrecioVuelo.setBounds(309, 308, 86, 20);
+		txtPrecioVuelo.setBounds(309, 89, 86, 20);
 		panelVuelo.add(txtPrecioVuelo);
 		
 		txtDuracion = new JTextField();
@@ -356,6 +361,55 @@ public class NuevoEvento extends JFrame {
 		lblTipoAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblTipoAlojamiento.setBounds(94, 11, 137, 26);
 		panelAlojamiento.add(lblTipoAlojamiento);
+		
+		JLabel lblCiudad = new JLabel("Ciudad: ");
+		lblCiudad.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblCiudad.setBounds(94, 48, 153, 26);
+		panelAlojamiento.add(lblCiudad);
+		
+		lblPrecioAlojamiento = new JLabel("Precio: ");
+		lblPrecioAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblPrecioAlojamiento.setBounds(94, 85, 153, 26);
+		panelAlojamiento.add(lblPrecioAlojamiento);
+		
+		lblFechaEntrada = new JLabel("Fecha entrada:");
+		lblFechaEntrada.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblFechaEntrada.setBounds(94, 122, 153, 26);
+		panelAlojamiento.add(lblFechaEntrada);
+		
+		lblFechaSalida = new JLabel("Fecha salida:");
+		lblFechaSalida.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblFechaSalida.setBounds(580, 122, 153, 26);
+		panelAlojamiento.add(lblFechaSalida);
+		
+		JDateChooser dateChooserFechaEntrada = new JDateChooser();
+		dateChooserFechaEntrada.setBounds(309, 126, 185, 22);
+		panelAlojamiento.add(dateChooserFechaEntrada);
+		
+		JDateChooser dateChooserFechaSalida = new JDateChooser();
+		dateChooserFechaSalida.setBounds(684, 126, 185, 22);
+		panelAlojamiento.add(dateChooserFechaSalida);
+		
+		JComboBox comboBoxTipoAlojamiento = new JComboBox();
+		comboBoxTipoAlojamiento.setBounds(309, 13, 185, 22);
+		panelAlojamiento.add(comboBoxTipoAlojamiento);
+		
+		txtCiudad = new JTextField();
+		txtCiudad.setColumns(10);
+		txtCiudad.setBounds(309, 52, 185, 22);
+		panelAlojamiento.add(txtCiudad);
+		
+		txtPrecioAlojamiento = new JTextField();
+		txtPrecioAlojamiento.setColumns(10);
+		txtPrecioAlojamiento.setBounds(309, 89, 86, 20);
+		panelAlojamiento.add(txtPrecioAlojamiento);
+		
+		JButton btnBuscarAlojamiento = new JButton("Buscar Alojamiento");
+		btnBuscarAlojamiento.setForeground(Color.WHITE);
+		btnBuscarAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
+		btnBuscarAlojamiento.setBackground(new Color(73, 120, 171));
+		btnBuscarAlojamiento.setBounds(94, 159, 160, 28);
+		panelAlojamiento.add(btnBuscarAlojamiento);
 		panelActividades.setVisible(false);
 		
 		
