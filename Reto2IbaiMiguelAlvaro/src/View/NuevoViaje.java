@@ -149,7 +149,7 @@ public class NuevoViaje extends JFrame {
 		btnGuardar.setForeground(new Color(255, 255, 255));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GestorViajes gestor = new GestorViajes();
+				
 				Paises paises = new Paises();
 				String nombre = txtNombre.getText();
 				String tipoViaje = comboBoxViaje.getSelectedItem().toString();
@@ -160,8 +160,16 @@ public class NuevoViaje extends JFrame {
 				String servicios = txtAreaServicios.getText();
 				String nombrepais = comboBoxPaises.getSelectedItem().toString();
 				paises.setNombre(nombrepais);
-				
-				mandarViaje( nombre,  tipoViaje,  fecInicio,  fecFin,  dias, descripcion,  servicios,  paises,  id);
+				if (nombre.isEmpty() || tipoViaje.isEmpty() || comboBoxPaises.getSelectedItem().toString().isEmpty() || 
+			            descripcion.isEmpty() || servicios.isEmpty() || dateInicio == null || dateFin == null) {
+			            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.", "Error", JOptionPane.WARNING_MESSAGE);
+			            return;
+			        }else {
+					mandarViaje( nombre,  tipoViaje,  fecInicio,  fecFin,  dias, descripcion,  servicios,  paises,  id);
+					PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+					frame3.setVisible(true);
+					dispose();
+				}
 				
 			}
 

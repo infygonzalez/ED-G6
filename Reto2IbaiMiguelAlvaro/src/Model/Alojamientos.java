@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Alojamientos {
 
+	//poner nombre o id del evento
 	public ArrayList<Eventos>eventos;
 	public String nombre_hotel;
 	public String ciudad;
