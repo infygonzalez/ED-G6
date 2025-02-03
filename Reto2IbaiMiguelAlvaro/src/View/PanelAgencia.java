@@ -252,36 +252,51 @@ public class PanelAgencia extends JFrame {
 	}
 
 	private void cargarDatosViaje() {
-		Connection conexion = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null;
-		try {
-			Class.forName(DBUtils.DRIVER);
-			conexion = DBUtils.getConexion();
-            rs = stmt.executeQuery("SELECT id, nombre, edad FROM usuarios");;
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    
+	    try {
+	        // Cargar el driver (si es necesario, aunque en algunos casos no lo es)
+	        Class.forName(DBUtils.DRIVER);
+	        
+	        // Obtener la conexión
+	        conexion = DBUtils.getConexion();
+	        
+	        // Inicializar PreparedStatement
+	        String sql = "SELECT nombre, tipo_viaje, duracion, fecha_Inicio, fecha_Fin, pais_destino FROM viajes";
+	        stmt = conexion.prepareStatement(sql);
+	        
+	        // Ejecutar la consulta
+	        rs = stmt.executeQuery();
 
-            // Agregar filas con datos de la base de datos
-            while (rs.next()) {
-                modelViajes.addRow(new Object[]{
-                    rs.getInt("nombre"),
-                    rs.getString("tipo_viaje"),
-                    rs.getInt("duracion"),
-                    rs.getString("fecha_Inicio"),
-                    rs.getString("fecha_Fin"),
-                    rs.getString("pais_destino")
-                    
-                });
-            }
-            
-            // Cerrar conexiones
-            rs.close();
-            stmt.close();
-            conexion.close();
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
-        }
-		
+	        // Agregar filas con datos de la base de datos
+	        while (rs.next()) {
+	            modelViajes.addRow(new Object[]{
+	                rs.getString("nombre"),
+	                rs.getString("tipo_viaje"),
+	                rs.getInt("duracion"),
+	                rs.getString("fecha_Inicio"),
+	                rs.getString("fecha_Fin"),
+	                rs.getString("pais_destino")
+	            });
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        // Cerrar conexiones en orden inverso
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
+
 }
