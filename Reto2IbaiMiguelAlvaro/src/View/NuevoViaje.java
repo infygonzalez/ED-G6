@@ -162,7 +162,7 @@ public class NuevoViaje extends JFrame {
 				paises.setNombre(nombrepais);
 				if (nombre.isEmpty() || tipoViaje.isEmpty() || comboBoxPaises.getSelectedItem().toString().isEmpty() || 
 			            descripcion.isEmpty() || servicios.isEmpty() || dateInicio == null || dateFin == null) {
-			            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.", "Error", JOptionPane.WARNING_MESSAGE);
+			            JOptionPane.showMessageDialog(null, "Todos los campos deben estar completos.", "Error", JOptionPane.ERROR_MESSAGE);
 			            return;
 			        }else {
 					mandarViaje( nombre,  tipoViaje,  fecInicio,  fecFin,  dias, descripcion,  servicios,  paises,  id);

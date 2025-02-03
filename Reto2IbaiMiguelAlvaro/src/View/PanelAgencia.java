@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JFormattedTextField;
 import javax.swing.ImageIcon;
@@ -17,6 +19,12 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import Model.*;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.awt.event.ActionEvent;
 
 public class PanelAgencia extends JFrame {
@@ -27,6 +35,7 @@ public class PanelAgencia extends JFrame {
 	private JTable tablaEventos;
 	private Agencia agenciaColor;
 	private JFrame frame;
+	private DefaultTableModel modelViajes;
 	//private nuevoViaje crear;
 
 	/**
@@ -77,6 +86,7 @@ public class PanelAgencia extends JFrame {
 		lblNewLabel_2.setBounds(228, 109, 70, 24);
 		contentPane.add(lblNewLabel_2);
 		
+		modelViajes = new DefaultTableModel(); 
 		tablaViajes = new JTable();
 		tablaViajes.setRowSelectionAllowed(false);
 		tablaViajes.setSurrendersFocusOnKeystroke(true);
@@ -103,9 +113,16 @@ public class PanelAgencia extends JFrame {
 			new Object[][] {
 			},
 			new String[] {
-				"Viajes", "Tipo", "Dias", "Fecha Inicio", "Fecha fin", "Pais"
+				"Viaje", "Tipo", "Dias", "Fecha Inicio", "Fecha fin", "Pais"
 			}
-		));
+		) {
+			Class[] columnTypes = new Class[] {
+				Integer.class, String.class, Integer.class, String.class, String.class, String.class
+			};
+			public Class getColumnClass(int columnIndex) {
+				return columnTypes[columnIndex];
+			}
+		});
 		tablaViajes.getColumnModel().getColumn(1).setPreferredWidth(101);
 		tablaViajes.getColumnModel().getColumn(2).setPreferredWidth(101);
 		tablaViajes.getColumnModel().getColumn(3).setPreferredWidth(84);
@@ -230,6 +247,41 @@ public class PanelAgencia extends JFrame {
 		colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
 		colorAgencia.setBounds(0, 0, 758, 110);
 		contentPane.add(colorAgencia);
+		
+		cargarDatosViaje();
+	}
+
+	private void cargarDatosViaje() {
+		Connection conexion = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(DBUtils.DRIVER);
+			conexion = DBUtils.getConexion();
+            rs = stmt.executeQuery("SELECT id, nombre, edad FROM usuarios");;
+
+            // Agregar filas con datos de la base de datos
+            while (rs.next()) {
+                modelViajes.addRow(new Object[]{
+                    rs.getInt("nombre"),
+                    rs.getString("tipo_viaje"),
+                    rs.getInt("duracion"),
+                    rs.getString("fecha_Inicio"),
+                    rs.getString("fecha_Fin"),
+                    rs.getString("pais_destino")
+                    
+                });
+            }
+            
+            // Cerrar conexiones
+            rs.close();
+            stmt.close();
+            conexion.close();
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
+        }
 		
 	}
 }
