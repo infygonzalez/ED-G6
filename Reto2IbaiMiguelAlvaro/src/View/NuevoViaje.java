@@ -153,8 +153,8 @@ public class NuevoViaje extends JFrame {
 				Paises paises = new Paises();
 				String nombre = txtNombre.getText();
 				String tipoViaje = comboBoxViaje.getSelectedItem().toString();
-				String fecInicio = dateInicio.getDateFormatString();
-				String fecFin = dateFin.getDateFormatString();
+				String fecInicio = dateInicio.getDate().toString();
+				String fecFin = dateFin.getDate().toString();
 				String dias = txtDias.getText();
 				String descripcion = txtAreaDescripcion.getText();
 				String servicios = txtAreaServicios.getText();
@@ -263,8 +263,7 @@ public class NuevoViaje extends JFrame {
 		viajes.setServicios(servicios);
 		viajes.setAgencia(agencia);
 		
-		GestorViajes gestor = new GestorViajes();
-		gestor.crearViaje(viajes);
+		GestorViajes.crearViaje(viajes);
 		
 	}
 }

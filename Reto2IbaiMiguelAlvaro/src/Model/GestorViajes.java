@@ -12,7 +12,7 @@ public class GestorViajes {
 	Viajes viajes = new Viajes();
 	
 	
-	public static void crearViaje(Viajes viajes) { //METODO SIN TERMINAR, LA BASE DE DATOS HAY QUE EDITARLA CREO
+	public static void crearViaje(Viajes viajes) { 
 		Connection conexion = null;
         PreparedStatement stmt = null;
         String crearViaje = SQLQueries.INSERT_VIAJE;

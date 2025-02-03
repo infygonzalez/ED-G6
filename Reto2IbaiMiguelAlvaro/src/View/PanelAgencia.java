@@ -72,11 +72,6 @@ public class PanelAgencia extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Bienvenido!");
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		lblNewLabel.setBounds(298, 11, 161, 24);
-		contentPane.add(lblNewLabel);
-		
 		JLabel lblIcono = new JLabel("");
 		lblIcono.setBounds(0, 0, 185, 110);
 		contentPane.add(lblIcono);
@@ -141,10 +136,68 @@ public class PanelAgencia extends JFrame {
 		
 		
 		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
-		lblIdAgencia.setBounds(449, 11, 161, 24);
+		lblIdAgencia.setBounds(664, 478, 84, 22);
 		contentPane.add(lblIdAgencia);
 		
 		JButton btnBorrar = new JButton("Borrar viaje");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Obtener la fila seleccionada
+		        int filaSeleccionada = tablaViajes.getSelectedRow();
+		        
+		        if (filaSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Por favor, selecciona un viaje para borrar.");
+		            return;
+		        }
+
+		        // Obtener el nombre del viaje desde la tabla (columna 0)
+		        String nombreViaje = (String) modelViajes.getValueAt(filaSeleccionada, 0);
+
+		        // Confirmación antes de eliminar
+		        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el viaje: " + nombreViaje + "?", 
+		                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+
+		        if (confirmacion == JOptionPane.YES_OPTION) {
+		            Connection conexion = null;
+		            PreparedStatement stmt = null;
+
+		            try {
+		                // Conectar con la base de datos
+		                Class.forName(DBUtils.DRIVER);
+		                conexion = DBUtils.getConexion();
+
+		                // Sentencia SQL para eliminar el viaje
+		                String sql = "DELETE FROM viajes WHERE nombre = ? AND id_agencia = ?";
+		                stmt = conexion.prepareStatement(sql);
+		                stmt.setString(1, nombreViaje);
+		                stmt.setInt(2, Sesion.getIdAgencia()); // Asegurarse de que pertenece a la agencia
+
+		                int filasAfectadas = stmt.executeUpdate();
+
+		                if (filasAfectadas > 0) {
+		                    // Eliminar del modelo de la tabla
+		                    modelViajes.removeRow(filaSeleccionada);
+		                    JOptionPane.showMessageDialog(null, "Viaje eliminado correctamente.");
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el viaje.");
+		                }
+
+		            } catch (SQLException ex) {
+		                ex.printStackTrace();
+		                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+		            } catch (ClassNotFoundException ex) {
+		                ex.printStackTrace();
+		            } finally {
+		                try {
+		                    if (stmt != null) stmt.close();
+		                    if (conexion != null) conexion.close();
+		                } catch (SQLException ex) {
+		                    ex.printStackTrace();
+		                }
+		            }
+		        }
+		    }
+		});
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrar.setForeground(Color.WHITE);
 		btnBorrar.setBackground(new Color(98, 143, 200));
@@ -207,14 +260,14 @@ public class PanelAgencia extends JFrame {
 		btnGeneraOferta.setBounds(47, 473, 222, 31);
 		contentPane.add(btnGeneraOferta);
 		
-		JLabel lblNombreAgencia = new JLabel("Nombre: "+ nombreID);
-		lblNombreAgencia.setBounds(449, 33, 161, 24);
-		contentPane.add(lblNombreAgencia);
-		
 		JPanel colorAgencia = new JPanel();
 		colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
 		colorAgencia.setBounds(0, 0, 758, 110);
 		contentPane.add(colorAgencia);
+		
+		JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
+		colorAgencia.add(lblNewLabel);
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
 		
 		cargarDatosViaje(idAgencia);
 	}
