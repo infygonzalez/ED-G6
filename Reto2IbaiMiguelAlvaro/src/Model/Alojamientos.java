@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Alojamientos {
 
 	//poner nombre o id del evento
-	public ArrayList<Eventos>eventos;
+	public String id_eventos;
 	public String nombre_hotel;
 	public String ciudad;
 	public int precio;
@@ -16,7 +16,7 @@ public class Alojamientos {
 	
 	//constructor
 	public Alojamientos() {
-		ArrayList<Eventos>eventos = new ArrayList();
+		this.id_eventos="";
 		this.nombre_hotel = "";
 		this.ciudad = "";
 		this.precio = 0;
@@ -26,9 +26,9 @@ public class Alojamientos {
 	}
 	
 
-	public Alojamientos(ArrayList<Eventos> eventos, String nombre_hotel, String ciudad, int precio, String f_entrada,
+	public Alojamientos(String id_eventos, String nombre_hotel, String ciudad, int precio, String f_entrada,
 			String f_salida, String tipo_hab) {
-		this.eventos = eventos;
+		this.id_eventos = id_eventos;
 		this.nombre_hotel = nombre_hotel;
 		this.ciudad = ciudad;
 		this.precio = precio;
@@ -48,13 +48,13 @@ public class Alojamientos {
 	}
 
 
-	public ArrayList<Eventos> getEventos() {
-		return eventos;
+	public String getId_eventos() {
+		return id_eventos;
 	}
 
 
-	public void setEventos(ArrayList<Eventos> eventos) {
-		this.eventos = eventos;
+	public void setId_eventos(String id_eventos) {
+		this.id_eventos = id_eventos;
 	}
 
 
@@ -112,12 +112,5 @@ public class Alojamientos {
 		this.tipo_hab = tipo_hab;
 	}
 
-	//toString
-	@Override
-	public String toString() {
-		return "Alojamientos [eventos=" + eventos + ", nombre_hotel=" + nombre_hotel + ", ciudad=" + ciudad
-				+ ", precio=" + precio + ", f_entrada=" + f_entrada + ", f_salida=" + f_salida + ", tipo_hab="
-				+ tipo_hab + "]";
-	}
 
 }

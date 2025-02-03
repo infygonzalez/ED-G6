@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Vuelos {
 	
-	private ArrayList<Eventos>eventos;
+	public String id_eventos;
 	public String aero_origen;
 	public String aero_destino;
 	public String cod_vuelo_ida;
@@ -20,9 +20,8 @@ public class Vuelos {
 	public String cod_vuelo_vuelta;
 	public Aerolineas aerolinea_vuelta;
 	
-	//constructor
 	public Vuelos() {
-		ArrayList <Eventos> eventos = new ArrayList();
+		this.id_eventos = "";
 		this.aero_origen = "";
 		this.aero_destino = "";
 		this.cod_vuelo_ida = "";
@@ -39,13 +38,11 @@ public class Vuelos {
 		this.aerolinea_vuelta = new Aerolineas();
 	}
 
-	
-
-	public Vuelos(ArrayList<Eventos> eventos, String aero_origen, String aero_destino, String cod_vuelo_ida,
+	public Vuelos(String id_eventos, String aero_origen, String aero_destino, String cod_vuelo_ida,
 			Aerolineas aerolinea_ida, int precio, String f_salida, String h_salida, String duracion_ida,
 			String tipo_vuelo, String f_vuelta, String h_vuelta, String duracion_vuelta, String cod_vuelo_vuelta,
 			Aerolineas aerolinea_vuelta) {
-		this.eventos = eventos;
+		this.id_eventos = id_eventos;
 		this.aero_origen = aero_origen;
 		this.aero_destino = aero_destino;
 		this.cod_vuelo_ida = cod_vuelo_ida;
@@ -63,7 +60,6 @@ public class Vuelos {
 	}
 
 
-
 	//getters y setters
 
 
@@ -72,15 +68,13 @@ public class Vuelos {
 	}
 
 
-	public ArrayList<Eventos> getEventos() {
-		return eventos;
+	public String getId_eventos() {
+		return id_eventos;
 	}
 
-
-	public void setEventos(ArrayList<Eventos> eventos) {
-		this.eventos = eventos;
+	public void setId_eventos(String id_eventos) {
+		this.id_eventos = id_eventos;
 	}
-
 
 	public void setAero_origen(String aero_origen) {
 		this.aero_origen = aero_origen;
@@ -217,18 +211,6 @@ public class Vuelos {
 
 	public void setAerolinea_vuelta(Aerolineas aerolinea_vuelta) {
 		this.aerolinea_vuelta = aerolinea_vuelta;
-	}
-
-
-	//to String
-	@Override
-	public String toString() {
-		return "Vuelos [eventos=" + eventos + ", aero_origen=" + aero_origen + ", aero_destino=" + aero_destino
-				+ ", cod_vuelo_ida=" + cod_vuelo_ida + ", aerolinea_ida=" + aerolinea_ida + ", precio=" + precio
-				+ ", f_salida=" + f_salida + ", h_salida=" + h_salida + ", duracion_ida=" + duracion_ida
-				+ ", tipo_vuelo=" + tipo_vuelo + ", f_vuelta=" + f_vuelta + ", h_vuelta=" + h_vuelta
-				+ ", duracion_vuelta=" + duracion_vuelta + ", cod_vuelo_vuelta=" + cod_vuelo_vuelta
-				+ ", aerolinea_vuelta=" + aerolinea_vuelta + "]";
 	}
 
 }

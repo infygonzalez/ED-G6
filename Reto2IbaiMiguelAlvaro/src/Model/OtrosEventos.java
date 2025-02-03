@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class OtrosEventos {
 	
-	public ArrayList<Eventos>eventos;
+	public String id_eventos;
 	public String nombre;
 	public String fecha;
 	public String descripcion;
@@ -12,7 +12,7 @@ public class OtrosEventos {
 
 	//constructor
 	public OtrosEventos() {
-		ArrayList<Eventos>eventos = new ArrayList();
+		this.id_eventos="";
 		this.nombre = "";
 		this.fecha = "";
 		this.descripcion = "";
@@ -20,8 +20,8 @@ public class OtrosEventos {
 	}
 	
 	
-	public OtrosEventos(ArrayList<Eventos> eventos, String nombre, String fecha, String descripcion, String precio) {
-		this.eventos = eventos;
+	public OtrosEventos(String id_eventos, String nombre, String fecha, String descripcion, String precio) {
+		this.id_eventos = id_eventos;
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.descripcion = descripcion;
@@ -37,13 +37,15 @@ public class OtrosEventos {
 		return nombre;
 	}
 
-	public ArrayList<Eventos> getEventos() {
-		return eventos;
+
+
+	public String getId_eventos() {
+		return id_eventos;
 	}
 
 
-	public void setEventos(ArrayList<Eventos> eventos) {
-		this.eventos = eventos;
+	public void setId_eventos(String id_eventos) {
+		this.id_eventos = id_eventos;
 	}
 
 
@@ -75,11 +77,5 @@ public class OtrosEventos {
 		this.precio = precio;
 	}
 
-	//tostring
-	@Override
-	public String toString() {
-		return "OtrosEventos [eventos=" + eventos + ", nombre=" + nombre + ", fecha=" + fecha + ", descripcion="
-				+ descripcion + ", precio=" + precio + "]";
-	}
 
 }
