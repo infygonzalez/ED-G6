@@ -86,56 +86,24 @@ public class PanelAgencia extends JFrame {
 		lblNewLabel_2.setBounds(228, 109, 70, 24);
 		contentPane.add(lblNewLabel_2);
 		
-		modelViajes = new DefaultTableModel(); 
-		tablaViajes = new JTable();
-		tablaViajes.setRowSelectionAllowed(false);
-		tablaViajes.setSurrendersFocusOnKeystroke(true);
-		tablaViajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		// Inicializa el modelo de la tabla de viajes
+        modelViajes = new DefaultTableModel(
+            new Object[][] {},
+            new String[] { "Viaje", "Tipo", "Días", "Fecha Inicio", "Fecha Fin", "País" }
+        ) {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false; // Desactiva la edición de las celdas
+            }
+        };
 
-		// Crear un modelo de tabla personalizado que no permita edición
-		DefaultTableModel modeloNoEditable = new DefaultTableModel(
-		    new Object[][] {
-		        {null, null, null, null, null, null},
-		        {null, null, null, null, null, null},
-		    },
-		    new String[] {
-		        "Viajes", "Tipo", "Dias", "Fecha Inicio", "Fecha fin", "Pais"
-		    }
-		) {
-		    @Override
-		    public boolean isCellEditable(int row, int column) {
-		        return false; // Desactiva la edición para todas las celdas
-		    }
-		};
-
-		// Asignar el modelo a la tabla
-		tablaViajes.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"Viaje", "Tipo", "Dias", "Fecha Inicio", "Fecha fin", "Pais"
-			}
-		) {
-			Class[] columnTypes = new Class[] {
-				Integer.class, String.class, Integer.class, String.class, String.class, String.class
-			};
-			public Class getColumnClass(int columnIndex) {
-				return columnTypes[columnIndex];
-			}
-		});
-		tablaViajes.getColumnModel().getColumn(1).setPreferredWidth(101);
-		tablaViajes.getColumnModel().getColumn(2).setPreferredWidth(101);
-		tablaViajes.getColumnModel().getColumn(3).setPreferredWidth(84);
-		tablaViajes.getColumnModel().getColumn(4).setPreferredWidth(84);
-		tablaViajes.getColumnModel().getColumn(5).setPreferredWidth(83);
-		
-		// Configurar posición y agregar al contentPane
-		tablaViajes.setBounds(20, 183, 466, 87);
-		contentPane.add(tablaViajes);
-		
-		JScrollPane scrollPane = new JScrollPane(tablaViajes);
-		scrollPane.setBounds(47, 152, 464, 129);
-		contentPane.add(scrollPane);
+        // Crear la tabla y asignarle el modelo
+        tablaViajes = new JTable(modelViajes);
+        tablaViajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        
+        JScrollPane scrollPane = new JScrollPane(tablaViajes);
+        scrollPane.setBounds(47, 152, 464, 129);
+        contentPane.add(scrollPane);
 		
 		JLabel lblNewLabel_1 = new JLabel("Eventos");
 		lblNewLabel_1.setFont(new Font("Verdana", Font.BOLD, 13));
@@ -248,55 +216,50 @@ public class PanelAgencia extends JFrame {
 		colorAgencia.setBounds(0, 0, 758, 110);
 		contentPane.add(colorAgencia);
 		
-		cargarDatosViaje();
+		cargarDatosViaje(idAgencia);
 	}
 
-	private void cargarDatosViaje() {
-	    Connection conexion = null;
-	    PreparedStatement stmt = null;
-	    ResultSet rs = null;
-	    
-	    try {
-	        // Cargar el driver (si es necesario, aunque en algunos casos no lo es)
-	        Class.forName(DBUtils.DRIVER);
-	        
-	        // Obtener la conexión
-	        conexion = DBUtils.getConexion();
-	        
-	        // Inicializar PreparedStatement
-	        String sql = "SELECT nombre, tipo_viaje, duracion, fecha_Inicio, fecha_Fin, pais_destino FROM viajes";
-	        stmt = conexion.prepareStatement(sql);
-	        
-	        // Ejecutar la consulta
-	        rs = stmt.executeQuery();
+	private void cargarDatosViaje(int id) {
+        Connection conexion = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        
+        try {
+        	Class.forName(DBUtils.DRIVER);
+			conexion = DBUtils.getConexion();
+			String sql = "SELECT nombre, tipo_viaje, duracion, fecha_Inicio, fecha_Fin, pais_destino FROM viajes WHERE id_agencia = ?";
+			stmt = conexion.prepareStatement(sql);
+			stmt.setInt(1, id);
+			rs = stmt.executeQuery();
 
-	        // Agregar filas con datos de la base de datos
-	        while (rs.next()) {
-	            modelViajes.addRow(new Object[]{
-	                rs.getString("nombre"),
-	                rs.getString("tipo_viaje"),
-	                rs.getInt("duracion"),
-	                rs.getString("fecha_Inicio"),
-	                rs.getString("fecha_Fin"),
-	                rs.getString("pais_destino")
-	            });
-	        }
-	        
-	    } catch (SQLException e) {
-	        e.printStackTrace();
-	        JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
-	    } catch (ClassNotFoundException e) {
-	        e.printStackTrace();
-	    } finally {
-	        // Cerrar conexiones en orden inverso
-	        try {
-	            if (rs != null) rs.close();
-	            if (stmt != null) stmt.close();
-	            if (conexion != null) conexion.close();
-	        } catch (SQLException e) {
-	            e.printStackTrace();
-	        }
-	    }
-	}
+            // Limpiar modelo antes de agregar nuevos datos
+            modelViajes.setRowCount(0);
 
+            // Agregar filas con datos de la base de datos
+            while (rs.next()) {
+                modelViajes.addRow(new Object[]{
+                    rs.getString("nombre"),
+                    rs.getString("tipo_viaje"),
+                    rs.getInt("duracion"),
+                    rs.getString("fecha_Inicio"),
+                    rs.getString("fecha_Fin"),
+                    rs.getString("pais_destino")
+                });
+            }
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
