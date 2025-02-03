@@ -24,13 +24,13 @@ public class GestorViajes {
             // Establecer los parámetros
             stmt.setString(1, viajes.getNombre());
             stmt.setString(2, viajes.getDescripcion());
-            stmt.setString(3, viajes.getFecInicio()); // Corregido
-            stmt.setString(4, viajes.getFecFin());
-            stmt.setString(5, viajes.getDescripcion()); // ¿Duplicado? Verificar si debería ser otro campo
-            stmt.setString(6, viajes.getTipo_viaje());
+            stmt.setString(3, viajes.getTipo_viaje());
+            stmt.setString(4, viajes.getFecInicio()); // Corregido
+            stmt.setString(5, viajes.getFecFin());
+            stmt.setString(6, viajes.getDuracion());
             stmt.setString(7, viajes.getPais().getNombre()); // Asegurar que sea un String
-            stmt.setString(8, viajes.getAgencia().getNombre()); // Asegurar que sea un String
-            stmt.setString(9, viajes.getServicios());
+            stmt.setString(8, viajes.getServicios());
+            stmt.setInt(9, viajes.getAgencia().getID());
 
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {

@@ -149,6 +149,7 @@ public class NuevoViaje extends JFrame {
 		btnGuardar.setForeground(new Color(255, 255, 255));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				GestorViajes gestor = new GestorViajes();
 				Paises paises = new Paises();
 				String nombre = txtNombre.getText();
 				String tipoViaje = comboBoxViaje.getSelectedItem().toString();
@@ -160,7 +161,7 @@ public class NuevoViaje extends JFrame {
 				String nombrepais = comboBoxPaises.getSelectedItem().toString();
 				paises.setNombre(nombrepais);
 				
-				//mandarViaje(nombre, tipoViaje, fecInicio, fecFin, dias, descripcion, servicios, paises, nombreAgencia);
+				mandarViaje( nombre,  tipoViaje,  fecInicio,  fecFin,  dias, descripcion,  servicios,  paises,  id);
 				
 			}
 
@@ -240,9 +241,11 @@ public class NuevoViaje extends JFrame {
 	}
 	
 	public void mandarViaje(String nombre, String tipoViaje, String fecInicio, String fecFin, String dias,
-			String descripcion, String servicios, Paises paises, String nombreAgencia) {
+			String descripcion, String servicios, Paises paises, int id) {
 		
 		Viajes viajes = new Viajes();
+		Agencia agencia = new Agencia();
+		agencia.setID(id);
 		viajes.setNombre(nombre);
 		viajes.setDescripcion(descripcion);
 		viajes.setDuracion(dias);
@@ -250,7 +253,10 @@ public class NuevoViaje extends JFrame {
 		viajes.setFecInicio(fecInicio);
 		viajes.setPais(paises);
 		viajes.setServicios(servicios);
+		viajes.setAgencia(agencia);
 		
+		GestorViajes gestor = new GestorViajes();
+		gestor.crearViaje(viajes);
 		
 	}
 }

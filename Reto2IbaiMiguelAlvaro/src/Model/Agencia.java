@@ -7,7 +7,7 @@ import java.util.ArrayList;
  */
 public class Agencia {
 	
-	private String ID;
+	private int ID;
 	private String nombre;
 	private String logo;
 	private String color;
@@ -18,7 +18,7 @@ public class Agencia {
 	
 	//constructores
 	public Agencia() {
-		this.ID = "";
+		this.ID = 0;
 		this.nombre = "";
 		this.logo = "";
 		this.color = "";
@@ -28,7 +28,7 @@ public class Agencia {
 		ArrayList<Viajes> viajes = new ArrayList();
 	}
 	
-	public Agencia(String ID, String nombre, String logo, String color, String numeroEmpleados, String tipoAgencia,
+	public Agencia(int ID, String nombre, String logo, String color, String numeroEmpleados, String tipoAgencia,
 			String contra, ArrayList<Viajes> viajes) {
 		this.ID = ID;
 		this.nombre = nombre;
@@ -47,11 +47,11 @@ public class Agencia {
 	public void setContra(String contra) {
 		this.contra = contra;
 	}
-	public String getID() {
+	public int getID() {
 		return ID;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setID(int id2) {
+		ID = id2;
 	}
 	public String getNombre() {
 		return nombre;
