@@ -240,6 +240,65 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnCrearEvento);
 		
 		JButton btnBorrarEvento = new JButton("Borrar evento");
+		btnBorrarEvento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				// Obtener la fila seleccionada en la tabla de eventos
+		        int filaSeleccionada = tablaEventos.getSelectedRow();
+		        
+		        if (filaSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Por favor, selecciona un evento para borrar.");
+		            return;
+		        }
+
+		        // Obtener el nombre del evento desde la tabla (columna 0)
+		        String nombreEvento = (String) tablaEventos.getValueAt(filaSeleccionada, 0);
+		        
+		        // Confirmación antes de eliminar
+		        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el evento: " + nombreEvento + "?", 
+		                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+		        
+		        if (confirmacion == JOptionPane.YES_OPTION) {
+		            Connection conexion = null;
+		            PreparedStatement stmt = null;
+
+		            try {
+		                // Conectar con la base de datos
+		                Class.forName(DBUtils.DRIVER);
+		                conexion = DBUtils.getConexion();
+
+		                // Sentencia SQL para eliminar el evento
+		                String sql = "DELETE FROM eventos WHERE nombre = ? AND id_viaje = ?";
+		                stmt = conexion.prepareStatement(sql);
+		                stmt.setString(1, nombreEvento);
+		                stmt.setInt(2, obtenerIdViajeDesdeFila(tablaViajes.getSelectedRow()));
+
+		                int filasAfectadas = stmt.executeUpdate();
+
+		                if (filasAfectadas > 0) {
+		                    // Eliminar del modelo de la tabla
+		                    DefaultTableModel modelEventos = (DefaultTableModel) tablaEventos.getModel();
+		                    modelEventos.removeRow(filaSeleccionada);
+		                    JOptionPane.showMessageDialog(null, "Evento eliminado correctamente.");
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el evento.");
+		                }
+
+		            } catch (SQLException ex) {
+		                ex.printStackTrace();
+		                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+		            } catch (ClassNotFoundException ex) {
+		                ex.printStackTrace();
+		            } finally {
+		                try {
+		                    if (stmt != null) stmt.close();
+		                    if (conexion != null) conexion.close();
+		                } catch (SQLException ex) {
+		                    ex.printStackTrace();
+		                }
+		            }
+		        }
+		    }
+		});
 		btnBorrarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrarEvento.setForeground(Color.WHITE);
 		btnBorrarEvento.setBackground(new Color(98, 143, 200));
@@ -306,10 +365,13 @@ public class PanelAgencia extends JFrame {
 		JPanel panelLogo = new JPanel();
 		panelLogo.setBounds(0, 0, 186, 129);
 		contentPane.add(panelLogo);
-		
-		if (logoUrl != null && !logoUrl.isEmpty()) {
+
+		// Obtener la URL del logo desde la base de datos
+		String logoUrl1 = obtenerLogoURLDesdeBD(idAgencia);
+
+		if (logoUrl1 != null && !logoUrl1.isEmpty()) {
 		    try {
-		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
+		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl1));
 		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
 		        JLabel logoLabel = new JLabel(new ImageIcon(img));
 		        panelLogo.removeAll();  // Elimina imágenes previas
@@ -317,13 +379,15 @@ public class PanelAgencia extends JFrame {
 		        panelLogo.revalidate();
 		        panelLogo.repaint();
 		    } catch (Exception e) {
-		        System.out.println("Error al cargar el logo: " + e.getMessage());
+		        System.out.println("Error al cargar el logo desde la URL: " + e.getMessage());
 		    }
+		} else {
+		    System.out.println("No se encontró un logo en la base de datos.");
 		}
-
-
-		
 		cargarDatosViaje(idAgencia);
+		cargarLogo(idAgencia);
+		System.out.println("Logo URL desde la BD: " + logoUrl);
+
 	}
 
 	private void cargarDatosViaje(int id) {
@@ -417,5 +481,74 @@ public class PanelAgencia extends JFrame {
 	private int obtenerIdViajeDesdeFila(int fila) {
 	    return (int) modelViajes.getValueAt(fila, 0); // Columna 0 tiene el id_viaje
 	}
+	
+	private String obtenerLogoURLDesdeBD(int idAgencia) {
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    String logoUrl = null;
+
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DBUtils.getConexion();
+	        String sql = "SELECT logo FROM agencias WHERE id_agencia = ?";
+	        stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idAgencia);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next()) {
+	            logoUrl = rs.getString("logo"); // Obtener la URL almacenada en TEXT
+	        }
+	    } catch (SQLException | ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return logoUrl;
+	}
+
+	private void cargarLogo(int idAgencia) {
+	    JPanel panelLogo = new JPanel();
+	    panelLogo.setBounds(0, 0, 186, 129);
+	    contentPane.add(panelLogo);
+
+	    // Obtener la URL del logo desde la base de datos
+	    String logoUrl = obtenerLogoURLDesdeBD(idAgencia);
+
+	    if (logoUrl != null && !logoUrl.isEmpty()) {
+	        try {
+	            ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
+	            Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+	            JLabel logoLabel = new JLabel(new ImageIcon(img));
+	            panelLogo.removeAll();  // Elimina imágenes previas
+	            panelLogo.add(logoLabel);
+	            panelLogo.revalidate();
+	            panelLogo.repaint();
+	        } catch (Exception e) {
+	            System.out.println("Error al cargar el logo desde la URL: " + e.getMessage());
+	            // Puedes mostrar un mensaje de error o un icono por defecto
+	            JLabel errorLabel = new JLabel("Logo no disponible");
+	            panelLogo.removeAll();
+	            panelLogo.add(errorLabel);
+	            panelLogo.revalidate();
+	            panelLogo.repaint();
+	        }
+	    } else {
+	        System.out.println("No se encontró un logo en la base de datos.");
+	        // Puedes mostrar un mensaje o un icono por defecto
+	        JLabel noLogoLabel = new JLabel("No logo");
+	        panelLogo.removeAll();
+	        panelLogo.add(noLogoLabel);
+	        panelLogo.revalidate();
+	        panelLogo.repaint();
+	    }
+	}
+
 
 }
