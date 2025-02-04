@@ -195,7 +195,7 @@ public class EditarCuenta extends JFrame {
 				String empleados = comboBox.getSelectedItem().toString();
 				String tipoagencia = comboBox_1.getSelectedItem().toString();
 				
-				mandarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
+				editarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
 				
 				if(comboBox.getSelectedItem().equals("") && comboBox_1.getSelectedItem().equals("")) {
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
@@ -228,7 +228,7 @@ public class EditarCuenta extends JFrame {
 	
 		
 	}
-	public void mandarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
+	public void editarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
 		Agencia agencia = new Agencia();
 		agencia.setNombre(nombre);
 		agencia.setContra(contra);
