@@ -115,11 +115,13 @@ public class NuevoEvento extends JFrame {
 		contentPane.add(lblTipoEvento);
 		
 		txtNombreEvento = new JTextField();
+		txtNombreEvento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtNombreEvento.setBounds(309, 75, 185, 20);
 		contentPane.add(txtNombreEvento);
 		txtNombreEvento.setColumns(10);
 		
 		comboBoxTipoEvento = new JComboBox();
+		comboBoxTipoEvento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxTipoEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBoxTipoEvento.getSelectedItem().equals("Vuelo")) {
@@ -149,6 +151,11 @@ public class NuevoEvento extends JFrame {
 		
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("Verdana", Font.PLAIN, 13));
 		btnGuardar.setBackground(new Color(73, 120, 171));
@@ -195,6 +202,7 @@ public class NuevoEvento extends JFrame {
 		panelVueloVuelta.add(lblCdigoVueloDe);
 		
 		txtCodigoVuelta = new JTextField();
+		txtCodigoVuelta.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtCodigoVuelta.setColumns(10);
 		txtCodigoVuelta.setBounds(153, 38, 185, 20);
 		panelVueloVuelta.add(txtCodigoVuelta);
@@ -205,6 +213,7 @@ public class NuevoEvento extends JFrame {
 		panelVueloVuelta.add(lblAerolineaVuelta);
 		
 		txtAerolineaVuelta = new JTextField();
+		txtAerolineaVuelta.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtAerolineaVuelta.setColumns(10);
 		txtAerolineaVuelta.setBounds(153, 76, 185, 20);
 		panelVueloVuelta.add(txtAerolineaVuelta);
@@ -215,7 +224,8 @@ public class NuevoEvento extends JFrame {
         SpinnerDateModel model2 = new SpinnerDateModel();
         model2.setValue(then.getTime());
         JSpinner spinnerHorarioVuelta1 = new JSpinner(model2);
-        spinnerHorarioVuelta1.setLocation(309, 237);
+        spinnerHorarioVuelta1.setFont(new Font("Verdana", Font.PLAIN, 13));
+        spinnerHorarioVuelta1.setLocation(153, 110);
         spinnerHorarioVuelta1.setSize(86, 22);
         JSpinner.DateEditor de_spinnerHorarioVuelta= new JSpinner.DateEditor(spinnerHorarioVuelta1, "HH:mm");
         spinnerHorarioVuelta1.setEditor(de_spinnerHorarioVuelta);
@@ -233,6 +243,7 @@ public class NuevoEvento extends JFrame {
 		panelVueloVuelta.add(lblDuracionVuelta);
 		
 		txtDuracionVuelta = new JTextField();
+		txtDuracionVuelta.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtDuracionVuelta.setColumns(10);
 		txtDuracionVuelta.setBounds(153, 145, 86, 20);
 		panelVueloVuelta.add(txtDuracionVuelta);
@@ -249,6 +260,7 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.add(lblAeropuertoOrigen);
 		
 		comboBoxTrayecto = new JComboBox();
+		comboBoxTrayecto.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxTrayecto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(comboBoxTrayecto.getSelectedItem().equals("Ida")) {
@@ -271,11 +283,13 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.add(lblAeropuertoDestino);
 		
 		JComboBox comboBoxOrigen = new JComboBox();
+		comboBoxOrigen.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxOrigen.setModel(new DefaultComboBoxModel(new String[] {"", "Acapulco", "Lanzarote", "Malaga", "Alicante", "Amman", "Amsterdam", "Atenas", "Barcelona", "Berlin", "Bilbao", "Badajoz", "Bagkok", "Bogota", "Boston", "Bruselas", "Brasilia", "Buenos Aires", "El Cairo", "Casablanca", "Caracas", "Paris, Aeropuerto Charles de Gaulle", "Dinamarca", "Detroit", "Dublin", "Dusseldof", "San Sebastian", "Frankfurt", "Fuenteventura", "La Gomera", "Gerona", "Granada", "Ginebra", "Hamburgo", "Helsinki", "Houston", "Ibiza", "Estambul", "Nueva York", "Kingston", "Los Angeles", "Le Bourget", "La Coruña LCG", "Gatwick", "Heathrow", "PERU, Lima", "Lisboa", "Gran Canaria", "Lyon", "Madrid", "Mahon", "Melbourne", "Mexico D.F", "Miami", "Milan", "Murcia", "Moscu", "Marsella", "Munich", "Nairobi", "Cordoba", "Orly", "Oslo", "Asturias", "Philadelfia PHL", "Palma de Mayorca", "Pamplona", "Praga", "Marrakech", "Reus", "Rio de Janeiro", "Sao Paulo", "Santiago de Compostela", "Santo Domingo", "Santander", "Seatle", "San Francisco", "Salamanca", "Santa Cruz de la Palma", "Standed", "Estocolmo", "Stuttgart", "Sydney", "Tenerife Norte", "Tenerife Sur", "Tunez", "Hierro", "Vigo", "Viena", "Vitoria", "Valencia", "Washington", "Varsovia", "Jerez de la Frontera", "Montreal, Quebec", "Otawwa, Ontario YOW", "Toronto, Ontario YTO", "Vancouver", "Zaragoza", "Zurich"}));
 		comboBoxOrigen.setBounds(309, 52, 185, 22);
 		panelVuelo.add(comboBoxOrigen);
 		
 		JComboBox comboBoxDestino = new JComboBox();
+		comboBoxDestino.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxDestino.setModel(new DefaultComboBoxModel(new String[] {"", "Acapulco", "Lanzarote", "Malaga", "Alicante", "Amman", "Amsterdam", "Atenas", "Barcelona", "Berlin", "Bilbao", "Badajoz", "Bagkok", "Bogota", "Boston", "Bruselas", "Brasilia", "Buenos Aires", "El Cairo", "Casablanca", "Caracas", "Paris, Aeropuerto Charles de Gaulle", "Dinamarca", "Detroit", "Dublin", "Dusseldof", "San Sebastian", "Frankfurt", "Fuenteventura", "La Gomera", "Gerona", "Granada", "Ginebra", "Hamburgo", "Helsinki", "Houston", "Ibiza", "Estambul", "Nueva York", "Kingston", "Los Angeles", "Le Bourget", "La Coruña LCG", "Gatwick", "Heathrow", "PERU, Lima", "Lisboa", "Gran Canaria", "Lyon", "Madrid", "Mahon", "Melbourne", "Mexico D.F", "Miami", "Milan", "Murcia", "Moscu", "Marsella", "Munich", "Nairobi", "Cordoba", "Orly", "Oslo", "Asturias", "Philadelfia PHL", "Palma de Mayorca", "Pamplona", "Praga", "Marrakech", "Reus", "Rio de Janeiro", "Sao Paulo", "Santiago de Compostela", "Santo Domingo", "Santander", "Seatle", "San Francisco", "Salamanca", "Santa Cruz de la Palma", "Standed", "Estocolmo", "Stuttgart", "Sydney", "Tenerife Norte", "Tenerife Sur", "Tunez", "Hierro", "Vigo", "Viena", "Vitoria", "Valencia", "Washington", "Varsovia", "Jerez de la Frontera", "Montreal, Quebec", "Otawwa, Ontario YOW", "Toronto, Ontario YTO", "Vancouver", "Zaragoza", "Zurich"}));
 		comboBoxDestino.setBounds(309, 89, 185, 22);
 		panelVuelo.add(comboBoxDestino);
@@ -306,6 +320,7 @@ public class NuevoEvento extends JFrame {
         SpinnerDateModel model = new SpinnerDateModel();
         model.setValue(now.getTime());
         JSpinner spinnerHorarioSalida = new JSpinner(model);
+        spinnerHorarioSalida.setFont(new Font("Verdana", Font.PLAIN, 13));
         spinnerHorarioSalida.setLocation(309, 237);
         spinnerHorarioSalida.setSize(86, 22);
         JSpinner.DateEditor de_spinnerHorarioSalida = new JSpinner.DateEditor(spinnerHorarioSalida, "HH:mm");
@@ -323,16 +338,19 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.add(dateChooserIda);
 		
 		txtCodigoVuelo = new JTextField();
+		txtCodigoVuelo.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtCodigoVuelo.setColumns(10);
 		txtCodigoVuelo.setBounds(309, 164, 185, 20);
 		panelVuelo.add(txtCodigoVuelo);
 		
 		txtAerolinea = new JTextField();
+		txtAerolinea.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtAerolinea.setColumns(10);
 		txtAerolinea.setBounds(309, 201, 185, 20);
 		panelVuelo.add(txtAerolinea);
 		
 		txtDuracion = new JTextField();
+		txtDuracion.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtDuracion.setColumns(10);
 		txtDuracion.setBounds(309, 270, 86, 20);
 		panelVuelo.add(txtDuracion);
@@ -350,6 +368,7 @@ public class NuevoEvento extends JFrame {
 		lblPrecio.setFont(new Font("Verdana", Font.PLAIN, 13));
 		
 		txtPrecioVuelo = new JTextField();
+		txtPrecioVuelo.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtPrecioVuelo.setBounds(309, 307, 86, 20);
 		panelVuelo.add(txtPrecioVuelo);
 		txtPrecioVuelo.setColumns(10);
@@ -378,6 +397,7 @@ public class NuevoEvento extends JFrame {
 		panelActividades.add(lblPrecioActividad);
 		
 		txtPrecioActividad = new JTextField();
+		txtPrecioActividad.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtPrecioActividad.setColumns(10);
 		txtPrecioActividad.setBounds(309, 126, 86, 22);
 		panelActividades.add(txtPrecioActividad);
@@ -431,16 +451,19 @@ public class NuevoEvento extends JFrame {
 		panelAlojamiento.add(dateChooserFechaSalida);
 		
 		JComboBox comboBoxTipoAlojamiento = new JComboBox();
+		comboBoxTipoAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxTipoAlojamiento.setModel(new DefaultComboBoxModel(new String[] {"Habitación doble", "Habitación  Individual", "Habitación  Doble (individual)", "Habitación  Triple"}));
 		comboBoxTipoAlojamiento.setBounds(309, 13, 185, 22);
 		panelAlojamiento.add(comboBoxTipoAlojamiento);
 		
 		txtCiudad = new JTextField();
+		txtCiudad.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtCiudad.setColumns(10);
 		txtCiudad.setBounds(309, 52, 185, 22);
 		panelAlojamiento.add(txtCiudad);
 		
 		txtPrecioAlojamiento = new JTextField();
+		txtPrecioAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtPrecioAlojamiento.setColumns(10);
 		txtPrecioAlojamiento.setBounds(309, 89, 86, 20);
 		panelAlojamiento.add(txtPrecioAlojamiento);
