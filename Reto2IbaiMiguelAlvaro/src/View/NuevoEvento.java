@@ -36,6 +36,7 @@ import javax.swing.JTextArea;
 import javax.swing.DropMode;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
+import java.awt.TextArea;
 
 public class NuevoEvento extends JFrame {
 
@@ -482,6 +483,11 @@ public class NuevoEvento extends JFrame {
 		btnBuscarAlojamiento.setBackground(new Color(73, 120, 171));
 		btnBuscarAlojamiento.setBounds(94, 159, 160, 28);
 		panelAlojamiento.add(btnBuscarAlojamiento);
+		
+		TextArea textArea = new TextArea();
+		textArea.setRows(2);
+		textArea.setBounds(0, 0, 125, 89);
+		contentPane.add(textArea);
 		panelActividades.setVisible(false);
 		
 		
