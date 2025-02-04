@@ -294,9 +294,9 @@ public class PanelAgencia extends JFrame {
 		lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBounds(0, 0, 186, 129);
-		contentPane.add(panel_2);
+		JPanel panelLogo = new JPanel();
+		panelLogo.setBounds(0, 0, 186, 129);
+		contentPane.add(panelLogo);
 		
 		cargarDatosViaje(idAgencia);
 	}
