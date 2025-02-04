@@ -10,8 +10,8 @@ public class gestorEventos {
         PreparedStatement stmt = null;
         String crearEvento = SQLQueries.INSERT_EVENTO;
         
-        conexion = DBUtils.getConexion();  // Se inicializa la conexión
-        stmt = conexion.prepareStatement(crearEvento);
+        //conexion = DBUtils.getConexion();  // Se inicializa la conexión
+        //stmt = conexion.prepareStatement(crearEvento);
         
 		if(tipoEvento == "Vuelo") {
 			
