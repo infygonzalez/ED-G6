@@ -11,6 +11,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.JFormattedTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
@@ -298,16 +300,20 @@ public class PanelAgencia extends JFrame {
 		panelLogo.setBounds(0, 0, 186, 129);
 		contentPane.add(panelLogo);
 		
-		String logoUrl = Sesion.getLogo(); // O gestorAgencias.obtenerLogo(idAgencia);
 		if (logoUrl != null && !logoUrl.isEmpty()) {
 		    try {
 		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
-		        JLabel logoLabel = new JLabel(icon);
+		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+		        JLabel logoLabel = new JLabel(new ImageIcon(img));
+		        panelLogo.removeAll();  // Elimina imágenes previas
 		        panelLogo.add(logoLabel);
+		        panelLogo.revalidate();
+		        panelLogo.repaint();
 		    } catch (Exception e) {
 		        System.out.println("Error al cargar el logo: " + e.getMessage());
 		    }
 		}
+
 
 		
 		cargarDatosViaje(idAgencia);

@@ -14,6 +14,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import Controller.Controlador;
 import Model.Agencia;
+import Model.Sesion;
 import Model.gestorAgencias;
 
 import javax.swing.JSeparator;
@@ -40,9 +41,6 @@ public class CrearCuenta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					String logo = txtLogo.getText();
-					agencia.setLogo(logo);
-					gestorAgencias.crearAgencia(agencia);
 					CrearCuenta frame = new CrearCuenta();
 					frame.setVisible(true);
 				} catch (Exception e) {

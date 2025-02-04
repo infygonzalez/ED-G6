@@ -17,4 +17,9 @@ public class Sesion {
 		return "" + idAgencia;
 	}
 
+	public static String getLogo() {
+		String logoUrl = Sesion.getLogo(); 
+		return null;
+	}
+
 }
