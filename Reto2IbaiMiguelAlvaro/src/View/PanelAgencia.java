@@ -73,10 +73,6 @@ public class PanelAgencia extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblIcono = new JLabel("");
-		lblIcono.setBounds(0, 0, 185, 110);
-		contentPane.add(lblIcono);
-		
 		JLabel lblNewLabel_2 = new JLabel("Viajes");
 		lblNewLabel_2.setFont(new Font("Verdana", Font.BOLD, 13));
 		lblNewLabel_2.setBounds(228, 109, 70, 24);
@@ -262,10 +258,12 @@ public class PanelAgencia extends JFrame {
 		colorAgencia.setLayout(null);
 		
 		JPanel panel = new JPanel();
-		panel.setBounds(94, 11, 509, 32);
+		panel.setBounds(191, 11, 363, 32);
 		colorAgencia.add(panel);
+		panel.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
+		lblNewLabel.setBounds(76, 5, 211, 21);
 		panel.add(lblNewLabel);
 		lblNewLabel.setBackground(new Color(192, 192, 192));
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
@@ -295,6 +293,10 @@ public class PanelAgencia extends JFrame {
 		panel_1.add(lblIdAgencia);
 		lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
 		lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setBounds(0, 0, 186, 129);
+		contentPane.add(panel_2);
 		
 		cargarDatosViaje(idAgencia);
 	}
