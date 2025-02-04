@@ -22,6 +22,7 @@ import com.toedter.components.JSpinField;
 
 import Model.Sesion;
 import Model.gestorAgencias;
+import Model.gestorEventos;
 
 import com.toedter.components.JLocaleChooser;
 import javax.swing.JButton;
@@ -154,6 +155,13 @@ public class NuevoEvento extends JFrame {
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String tipoEvento = comboBoxTipoEvento.getSelectedItem().toString();
+				gestorEventos gestor = new gestorEventos();
+				gestor.añadirEvento(tipoEvento);
+				
+				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
+				frame3.setVisible(true);
+				dispose();
 			}
 		});
 		btnGuardar.setForeground(Color.WHITE);
