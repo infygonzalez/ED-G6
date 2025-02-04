@@ -51,7 +51,8 @@ public class PanelAgencia extends JFrame {
 					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
 					String nombreID = gestor.nombreAgencia(id);
-					PanelAgencia frame = new PanelAgencia(id, nombreID);
+					String logoUrl = Sesion.getLogo(); 
+					PanelAgencia frame = new PanelAgencia(id, nombreID, logoUrl);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +65,7 @@ public class PanelAgencia extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PanelAgencia(int idAgencia, String nombreID) {
+	public PanelAgencia(int idAgencia, String nombreID, String logoUrl) {
 		gestorAgencias gestor = new gestorAgencias();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,7 +202,7 @@ public class PanelAgencia extends JFrame {
 		btnCrearViaje.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCrearViaje.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoViaje frame4 = new NuevoViaje(idAgencia, nombreID);
+				NuevoViaje frame4 = new NuevoViaje(idAgencia, nombreID, logoUrl);
 				frame4.setVisible(true);
 				dispose();
 			}
@@ -221,7 +222,7 @@ public class PanelAgencia extends JFrame {
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoEvento frame5 = new NuevoEvento(idAgencia, nombreID);
+				NuevoEvento frame5 = new NuevoEvento(idAgencia, nombreID, logoUrl);
 				frame5.setVisible(true);
 				dispose();
 			}
@@ -273,7 +274,7 @@ public class PanelAgencia extends JFrame {
 		JButton btnEditarCuenta = new JButton("Editar");
 		btnEditarCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditarCuenta frame7 = new EditarCuenta(idAgencia, nombreID);
+				EditarCuenta frame7 = new EditarCuenta(idAgencia, nombreID, logoUrl);
 				frame7.setVisible(true);
 				dispose();
 			}

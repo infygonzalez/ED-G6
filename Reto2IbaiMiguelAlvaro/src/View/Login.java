@@ -80,7 +80,8 @@ public class Login extends JFrame {
 				gestorAgencias gestor = new gestorAgencias();
 				String nombre = txtNombre.getText();
 				String contraseña = txtContraseña.getText();
-				validarCredenciales(agencia, nombre, contraseña, gestor);
+				String logoUrl = null;
+				validarCredenciales(agencia, nombre, contraseña, gestor, logoUrl);
 				
 			}
 		});
@@ -102,7 +103,7 @@ public class Login extends JFrame {
 		btnCrearCuenta.setBounds(301, 253, 141, 31);
 		contentPane.add(btnCrearCuenta);
 	}
-	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor) {
+	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor, String logoUrl) {
 		agencia.setNombre(nombre);
 		agencia.setContra(contraseña);
 		if (gestor.comprobarAgencia(agencia)==true) {
@@ -115,7 +116,7 @@ public class Login extends JFrame {
 			}
 			int idAgencia = Sesion.getIdAgencia();
 			String nombreID = gestor.nombreAgencia(id);
-			PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
+			PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 			frame3.setVisible(true);
 			dispose();
 		} else {

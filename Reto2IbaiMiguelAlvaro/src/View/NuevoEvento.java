@@ -87,7 +87,8 @@ public class NuevoEvento extends JFrame {
 					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
 					String nombreID = gestor.nombreAgencia(id);
-					NuevoEvento frame = new NuevoEvento(id, nombreID);
+					String logoUrl = Sesion.getLogo(); 
+					NuevoEvento frame = new NuevoEvento(id, nombreID, logoUrl);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -99,7 +100,7 @@ public class NuevoEvento extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoEvento(int idAgencia, String nombreID) {
+	public NuevoEvento(int idAgencia, String nombreID, String logoUrl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 965, 616);
 		contentPane = new JPanel();
@@ -162,7 +163,7 @@ public class NuevoEvento extends JFrame {
 				gestorEventos gestor = new gestorEventos();
 				gestor.añadirEvento(tipoEvento);
 				
-				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
+				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 				frame3.setVisible(true);
 				dispose();
 			}
@@ -176,7 +177,7 @@ public class NuevoEvento extends JFrame {
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID);
+				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 				frame3.setVisible(true);
 				dispose();
 			}

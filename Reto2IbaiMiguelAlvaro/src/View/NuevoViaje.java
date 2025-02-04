@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.time.LocalDate;
@@ -16,6 +17,8 @@ import java.time.temporal.ChronoUnit;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 import com.toedter.calendar.JDateChooser;
 import java.awt.TextArea;
 import javax.swing.JButton;
@@ -46,7 +49,8 @@ public class NuevoViaje extends JFrame {
 					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
 					String nombreID = gestor.nombreAgencia(id);
-					NuevoViaje frame = new NuevoViaje(id, nombreID);
+					String logoUrl = Sesion.getLogo(); 
+					NuevoViaje frame = new NuevoViaje(id, nombreID, logoUrl);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +62,7 @@ public class NuevoViaje extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoViaje(int id, String nombreID) {
+	public NuevoViaje(int id, String nombreID, String logoUrl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 690);
 		contentPane = new JPanel();
@@ -166,7 +170,7 @@ public class NuevoViaje extends JFrame {
 			            return;
 			        }else {
 					mandarViaje( nombre,  tipoViaje,  fecInicio,  fecFin,  dias, descripcion,  servicios,  paises,  id);
-					PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+					PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
 				}
@@ -196,15 +200,10 @@ public class NuevoViaje extends JFrame {
 		btnBorrar.setBounds(342, 537, 95, 47);
 		contentPane.add(btnBorrar);
 		
-		JLabel lblIcono = new JLabel("");
-		lblIcono.setBounds(610, 0, 185, 141);
-
-		contentPane.add(lblIcono);
-		
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame4 = new PanelAgencia(id, nombreID);
+				PanelAgencia frame4 = new PanelAgencia(id, nombreID, logoUrl);
 				frame4.setVisible(true);
 				dispose();
 			}
@@ -214,6 +213,25 @@ public class NuevoViaje extends JFrame {
 		btnAtras.setBackground(new Color(73, 120, 171));
 		btnAtras.setBounds(237, 537, 95, 47);
 		contentPane.add(btnAtras);
+		
+		JPanel panelLogo = new JPanel();
+		panelLogo.setBounds(610, 0, 185, 141);
+		contentPane.add(panelLogo);
+		
+		if (logoUrl != null && !logoUrl.isEmpty()) {
+		    try {
+		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
+		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+		        JLabel logoLabel = new JLabel(new ImageIcon(img));
+		        panelLogo.removeAll();  // Elimina imágenes previas
+		        panelLogo.add(logoLabel);
+		        panelLogo.revalidate();
+		        panelLogo.repaint();
+		    } catch (Exception e) {
+		        System.out.println("Error al cargar el logo: " + e.getMessage());
+		    }
+		}
+
 
 		// Agregar PropertyChangeListener a los JDateChooser
 		PropertyChangeListener listener = new PropertyChangeListener() {

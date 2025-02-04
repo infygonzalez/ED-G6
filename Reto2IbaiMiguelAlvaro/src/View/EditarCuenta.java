@@ -52,7 +52,8 @@ public class EditarCuenta extends JFrame {
 					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
 					String nombreID = gestor.nombreAgencia(id);
-					EditarCuenta frame = new EditarCuenta(id, nombreID);
+					String logoUrl = Sesion.getLogo(); 
+					EditarCuenta frame = new EditarCuenta(id, nombreID, logoUrl);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -64,7 +65,7 @@ public class EditarCuenta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditarCuenta(int id, String nombreID) {
+	public EditarCuenta(int id, String nombreID, String logoUrl) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 474);
 		contentPane = new JPanel();
@@ -201,7 +202,7 @@ public class EditarCuenta extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-					PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+					PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
 				}
@@ -217,7 +218,7 @@ public class EditarCuenta extends JFrame {
 		btnAtras.setBackground(new Color(98, 143, 200));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+				PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
 				frame3.setVisible(true);
 				dispose();
 			}
