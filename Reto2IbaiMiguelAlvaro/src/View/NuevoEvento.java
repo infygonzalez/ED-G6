@@ -31,6 +31,10 @@ import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerModel;
+import javax.swing.JTextArea;
+import javax.swing.DropMode;
+import javax.swing.JScrollPane;
+import javax.swing.JScrollBar;
 
 public class NuevoEvento extends JFrame {
 
@@ -52,7 +56,6 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblDuración;
 	private JTextField txtCodigoVuelo;
 	private JTextField txtAerolinea;
-	private JTextField txtPrecioVuelo;
 	private JTextField txtDuracion;
 	private JTextField txtCodigoVuelta;
 	private JTextField txtAerolineaVuelta;
@@ -64,6 +67,11 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblFechaSalida;
 	private JTextField txtCiudad;
 	private JTextField txtPrecioAlojamiento;
+	private JTextField txtPrecioVuelo;
+	private JLabel lblPrecioActividad;
+	private JTextField txtPrecioActividad;
+	private JLabel lblFechaActividad;
+	private JDateChooser dateChooserIda_1;
 
 	/**
 	 * Launch the application.
@@ -122,7 +130,7 @@ public class NuevoEvento extends JFrame {
 					panelVuelo.setVisible(false);
 					panelAlojamiento.setVisible(true);
 					panelActividades.setVisible(false);
-				} else if(comboBoxTipoEvento.getSelectedItem().equals("Actividades")) {
+				} else if(comboBoxTipoEvento.getSelectedItem().equals("Actividad")) {
 					panelVuelo.setVisible(false);
 					panelAlojamiento.setVisible(false);
 					panelActividades.setVisible(true);
@@ -324,11 +332,6 @@ public class NuevoEvento extends JFrame {
 		txtAerolinea.setBounds(309, 201, 185, 20);
 		panelVuelo.add(txtAerolinea);
 		
-		txtPrecioVuelo = new JTextField();
-		txtPrecioVuelo.setColumns(10);
-		txtPrecioVuelo.setBounds(309, 89, 86, 20);
-		panelVuelo.add(txtPrecioVuelo);
-		
 		txtDuracion = new JTextField();
 		txtDuracion.setColumns(10);
 		txtDuracion.setBounds(309, 270, 86, 20);
@@ -346,10 +349,47 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.add(lblPrecio);
 		lblPrecio.setFont(new Font("Verdana", Font.PLAIN, 13));
 		
+		txtPrecioVuelo = new JTextField();
+		txtPrecioVuelo.setBounds(309, 307, 86, 20);
+		panelVuelo.add(txtPrecioVuelo);
+		txtPrecioVuelo.setColumns(10);
+		
 		panelActividades = new JPanel();
-		panelActividades.setBounds(0, 145, 939, 365);
+		panelActividades.setBounds(0, 131, 939, 379);
 		contentPane.add(panelActividades);
 		panelActividades.setLayout(null);
+		panelActividades.setVisible(false);
+		
+		JLabel lblDescripcion = new JLabel("Descripción:");
+		lblDescripcion.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblDescripcion.setBounds(94, 11, 137, 26);
+		panelActividades.add(lblDescripcion);
+		
+		JTextArea txtAreaDescripcion = new JTextArea();
+		txtAreaDescripcion.setWrapStyleWord(true);
+		txtAreaDescripcion.setLineWrap(true);
+		txtAreaDescripcion.setFont(new Font("Verdana", Font.PLAIN, 13));
+		txtAreaDescripcion.setBounds(309, 15, 224, 96);
+		panelActividades.add(txtAreaDescripcion);
+		
+		lblPrecioActividad = new JLabel("Precio:");
+		lblPrecioActividad.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblPrecioActividad.setBounds(94, 122, 153, 26);
+		panelActividades.add(lblPrecioActividad);
+		
+		txtPrecioActividad = new JTextField();
+		txtPrecioActividad.setColumns(10);
+		txtPrecioActividad.setBounds(309, 126, 86, 22);
+		panelActividades.add(txtPrecioActividad);
+		
+		lblFechaActividad = new JLabel("Fecha: ");
+		lblFechaActividad.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblFechaActividad.setBounds(94, 159, 153, 26);
+		panelActividades.add(lblFechaActividad);
+		
+		dateChooserIda_1 = new JDateChooser();
+		dateChooserIda_1.setBounds(309, 164, 185, 20);
+		panelActividades.add(dateChooserIda_1);
 		
 		panelAlojamiento = new JPanel();
 		panelAlojamiento.setBounds(0, 133, 949, 352);
@@ -391,6 +431,7 @@ public class NuevoEvento extends JFrame {
 		panelAlojamiento.add(dateChooserFechaSalida);
 		
 		JComboBox comboBoxTipoAlojamiento = new JComboBox();
+		comboBoxTipoAlojamiento.setModel(new DefaultComboBoxModel(new String[] {"Habitación doble", "Habitación  Individual", "Habitación  Doble (individual)", "Habitación  Triple"}));
 		comboBoxTipoAlojamiento.setBounds(309, 13, 185, 22);
 		panelAlojamiento.add(comboBoxTipoAlojamiento);
 		
