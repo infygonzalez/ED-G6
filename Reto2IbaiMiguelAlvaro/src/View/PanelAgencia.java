@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class PanelAgencia extends JFrame {
 
@@ -129,15 +130,9 @@ public class PanelAgencia extends JFrame {
 				dispose();
 			}
 		});
-		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 11));
+		btnNewButton.setFont(new Font("Verdana", Font.BOLD, 13));
 		btnNewButton.setBounds(620, 15, 128, 23);
 		contentPane.add(btnNewButton);
-		
-		
-		
-		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
-		lblIdAgencia.setBounds(664, 478, 84, 22);
-		contentPane.add(lblIdAgencia);
 		
 		JButton btnBorrar = new JButton("Borrar viaje");
 		btnBorrar.addActionListener(new ActionListener() {
@@ -264,10 +259,42 @@ public class PanelAgencia extends JFrame {
 		colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
 		colorAgencia.setBounds(0, 0, 758, 110);
 		contentPane.add(colorAgencia);
+		colorAgencia.setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(94, 11, 509, 32);
+		colorAgencia.add(panel);
 		
 		JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
-		colorAgencia.add(lblNewLabel);
+		panel.add(lblNewLabel);
+		lblNewLabel.setBackground(new Color(192, 192, 192));
 		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
+		
+		JButton btnEditarCuenta = new JButton("Editar");
+		btnEditarCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditarCuenta frame7 = new EditarCuenta(idAgencia, nombreID);
+				frame7.setVisible(true);
+				dispose();
+			}
+		});
+		btnEditarCuenta.setFont(new Font("Verdana", Font.BOLD, 13));
+		btnEditarCuenta.setBackground(new Color(61, 194, 95));
+		btnEditarCuenta.setBounds(620, 43, 128, 23);
+		colorAgencia.add(btnEditarCuenta);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBounds(620, 76, 128, 23);
+		colorAgencia.add(panel_1);
+		panel_1.setLayout(null);
+		
+		
+		
+		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
+		lblIdAgencia.setBounds(0, 0, 118, 22);
+		panel_1.add(lblIdAgencia);
+		lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		cargarDatosViaje(idAgencia);
 	}

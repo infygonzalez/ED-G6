@@ -27,8 +27,10 @@ import Model.gestorEventos;
 import com.toedter.components.JLocaleChooser;
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.net.URI;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerModel;
@@ -365,6 +367,17 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.add(txtDuracion);
 		
 		JButton btnBuscarViaje = new JButton("Buscar Viaje");
+		btnBuscarViaje.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+	                try {
+	                    Desktop.getDesktop().browse(new URI("https://www.skyscanner.es/"));
+	                } catch (Exception ex) {
+	                    ex.printStackTrace();
+	                }
+	            }
+			
+		});
 		btnBuscarViaje.setForeground(Color.WHITE);
 		btnBuscarViaje.setFont(new Font("Verdana", Font.PLAIN, 13));
 		btnBuscarViaje.setBackground(new Color(73, 120, 171));
@@ -478,20 +491,25 @@ public class NuevoEvento extends JFrame {
 		panelAlojamiento.add(txtPrecioAlojamiento);
 		
 		JButton btnBuscarAlojamiento = new JButton("Buscar Alojamiento");
+		btnBuscarAlojamiento.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				 try {
+	                    Desktop.getDesktop().browse(new URI("https://www.booking.com/index.es.html?aid=2311236;label=es-es-booking-desktop-onknyt5TBrS8m9RnGd*6fgS652829001115:pl:ta:p1:p2:ac:ap:neg:fi:tikwd-65526620:lp1005440:li:dec:dm;ws=&gad_source=1&gclid=Cj0KCQiAkoe9BhDYARIsAH85cDNw5yX3UChME50wqtrbTiZwkA2ghwW7p-aKx5sLQjYZpZmVfmpBMwwaAuXVEALw_wcB"));
+	                } catch (Exception ex) {
+	                    ex.printStackTrace();
+	                }
+			}
+		});
 		btnBuscarAlojamiento.setForeground(Color.WHITE);
 		btnBuscarAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		btnBuscarAlojamiento.setBackground(new Color(73, 120, 171));
 		btnBuscarAlojamiento.setBounds(94, 159, 160, 28);
 		panelAlojamiento.add(btnBuscarAlojamiento);
-		
-		TextArea textArea = new TextArea();
-		textArea.setRows(2);
-		textArea.setBounds(0, 0, 125, 89);
-		contentPane.add(textArea);
 		panelActividades.setVisible(false);
-		
-		
-		
-		
+
 	}
+	
+	
 }
+	
+

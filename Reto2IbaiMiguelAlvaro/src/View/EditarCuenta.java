@@ -14,6 +14,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.event.DocumentEvent;
 import Controller.Controlador;
 import Model.Agencia;
+import Model.DBUtils;
+import Model.Sesion;
 import Model.gestorAgencias;
 
 import javax.swing.JSeparator;
@@ -21,6 +23,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
@@ -32,6 +38,9 @@ public class EditarCuenta extends JFrame {
 	private JTextField txtContraseña;
 	private JTextField txtLogo;
 	private JTextField txtColor;
+	private JComboBox comboBox;
+	private JComboBox comboBox_1;
+	private JPanel panel;
 
 	/**
 	 * Launch the application.
@@ -40,7 +49,10 @@ public class EditarCuenta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EditarCuenta frame = new EditarCuenta();
+					gestorAgencias gestor = new gestorAgencias();
+					int id = Sesion.getIdAgencia();
+					String nombreID = gestor.nombreAgencia(id);
+					EditarCuenta frame = new EditarCuenta(id, nombreID);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +64,7 @@ public class EditarCuenta extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public EditarCuenta() {
+	public EditarCuenta(int id, String nombreID) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 474);
 		contentPane = new JPanel();
@@ -106,7 +118,7 @@ public class EditarCuenta extends JFrame {
 		lblColorDeLa.setBounds(79, 199, 232, 26);
 		contentPane.add(lblColorDeLa);
 		
-		JPanel panel = new JPanel();
+		panel = new JPanel();
 		panel.setBounds(493, 201, 50, 24);
 		contentPane.add(panel);
 		
@@ -158,12 +170,12 @@ public class EditarCuenta extends JFrame {
 		lblNumEmpleados.setBounds(79, 236, 232, 26);
 		contentPane.add(lblNumEmpleados);
 		
-		JComboBox comboBox = new JComboBox();
+		comboBox = new JComboBox();
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
 		comboBox.setBounds(303, 238, 240, 26);
 		contentPane.add(comboBox);
 		
-		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1 = new JComboBox();
 		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "Mayorista", "Minorista", "Mayorista-Minorista"}));
 		comboBox_1.setBounds(303, 279, 240, 26);
 		contentPane.add(comboBox_1);
@@ -173,8 +185,8 @@ public class EditarCuenta extends JFrame {
 		lblTipoDeAgencia.setBounds(79, 277, 232, 26);
 		contentPane.add(lblTipoDeAgencia);
 		
-		JButton btnCrear = new JButton("Guardar");
-		btnCrear.addActionListener(new ActionListener() {
+		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String usuario = textField.getText();
 				String contrase = txtContraseña.getText();
@@ -189,30 +201,30 @@ public class EditarCuenta extends JFrame {
 					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-					Login frame1 = new Login();
-					frame1.setVisible(true);
+					PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+					frame3.setVisible(true);
 					dispose();
 				}
 			}
 		});
-		btnCrear.setForeground(new Color(255, 255, 255));
-		btnCrear.setBackground(new Color(98, 143, 200));
-		btnCrear.setBounds(422, 344, 121, 31);
-		contentPane.add(btnCrear);
+		btnGuardar.setForeground(new Color(255, 255, 255));
+		btnGuardar.setBackground(new Color(98, 143, 200));
+		btnGuardar.setBounds(422, 344, 121, 31);
+		contentPane.add(btnGuardar);
 		
 		JButton btnAtras = new JButton("Atrás");
 		btnAtras.setForeground(new Color(255, 255, 255));
 		btnAtras.setBackground(new Color(98, 143, 200));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login frame1 = new Login();
-				frame1.setVisible(true);
+				PanelAgencia frame3 = new PanelAgencia(id, nombreID);
+				frame3.setVisible(true);
 				dispose();
 			}
 		});
 		btnAtras.setBounds(307, 344, 88, 31);
 		contentPane.add(btnAtras);
-	
+		cargarDatosAgencia(id);
 	
 		
 	}
@@ -225,5 +237,40 @@ public class EditarCuenta extends JFrame {
 		agencia.setNumeroEmpleados(empleados);
 		agencia.setTipoAgencia(tipoAgencia);
 		gestorAgencias.crearAgencia(agencia);
+	}
+	
+	public void cargarDatosAgencia(int id) {
+	   
+		Connection conexion = null;
+        PreparedStatement stmt = null;		
+
+	    try {
+	    	
+	    	Class.forName(DBUtils.DRIVER);
+			conexion = DBUtils.getConexion();
+			
+			 String consulta = "SELECT nombre, contraseña, logo, color_marca, numero_empleados, tipo_agencia FROM agencias WHERE id_agencia = ?";
+			 
+		        PreparedStatement ps = conexion.prepareStatement(consulta);
+		        ps.setInt(1, id);
+		        ResultSet rs = ps.executeQuery();
+	    	
+	        if (rs.next()) {
+	            textField.setText(rs.getString("nombre"));
+	            txtContraseña.setText(rs.getString("contraseña"));
+	            txtLogo.setText(rs.getString("logo"));
+	            txtColor.setText(rs.getString("color_marca"));
+	            comboBox.setSelectedItem(rs.getString("numero_empleados"));
+	            comboBox_1.setSelectedItem(rs.getString("tipo_agencia"));
+
+	            // También actualizamos el color del panel
+	            panel.setBackground(Color.decode(rs.getString("color_marca")));
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se encontró la agencia.", "Error", JOptionPane.ERROR_MESSAGE);
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al cargar los datos.", "Error", JOptionPane.ERROR_MESSAGE);
+	    }
 	}
 }
