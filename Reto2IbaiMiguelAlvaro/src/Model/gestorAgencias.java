@@ -55,7 +55,7 @@ public class gestorAgencias {
 	        Class.forName(DBUtils.DRIVER);
 	        conexion = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 	        
-	        String sql = "INSERT INTO agencias (nombre, contraseña, logo, color_marca, numero_empleados, tipo_agencia) VALUES (?, ?, ?, ?, ?, ?)";
+	        String sql = "INSERT INTO agencias (nombre, contrasena, logo, color_marca, numero_empleados, tipo_agencia) VALUES (?, ?, ?, ?, ?, ?)";
 	        preparedStatement = conexion.prepareStatement(sql);
 	        
 	        // Establecer los parámetros
@@ -91,7 +91,7 @@ public class gestorAgencias {
 	}
 	public int autenticarAgencia(String usuario, String contraseña) {
 	    int idAgencia = -1; // Valor por defecto si la autenticación falla
-	    String sql = "SELECT id_agencia FROM agencias WHERE nombre = ? AND contraseña = ?";
+	    String sql = "SELECT id_agencia FROM agencias WHERE nombre = ? AND contrasena = ?";
 	    
 	    try (Connection conn = DriverManager.getConnection(DBUtils.URL, DBUtils.USER, DBUtils.PASSWORD);
 	         PreparedStatement stmt = conn.prepareStatement(sql)) {

@@ -250,7 +250,7 @@ public class EditarCuenta extends JFrame {
 	    	Class.forName(DBUtils.DRIVER);
 			conexion = DBUtils.getConexion();
 			
-			 String consulta = "SELECT nombre, contraseña, logo, color_marca, numero_empleados, tipo_agencia FROM agencias WHERE id_agencia = ?";
+			 String consulta = "SELECT nombre, contrasena, logo, color_marca, numero_empleados, tipo_agencia FROM agencias WHERE id_agencia = ?";
 			 
 		        PreparedStatement ps = conexion.prepareStatement(consulta);
 		        ps.setInt(1, id);
@@ -258,7 +258,7 @@ public class EditarCuenta extends JFrame {
 	    	
 	        if (rs.next()) {
 	            textField.setText(rs.getString("nombre"));
-	            txtContraseña.setText(rs.getString("contraseña"));
+	            txtContraseña.setText(rs.getString("contrasena"));
 	            txtLogo.setText(rs.getString("logo"));
 	            txtColor.setText(rs.getString("color_marca"));
 	            comboBox.setSelectedItem(rs.getString("numero_empleados"));

@@ -7,7 +7,7 @@ package Model;
 public class SQLQueries {
 	//SELECTS AGENCIA
 	public static final String SELECT_ID_AGENCIAS = "select id_agencia from agencias where nombre = ?";
-	public static final String SELECT_CONTRA_AGENCIAS = "select contraseña from agencias where nombre = ? AND contraseña = ?";
+	public static final String SELECT_CONTRA_AGENCIAS = "select contrasena from agencias where nombre = ? AND contrasena = ?";
 	public static final String SELECT_COLOR_AGENCIA = "select color_marca from agencias where id_agencia = ?";
 	public static final String SELECT_NOMBRE_AGENCIA = "select nombre from agencias where id_agencia = ?";
 	public static final String SELECT_ID_VIAJE = "select id_viaje from viajes where id_agencia = ?";
