@@ -298,6 +298,18 @@ public class PanelAgencia extends JFrame {
 		panelLogo.setBounds(0, 0, 186, 129);
 		contentPane.add(panelLogo);
 		
+		String logoUrl = Sesion.getLogo(); // O gestorAgencias.obtenerLogo(idAgencia);
+		if (logoUrl != null && !logoUrl.isEmpty()) {
+		    try {
+		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
+		        JLabel logoLabel = new JLabel(icon);
+		        panelLogo.add(logoLabel);
+		    } catch (Exception e) {
+		        System.out.println("Error al cargar el logo: " + e.getMessage());
+		    }
+		}
+
+		
 		cargarDatosViaje(idAgencia);
 	}
 

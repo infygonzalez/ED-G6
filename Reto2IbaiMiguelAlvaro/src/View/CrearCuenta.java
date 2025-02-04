@@ -40,6 +40,9 @@ public class CrearCuenta extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					String logo = txtLogo.getText();
+					agencia.setLogo(logo);
+					gestorAgencias.crearAgencia(agencia);
 					CrearCuenta frame = new CrearCuenta();
 					frame.setVisible(true);
 				} catch (Exception e) {
