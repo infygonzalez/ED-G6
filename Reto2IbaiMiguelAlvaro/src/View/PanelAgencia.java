@@ -94,7 +94,13 @@ public class PanelAgencia extends JFrame {
 
         // Crear la tabla y asignarle el modelo
         tablaViajes = new JTable(modelViajes);
-        tablaViajes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tablaViajes.getSelectionModel().addListSelectionListener(event -> {
+            if (!event.getValueIsAdjusting() && tablaViajes.getSelectedRow() != -1) {
+                int filaSeleccionada = tablaViajes.getSelectedRow();
+                int idViaje = obtenerIdViajeDesdeFila(filaSeleccionada);
+                cargarEventosDeViaje(idViaje);
+            }
+        });
         
         JScrollPane scrollPane = new JScrollPane(tablaViajes);
         scrollPane.setBounds(47, 152, 464, 129);
@@ -321,46 +327,95 @@ public class PanelAgencia extends JFrame {
 	}
 
 	private void cargarDatosViaje(int id) {
-        Connection conexion = null;
-        PreparedStatement stmt = null;
-        ResultSet rs = null;
-        
-        try {
-        	Class.forName(DBUtils.DRIVER);
-			conexion = DBUtils.getConexion();
-			String sql = "SELECT nombre, tipo_viaje, duracion, fecha_Inicio, fecha_Fin, pais_destino FROM viajes WHERE id_agencia = ?";
-			stmt = conexion.prepareStatement(sql);
-			stmt.setInt(1, id);
-			rs = stmt.executeQuery();
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
 
-            // Limpiar modelo antes de agregar nuevos datos
-            modelViajes.setRowCount(0);
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DBUtils.getConexion();
+	        String sql = "SELECT id_viaje, nombre, tipo_viaje, duracion, fecha_Inicio, fecha_Fin, pais_destino FROM viajes WHERE id_agencia = ?";
+	        stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, id);
+	        rs = stmt.executeQuery();
 
-            // Agregar filas con datos de la base de datos
-            while (rs.next()) {
-                modelViajes.addRow(new Object[]{
-                    rs.getString("nombre"),
-                    rs.getString("tipo_viaje"),
-                    rs.getInt("duracion"),
-                    rs.getString("fecha_Inicio"),
-                    rs.getString("fecha_Fin"),
-                    rs.getString("pais_destino")
-                });
-            }
-            
-        } catch (SQLException e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conexion != null) conexion.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+	        // Limpiar modelo antes de agregar nuevos datos
+	        modelViajes.setRowCount(0);
+
+	        // Agregar filas con datos de la base de datos
+	        while (rs.next()) {
+	            modelViajes.addRow(new Object[]{
+	                rs.getInt("id_viaje"),  // Agregamos id_viaje como columna oculta
+	                rs.getString("nombre"),
+	                rs.getString("tipo_viaje"),
+	                rs.getInt("duracion"),
+	                rs.getString("fecha_Inicio"),
+	                rs.getString("fecha_Fin"),
+	                rs.getString("pais_destino")
+	            });
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this, "Error al cargar datos: " + e.getMessage());
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+
+	private void cargarEventosDeViaje(int idViaje) {
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    DefaultTableModel modelEventos = (DefaultTableModel) tablaEventos.getModel();
+	    
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DBUtils.getConexion();
+	        String sql = "SELECT nombre, tipo_evento, fecha, precio FROM eventos WHERE id_viaje = ?";
+	        stmt = conexion.prepareStatement(sql);
+	        stmt.setInt(1, idViaje);
+	        rs = stmt.executeQuery();
+
+	        // Limpiar la tabla antes de agregar nuevos datos
+	        modelEventos.setRowCount(0);
+
+	        // Agregar filas con datos de la base de datos
+	        while (rs.next()) {
+	            modelEventos.addRow(new Object[]{
+	                rs.getString("nombre"),
+	                rs.getString("tipo_evento"),
+	                rs.getString("fecha"),
+	                rs.getDouble("precio")
+	            });
+	        }
+	        
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(this, "Error al cargar los eventos: " + e.getMessage());
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	}
+	
+	private int obtenerIdViajeDesdeFila(int fila) {
+	    return (int) modelViajes.getValueAt(fila, 0); // Columna 0 tiene el id_viaje
+	}
+
 }
