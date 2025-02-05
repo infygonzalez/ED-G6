@@ -42,25 +42,6 @@ public class EditarCuenta extends JFrame {
 	private JComboBox comboBox_1;
 	private JPanel panel;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gestorAgencias gestor = new gestorAgencias();
-					int id = Sesion.getIdAgencia();
-					String nombreID = gestor.nombreAgencia(id);
-					String logoUrl = Sesion.getLogo(); 
-					EditarCuenta frame = new EditarCuenta(id, nombreID, logoUrl);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -210,8 +191,8 @@ public class EditarCuenta extends JFrame {
 		btnAtras.setBackground(new Color(98, 143, 200));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
-				frame3.setVisible(true);
+				Login frame1 = new Login();
+				frame1.setVisible(true);
 				dispose();
 			}
 		});
