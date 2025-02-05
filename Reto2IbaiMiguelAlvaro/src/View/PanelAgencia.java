@@ -221,64 +221,62 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnCrearEvento);
 		
 		JButton btnBorrarEvento = new JButton("Borrar evento");
-		btnBorrarEvento.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				// Obtener la fila seleccionada en la tabla de eventos
-		        int filaSeleccionada = tablaEventos.getSelectedRow();
-		        
-		        if (filaSeleccionada == -1) {
-		            JOptionPane.showMessageDialog(null, "Por favor, selecciona un evento para borrar.");
-		            return;
-		        }
+		btnBorrar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Obtener la fila seleccionada
+                int filaSeleccionada = tablaViajes.getSelectedRow();
+                
+                if (filaSeleccionada == -1) {
+                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un viaje para borrar.");
+                    return;
+                }
 
-		        // Obtener el nombre del evento desde la tabla (columna 0)
-		        String nombreEvento = (String) tablaEventos.getValueAt(filaSeleccionada, 0);
-		        
-		        // Confirmación antes de eliminar
-		        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el evento: " + nombreEvento + "?", 
-		                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
-		        
-		        if (confirmacion == JOptionPane.YES_OPTION) {
-		            Connection conexion = null;
-		            PreparedStatement stmt = null;
+                // Obtener el ID del viaje desde la tabla (columna 0)
+                int idViaje = (int) modelViajes.getValueAt(filaSeleccionada, 0);
 
-		            try {
-		                // Conectar con la base de datos
-		                Class.forName(DBUtils.DRIVER);
-		                conexion = DBUtils.getConexion();
+                // Confirmación antes de eliminar
+                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el viaje seleccionado?", 
+                        "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
-		                // Sentencia SQL para eliminar el evento
-		                String sql = "DELETE FROM eventos WHERE nombre = ? AND id_viaje = ?";
-		                stmt = conexion.prepareStatement(sql);
-		                stmt.setString(1, nombreEvento);
-		                stmt.setInt(2, obtenerIdViajeDesdeFila(tablaViajes.getSelectedRow()));
+                if (confirmacion == JOptionPane.YES_OPTION) {
+                    Connection conexion = null;
+                    PreparedStatement stmt = null;
 
-		                int filasAfectadas = stmt.executeUpdate();
+                    try {
+                        // Conectar con la base de datos
+                        Class.forName(DBUtils.DRIVER);
+                        conexion = DBUtils.getConexion();
 
-		                if (filasAfectadas > 0) {
-		                    // Eliminar del modelo de la tabla
-		                    DefaultTableModel modelEventos = (DefaultTableModel) tablaEventos.getModel();
-		                    modelEventos.removeRow(filaSeleccionada);
-		                    JOptionPane.showMessageDialog(null, "Evento eliminado correctamente.");
-		                } else {
-		                    JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el evento.");
-		                }
+                        // Sentencia SQL para eliminar el viaje
+                        String sql = "DELETE FROM viajes WHERE id_viaje = ?";
+                        stmt = conexion.prepareStatement(sql);
+                        stmt.setInt(1, idViaje);
 
-		            } catch (SQLException ex) {
-		                ex.printStackTrace();
-		                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
-		            } catch (ClassNotFoundException ex) {
-		                ex.printStackTrace();
-		            } finally {
-		                try {
-		                    if (stmt != null) stmt.close();
-		                    if (conexion != null) conexion.close();
-		                } catch (SQLException ex) {
-		                    ex.printStackTrace();
-		                }
-		            }
-		        }
-		    }
+                        int filasAfectadas = stmt.executeUpdate();
+
+                        if (filasAfectadas > 0) {
+                            // Eliminar del modelo de la tabla
+                            modelViajes.removeRow(filaSeleccionada);
+                            JOptionPane.showMessageDialog(null, "Viaje eliminado correctamente.");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el viaje.");
+                        }
+
+                    } catch (SQLException ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    } finally {
+                        try {
+                            if (stmt != null) stmt.close();
+                            if (conexion != null) conexion.close();
+                        } catch (SQLException ex) {
+                            ex.printStackTrace();
+                        }
+                    }
+                }
+            }
 		});
 		btnBorrarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrarEvento.setForeground(Color.WHITE);
