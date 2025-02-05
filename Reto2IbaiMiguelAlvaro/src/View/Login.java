@@ -80,7 +80,7 @@ public class Login extends JFrame {
 				gestorAgencias gestor = new gestorAgencias();
 				String nombre = txtNombre.getText();
 				String contraseña = txtContraseña.getText();
-				String logoUrl = null;
+				String logoUrl = Sesion.getLogo();
 				validarCredenciales(agencia, nombre, contraseña, gestor, logoUrl);
 				
 			}
@@ -106,7 +106,8 @@ public class Login extends JFrame {
 	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor, String logoUrl) {
 		agencia.setNombre(nombre);
 		agencia.setContra(contraseña);
-		if (gestor.comprobarAgencia(agencia)==true) {
+		Agencia agenciaLogin = gestor.comprobarAgencia(agencia);
+		if (agenciaLogin!= null) {
 			int id = gestor.autenticarAgencia(nombre, contraseña);
 			if (id != -1) {
 			    Sesion.setIdAgencia(id); // Guarda el ID de la agencia en la sesión
@@ -114,8 +115,9 @@ public class Login extends JFrame {
 			} else {
 			    System.out.println("Credenciales incorrectas");
 			}
-			int idAgencia = Sesion.getIdAgencia();
-			String nombreID = gestor.nombreAgencia(id);
+			logoUrl = agenciaLogin.getLogo();
+			int idAgencia = agenciaLogin.getID();
+			String nombreID = agenciaLogin.getNombre();
 			PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 			frame3.setVisible(true);
 			dispose();

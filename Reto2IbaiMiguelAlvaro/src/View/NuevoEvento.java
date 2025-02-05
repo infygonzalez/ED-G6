@@ -8,6 +8,7 @@ import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Panel;
 
 import javax.swing.JTextField;
@@ -30,12 +31,15 @@ import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
 import java.net.URI;
+import java.net.URL;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerModel;
 import javax.swing.JTextArea;
 import javax.swing.DropMode;
+import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import java.awt.TextArea;
@@ -76,26 +80,9 @@ public class NuevoEvento extends JFrame {
 	private JTextField txtPrecioActividad;
 	private JLabel lblFechaActividad;
 	private JDateChooser dateChooserIda_1;
+	private JPanel panelLogo;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gestorAgencias gestor = new gestorAgencias();
-					int id = Sesion.getIdAgencia();
-					String nombreID = gestor.nombreAgencia(id);
-					String logoUrl = Sesion.getLogo(); 
-					NuevoEvento frame = new NuevoEvento(id, nombreID, logoUrl);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -108,6 +95,28 @@ public class NuevoEvento extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		JPanel panelLogo = new JPanel();
+		panelLogo.setBounds(720, 23, 199, 187);
+		contentPane.add(panelLogo);
+		panelLogo.setLayout(null);
+		
+		URL imgUrl = null;
+        try {
+            imgUrl = new URL(logoUrl);
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        ImageIcon image = new ImageIcon(imgUrl);
+        panelLogo.setLayout(null);
+        JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
+        lblLogo.setBounds(0, 0, 199, 187);
+        panelLogo.add(lblLogo);
+        
+        
+		
 		
 		JLabel lblEvento = new JLabel("Nombre de evento:");
 		lblEvento.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -193,6 +202,20 @@ public class NuevoEvento extends JFrame {
 		contentPane.add(panelVuelo);
 		panelVuelo.setLayout(null);
 		panelVuelo.setVisible(false);
+		
+		if (logoUrl != null && !logoUrl.isEmpty()) {
+		    try {
+		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
+		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
+		        JLabel logoLabel = new JLabel(new ImageIcon(img));
+		        panelLogo.removeAll();  // Elimina imágenes previas
+		        panelLogo.add(logoLabel);
+		        panelLogo.revalidate();
+		        panelLogo.repaint();
+		    } catch (Exception e) {
+		        System.out.println("Error al cargar el logo: " + e.getMessage());
+		    }
+		}
 		
 		panelVueloVuelta = new JPanel();
 		panelVueloVuelta.setBounds(532, 126, 397, 202);
@@ -509,8 +532,6 @@ public class NuevoEvento extends JFrame {
 		panelActividades.setVisible(false);
 
 	}
-	
-	
 }
 	
 

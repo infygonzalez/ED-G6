@@ -44,27 +44,6 @@ public class PanelAgencia extends JFrame {
 	//private nuevoViaje crear;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gestorAgencias gestor = new gestorAgencias();
-					int id = Sesion.getIdAgencia();
-					String nombreID = gestor.nombreAgencia(id);
-					String logoUrl = Sesion.getLogo();
-					PanelAgencia frame = new PanelAgencia(id, nombreID, logoUrl);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-			
-		});
-	}
-
-	/**
 	 * Create the frame.
 	 */
 	public PanelAgencia(int idAgencia, String nombreID, String logoUrl) {
@@ -321,56 +300,69 @@ public class PanelAgencia extends JFrame {
 		btnGeneraOferta.setBounds(47, 473, 222, 31);
 		contentPane.add(btnGeneraOferta);
 		
-		JPanel colorAgencia = new JPanel();
-		colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
-		colorAgencia.setBounds(0, 0, 758, 110);
-		contentPane.add(colorAgencia);
-		colorAgencia.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(191, 11, 363, 32);
-		colorAgencia.add(panel);
-		panel.setLayout(null);
-		
-		JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
-		lblNewLabel.setBounds(76, 5, 211, 21);
-		panel.add(lblNewLabel);
-		lblNewLabel.setBackground(new Color(192, 192, 192));
-		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
-		
-		JButton btnEditarCuenta = new JButton("Editar");
-		btnEditarCuenta.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				EditarCuenta frame7 = new EditarCuenta(idAgencia, nombreID, logoUrl);
-				frame7.setVisible(true);
-				dispose();
-			}
-		});
-		btnEditarCuenta.setFont(new Font("Verdana", Font.BOLD, 13));
-		btnEditarCuenta.setBackground(new Color(61, 194, 95));
-		btnEditarCuenta.setBounds(620, 43, 128, 23);
-		colorAgencia.add(btnEditarCuenta);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBounds(620, 76, 128, 23);
-		colorAgencia.add(panel_1);
-		panel_1.setLayout(null);
-		
-		
-		
-		JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
-		lblIdAgencia.setBounds(0, 0, 118, 22);
-		panel_1.add(lblIdAgencia);
-		lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
-		lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
-		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(10, 10, 100, 100);
+		panelLogo.setBounds(10, 10, 169, 129);
 		contentPane.add(panelLogo);
 		
-		String logoPath = Sesion.getLogo(); // Obtiene la ruta desde la sesión
-
-		if (logoPath != null && !logoPath.isEmpty()) {
+		URL imgUrl = null;
+        try {
+            imgUrl = new URL(logoUrl);
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        ImageIcon image = new ImageIcon(imgUrl);
+        panelLogo.setLayout(null);
+        JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
+        lblLogo.setBounds(0, 0, 169, 129);
+        panelLogo.add(lblLogo);
+        
+        
+        
+        JPanel colorAgencia = new JPanel();
+        colorAgencia.setBackground(gestor.seleccionarColor(idAgencia));
+        colorAgencia.setBounds(0, 0, 758, 110);
+        contentPane.add(colorAgencia);
+        colorAgencia.setLayout(null);
+        
+        JPanel panel = new JPanel();
+        panel.setBounds(191, 11, 363, 32);
+        colorAgencia.add(panel);
+        panel.setLayout(null);
+        
+        JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
+        lblNewLabel.setBounds(76, 5, 211, 21);
+        panel.add(lblNewLabel);
+        lblNewLabel.setBackground(new Color(192, 192, 192));
+        lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
+        
+        JButton btnEditarCuenta = new JButton("Editar");
+        btnEditarCuenta.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		EditarCuenta frame7 = new EditarCuenta(idAgencia, nombreID, logoUrl);
+        		frame7.setVisible(true);
+        		dispose();
+        	}
+        });
+        btnEditarCuenta.setFont(new Font("Verdana", Font.BOLD, 13));
+        btnEditarCuenta.setBackground(new Color(61, 194, 95));
+        btnEditarCuenta.setBounds(620, 43, 128, 23);
+        colorAgencia.add(btnEditarCuenta);
+        
+        JPanel panel_1 = new JPanel();
+        panel_1.setBounds(620, 76, 128, 23);
+        colorAgencia.add(panel_1);
+        panel_1.setLayout(null);
+        
+        
+        
+        JLabel lblIdAgencia = new JLabel("ID Agencia: "+Sesion.getIdAgencia());
+        lblIdAgencia.setBounds(0, 0, 118, 22);
+        panel_1.add(lblIdAgencia);
+        lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
+        lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
+	/*	if (logoPath != null && !logoPath.isEmpty()) {
 		    try {
 		        ImageIcon icon;
 		        if (logoPath.startsWith("http") || logoPath.startsWith("https")) {
@@ -395,8 +387,8 @@ public class PanelAgencia extends JFrame {
 		    }
 		} else {
 		    System.out.println("No se encontró un logo en la sesión.");
-		}
-
+		}*/
+        cargarDatosViaje(idAgencia);
 	}
 
 	private void cargarDatosViaje(int id) {

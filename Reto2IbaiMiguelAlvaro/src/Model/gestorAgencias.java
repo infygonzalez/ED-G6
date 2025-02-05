@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 public class gestorAgencias {
 	
-	public boolean comprobarAgencia(Agencia agencia) {
+	public Agencia comprobarAgencia(Agencia agencia) {
 		Connection conexion = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -26,14 +26,27 @@ public class gestorAgencias {
 			stmt.setString(1, agencia.getNombre());
 			stmt.setString(2, agencia.getContra());
 			rs = stmt.executeQuery();
-			return rs.next(); // devuelve true si coincide la contraseña
+			if(rs.next()) {
+				agencia = new Agencia();
+				agencia.setID(rs.getInt("id_agencia"));
+				agencia.setColor(rs.getString("color_marca"));
+				agencia.setNombre(rs.getString("nombre"));
+				agencia.setNumeroEmpleados(rs.getString("numero_empleados"));
+				agencia.setLogo(rs.getString("logo"));
+				agencia.setContra(rs.getString("contrasena"));
+				agencia.setTipoAgencia(rs.getString("tipo_agencia"));
+
+
+				return agencia;
+			}
+			return null; 
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return false;
+			return null;
 		}finally {
             // Cerrar recursos
             try {

@@ -11,6 +11,8 @@ import java.awt.Font;
 import java.awt.Image;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -39,25 +41,7 @@ public class NuevoViaje extends JFrame {
 	private JButton btnBorrar;
 	private JButton btnGuardar;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					gestorAgencias gestor = new gestorAgencias();
-					int id = Sesion.getIdAgencia();
-					String nombreID = gestor.nombreAgencia(id);
-					String logoUrl = Sesion.getLogo(); 
-					NuevoViaje frame = new NuevoViaje(id, nombreID, logoUrl);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
 
 	/**
 	 * Create the frame.
@@ -215,23 +199,26 @@ public class NuevoViaje extends JFrame {
 		contentPane.add(btnAtras);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(610, 0, 185, 141);
+		panelLogo.setBounds(574, 49, 199, 187);
 		contentPane.add(panelLogo);
+		panelLogo.setLayout(null);
 		
-		if (logoUrl != null && !logoUrl.isEmpty()) {
-		    try {
-		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
-		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-		        JLabel logoLabel = new JLabel(new ImageIcon(img));
-		        panelLogo.removeAll();  // Elimina imágenes previas
-		        panelLogo.add(logoLabel);
-		        panelLogo.revalidate();
-		        panelLogo.repaint();
-		    } catch (Exception e) {
-		        System.out.println("Error al cargar el logo: " + e.getMessage());
-		    }
-		}
+		URL imgUrl = null;
+        try {
+            imgUrl = new URL(logoUrl);
+        } catch (MalformedURLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        ImageIcon image = new ImageIcon(imgUrl);
+        panelLogo.setLayout(null);
+        JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
+        lblLogo.setBounds(0, 0, 199, 187);
+        panelLogo.add(lblLogo);
 
+        
+        
 
 		// Agregar PropertyChangeListener a los JDateChooser
 		PropertyChangeListener listener = new PropertyChangeListener() {
