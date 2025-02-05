@@ -81,6 +81,8 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblFechaActividad;
 	private JDateChooser dateChooserIda_1;
 	private JPanel panelLogo;
+	private JLabel lblLogo;
+	private JLabel lblLogo1;
 
 	
 
@@ -97,7 +99,7 @@ public class NuevoEvento extends JFrame {
 		contentPane.setLayout(null);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(720, 23, 199, 187);
+		panelLogo.setBounds(711, 22, 199, 209);
 		contentPane.add(panelLogo);
 		panelLogo.setLayout(null);
 		
@@ -111,9 +113,9 @@ public class NuevoEvento extends JFrame {
         
         ImageIcon image = new ImageIcon(imgUrl);
         panelLogo.setLayout(null);
-        JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
-        lblLogo.setBounds(0, 0, 199, 187);
-        panelLogo.add(lblLogo);
+        JLabel lblLogo1 = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));;
+        lblLogo1.setBounds(0, 0, 199, 209);
+        panelLogo.add(lblLogo1);
         
         
 		
@@ -203,19 +205,6 @@ public class NuevoEvento extends JFrame {
 		panelVuelo.setLayout(null);
 		panelVuelo.setVisible(false);
 		
-		if (logoUrl != null && !logoUrl.isEmpty()) {
-		    try {
-		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
-		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-		        JLabel logoLabel = new JLabel(new ImageIcon(img));
-		        panelLogo.removeAll();  // Elimina imágenes previas
-		        panelLogo.add(logoLabel);
-		        panelLogo.revalidate();
-		        panelLogo.repaint();
-		    } catch (Exception e) {
-		        System.out.println("Error al cargar el logo: " + e.getMessage());
-		    }
-		}
 		
 		panelVueloVuelta = new JPanel();
 		panelVueloVuelta.setBounds(532, 126, 397, 202);

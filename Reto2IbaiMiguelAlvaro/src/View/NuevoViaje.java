@@ -199,7 +199,7 @@ public class NuevoViaje extends JFrame {
 		contentPane.add(btnAtras);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(574, 49, 199, 187);
+		panelLogo.setBounds(574, 27, 199, 209);
 		contentPane.add(panelLogo);
 		panelLogo.setLayout(null);
 		
@@ -214,7 +214,7 @@ public class NuevoViaje extends JFrame {
         ImageIcon image = new ImageIcon(imgUrl);
         panelLogo.setLayout(null);
         JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
-        lblLogo.setBounds(0, 0, 199, 187);
+        lblLogo.setBounds(0, 0, 199, 209);
         panelLogo.add(lblLogo);
 
         
