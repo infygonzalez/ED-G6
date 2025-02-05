@@ -196,18 +196,10 @@ public class EditarCuenta extends JFrame {
 				String empleados = comboBox.getSelectedItem().toString();
 				String tipoagencia = comboBox_1.getSelectedItem().toString();
 				
-				editarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
-				
-				if(comboBox.getSelectedItem().equals("") && comboBox_1.getSelectedItem().equals("")) {
-					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Se ha modificado correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-					PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
-					frame3.setVisible(true);
-					dispose();
-				}
+				editarAgencia(id, usuario, contrase, logo, color, empleados, tipoagencia);
 			}
 		});
+		
 		btnGuardar.setForeground(new Color(255, 255, 255));
 		btnGuardar.setBackground(new Color(98, 143, 200));
 		btnGuardar.setBounds(422, 344, 121, 31);
@@ -229,16 +221,46 @@ public class EditarCuenta extends JFrame {
 	
 		
 	}
-	public void editarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
-		Agencia agencia = new Agencia();
-		agencia.setNombre(nombre);
-		agencia.setContra(contra);
-		agencia.setLogo(logo);
-		agencia.setColor(color);
-		agencia.setNumeroEmpleados(empleados);
-		agencia.setTipoAgencia(tipoAgencia);
-		gestorAgencias.crearAgencia(agencia);
+	public void editarAgencia(int id, String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DBUtils.getConexion();
+	        
+	        String consulta = "UPDATE agencias SET nombre = ?, contrasena = ?, logo = ?, color_marca = ?, numero_empleados = ?, tipo_agencia = ? WHERE id_agencia = ?";
+	        stmt = conexion.prepareStatement(consulta);
+	        
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, contra);
+	        stmt.setString(3, logo);
+	        stmt.setString(4, color);
+	        stmt.setString(5, empleados);
+	        stmt.setString(6, tipoAgencia);
+	        stmt.setInt(7, id);
+	        
+	        int filasActualizadas = stmt.executeUpdate();
+	        
+	        if (filasActualizadas > 0) {
+	            JOptionPane.showMessageDialog(null, "Agencia actualizada correctamente.", "Información", JOptionPane.INFORMATION_MESSAGE);
+	        } else {
+	            JOptionPane.showMessageDialog(null, "No se encontró la agencia para actualizar.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+	        }
+	        
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        JOptionPane.showMessageDialog(null, "Error al actualizar la agencia.", "Error", JOptionPane.ERROR_MESSAGE);
+	    } finally {
+	        try {
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
 	}
+
 	
 	public void cargarDatosAgencia(int id) {
 	   
