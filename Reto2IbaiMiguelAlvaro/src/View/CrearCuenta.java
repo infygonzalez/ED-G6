@@ -29,8 +29,8 @@ public class CrearCuenta extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField textField;
-	private JTextField txtContraseña;
+	private JTextField txtNombre;
+	private JTextField txtContrase;
 	private JTextField txtLogo;
 	private JTextField txtColor;
 
@@ -38,6 +38,7 @@ public class CrearCuenta extends JFrame {
 	 * Create the frame.
 	 */
 	public CrearCuenta() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 474);
 		contentPane = new JPanel();
@@ -62,15 +63,15 @@ public class CrearCuenta extends JFrame {
 		lblNewLabel_2.setBounds(79, 117, 232, 26);
 		contentPane.add(lblNewLabel_2);
 		
-		textField = new JTextField();
-		textField.setBounds(362, 82, 181, 26);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		txtNombre = new JTextField();
+		txtNombre.setBounds(362, 82, 181, 26);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
 		
-		txtContraseña = new JTextField();
-		txtContraseña.setColumns(10);
-		txtContraseña.setBounds(362, 117, 181, 26);
-		contentPane.add(txtContraseña);
+		txtContrase = new JTextField();
+		txtContrase.setColumns(10);
+		txtContrase.setBounds(362, 117, 181, 26);
+		contentPane.add(txtContrase);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBounds(52, 154, 532, 17);
@@ -143,15 +144,15 @@ public class CrearCuenta extends JFrame {
 		lblNumEmpleados.setBounds(79, 236, 232, 26);
 		contentPane.add(lblNumEmpleados);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"", "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
-		comboBox.setBounds(303, 238, 240, 26);
-		contentPane.add(comboBox);
+		JComboBox comboBoxNEmple = new JComboBox();
+		comboBoxNEmple.setModel(new DefaultComboBoxModel(new String[] {"", "Entre 2 y 10 empleados", "Entre 10 y 100 empleados", "Entre 100 y 1000 empleados"}));
+		comboBoxNEmple.setBounds(303, 238, 240, 26);
+		contentPane.add(comboBoxNEmple);
 		
-		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"", "Mayorista", "Minorista", "Mayorista-Minorista"}));
-		comboBox_1.setBounds(303, 279, 240, 26);
-		contentPane.add(comboBox_1);
+		JComboBox comboBoxTipoAgencia = new JComboBox();
+		comboBoxTipoAgencia.setModel(new DefaultComboBoxModel(new String[] {"", "Mayorista", "Minorista", "Mayorista-Minorista"}));
+		comboBoxTipoAgencia.setBounds(303, 279, 240, 26);
+		contentPane.add(comboBoxTipoAgencia);
 		
 		JLabel lblTipoDeAgencia = new JLabel("Tipo de agencia:");
 		lblTipoDeAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -161,23 +162,29 @@ public class CrearCuenta extends JFrame {
 		JButton btnCrear = new JButton("Crear cuenta");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String usuario = textField.getText();
-				String contrase = txtContraseña.getText();
+				String usuario = txtNombre.getText();
+				String contrase = txtContrase.getText();
 				String logo = txtLogo.getText();
 				String color = txtColor.getText();
-				String empleados = comboBox.getSelectedItem().toString();
-				String tipoagencia = comboBox_1.getSelectedItem().toString();
+				String empleados = comboBoxNEmple.getSelectedItem().toString();
+				String tipoagencia = comboBoxTipoAgencia.getSelectedItem().toString();
 				
-				mandarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
-				
-				if(comboBox.getSelectedItem().equals("") && comboBox_1.getSelectedItem().equals("")) {
-					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
-				} else {
-					JOptionPane.showMessageDialog(null, "Se ha añadido correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
-					Login frame1 = new Login();
-					frame1.setVisible(true);
-					dispose();
-				}
+				gestorAgencias gestor = new gestorAgencias();
+					
+					if(comboBoxNEmple.getSelectedItem().equals("") || comboBoxTipoAgencia.getSelectedItem().equals("") && txtLogo.getText().contains("") && txtNombre.getText().contains("") && txtContrase.getText().contains("") && txtColor.getText().contains("")) {
+						JOptionPane.showMessageDialog(null, "Todos los campos son obligatorios", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+						
+					} else if (gestor.existeAgencia(usuario, contrase)) {
+					    JOptionPane.showMessageDialog(null, "El nombre de usuario y contraseña ya están en uso.", "Advertencia", JOptionPane.WARNING_MESSAGE);
+					    return;
+					} else {
+						mandarAgencia(usuario, contrase, logo, color, empleados, tipoagencia);
+						JOptionPane.showMessageDialog(null, "Se ha añadido correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+						Login frame1 = new Login();
+						frame1.setVisible(true);
+						dispose();
+					}
+					
 			}
 		});
 		btnCrear.setForeground(new Color(255, 255, 255));

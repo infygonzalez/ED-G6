@@ -50,6 +50,7 @@ public class Bienvenida extends JFrame {
 	 * Create the frame.
 	 */
 	public Bienvenida(Agencia agencia) {
+		setResizable(false);
 		setTitle("Viajes Erreka-Mari");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);

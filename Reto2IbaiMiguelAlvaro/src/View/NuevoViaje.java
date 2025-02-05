@@ -47,6 +47,7 @@ public class NuevoViaje extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevoViaje(int id, String nombreID, String logoUrl) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 811, 690);
 		contentPane = new JPanel();

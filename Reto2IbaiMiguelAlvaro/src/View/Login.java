@@ -43,6 +43,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 673, 437);
 		contentPane = new JPanel();
@@ -73,7 +74,7 @@ public class Login extends JFrame {
 		txtContraseña.setBounds(292, 156, 150, 31);
 		contentPane.add(txtContraseña);
 		
-		JButton btnValidar = new JButton("Validar");
+		JButton btnValidar = new JButton("Siguiente");
 		btnValidar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Agencia agencia = new Agencia();
@@ -86,11 +87,11 @@ public class Login extends JFrame {
 			}
 		});
 		btnValidar.setForeground(new Color(255, 255, 255));
-		btnValidar.setBackground(new Color(98, 143, 200));
-		btnValidar.setBounds(141, 253, 141, 31);
+		btnValidar.setBackground(new Color(0, 128, 64));
+		btnValidar.setBounds(292, 233, 150, 31);
 		contentPane.add(btnValidar);
 		
-		JButton btnCrearCuenta = new JButton("Crear Cuenta");
+		JButton btnCrearCuenta = new JButton("Crear una cuenta");
 		btnCrearCuenta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CrearCuenta frame2 = new CrearCuenta();
@@ -100,7 +101,7 @@ public class Login extends JFrame {
 		});
 		btnCrearCuenta.setForeground(new Color(255, 255, 255));
 		btnCrearCuenta.setBackground(new Color(98, 143, 200));
-		btnCrearCuenta.setBounds(301, 253, 141, 31);
+		btnCrearCuenta.setBounds(141, 233, 141, 31);
 		contentPane.add(btnCrearCuenta);
 	}
 	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor, String logoUrl) {

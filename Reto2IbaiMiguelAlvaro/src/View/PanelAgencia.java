@@ -47,6 +47,7 @@ public class PanelAgencia extends JFrame {
 	 * Create the frame.
 	 */
 	public PanelAgencia(int idAgencia, String nombreID, String logoUrl) {
+		setResizable(false);
 		gestorAgencias gestor = new gestorAgencias();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -300,7 +301,7 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnGeneraOferta);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(10, 10, 169, 129);
+		panelLogo.setBounds(10, 10, 169, 100);
 		contentPane.add(panelLogo);
 		
 		URL imgUrl = null;
@@ -314,7 +315,7 @@ public class PanelAgencia extends JFrame {
         ImageIcon image = new ImageIcon(imgUrl);
         panelLogo.setLayout(null);
         JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
-        lblLogo.setBounds(0, 0, 169, 129);
+        lblLogo.setBounds(0, 0, 169, 100);
         panelLogo.add(lblLogo);
         
         

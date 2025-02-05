@@ -210,4 +210,39 @@ public class gestorAgencias {
         return color;
 	}
 	
+	
+	public boolean existeAgencia(String nombre, String contra) {
+	    Connection conexion = null;
+	    PreparedStatement stmt = null;
+	    ResultSet rs = null;
+	    boolean existe = false;
+
+	    try {
+	        Class.forName(DBUtils.DRIVER);
+	        conexion = DBUtils.getConexion();
+
+	        String consulta = "SELECT COUNT(*) FROM agencias WHERE nombre = ? AND contrasena = ?";
+	        stmt = conexion.prepareStatement(consulta);
+	        stmt.setString(1, nombre);
+	        stmt.setString(2, contra);
+	        rs = stmt.executeQuery();
+
+	        if (rs.next() && rs.getInt(1) > 0) {
+	            existe = true;
+	        }
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (rs != null) rs.close();
+	            if (stmt != null) stmt.close();
+	            if (conexion != null) conexion.close();
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return existe;
+	}
+	
+	
 }

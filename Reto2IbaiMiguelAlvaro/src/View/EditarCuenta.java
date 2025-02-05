@@ -47,6 +47,7 @@ public class EditarCuenta extends JFrame {
 	 * Create the frame.
 	 */
 	public EditarCuenta(int id, String nombreID, String logoUrl) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 474);
 		contentPane = new JPanel();
@@ -178,6 +179,16 @@ public class EditarCuenta extends JFrame {
 				String tipoagencia = comboBox_1.getSelectedItem().toString();
 				
 				editarAgencia(id, usuario, contrase, logo, color, empleados, tipoagencia);
+					
+				if(comboBox.getSelectedItem().equals("") && comboBox_1.getSelectedItem().equals("")) {
+					JOptionPane.showMessageDialog(null, "Debes seleccionar un parámetro", "WARNING_MESSAGE", JOptionPane.WARNING_MESSAGE);
+				} else {
+					JOptionPane.showMessageDialog(null, "Se ha añadido correctamente", "INFORMATION_MESSAGE", JOptionPane.INFORMATION_MESSAGE);
+					Login frame1 = new Login();
+					frame1.setVisible(true);
+					dispose();
+					
+				}
 			}
 		});
 		
@@ -191,8 +202,8 @@ public class EditarCuenta extends JFrame {
 		btnAtras.setBackground(new Color(98, 143, 200));
 		btnAtras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Login frame1 = new Login();
-				frame1.setVisible(true);
+				PanelAgencia frame3 = new PanelAgencia(id, nombreID, logoUrl);
+				frame3.setVisible(true);
 				dispose();
 			}
 		});

@@ -90,6 +90,7 @@ public class NuevoEvento extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevoEvento(int idAgencia, String nombreID, String logoUrl) {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 965, 616);
 		contentPane = new JPanel();
