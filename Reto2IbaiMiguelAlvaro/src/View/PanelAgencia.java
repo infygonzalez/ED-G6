@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import Model.*;
 import java.awt.event.ActionListener;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,7 +53,7 @@ public class PanelAgencia extends JFrame {
 					gestorAgencias gestor = new gestorAgencias();
 					int id = Sesion.getIdAgencia();
 					String nombreID = gestor.nombreAgencia(id);
-					String logoUrl = Sesion.getLogo(); 
+					String logoUrl = Sesion.getLogo();
 					PanelAgencia frame = new PanelAgencia(id, nombreID, logoUrl);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -365,28 +367,6 @@ public class PanelAgencia extends JFrame {
 		JPanel panelLogo = new JPanel();
 		panelLogo.setBounds(0, 0, 186, 129);
 		contentPane.add(panelLogo);
-
-		// Obtener la URL del logo desde la base de datos
-		String logoUrl1 = obtenerLogoURLDesdeBD(idAgencia);
-
-		if (logoUrl1 != null && !logoUrl1.isEmpty()) {
-		    try {
-		        ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl1));
-		        Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-		        JLabel logoLabel = new JLabel(new ImageIcon(img));
-		        panelLogo.removeAll();  // Elimina imágenes previas
-		        panelLogo.add(logoLabel);
-		        panelLogo.revalidate();
-		        panelLogo.repaint();
-		    } catch (Exception e) {
-		        System.out.println("Error al cargar el logo desde la URL: " + e.getMessage());
-		    }
-		} else {
-		    System.out.println("No se encontró un logo en la base de datos.");
-		}
-		cargarDatosViaje(idAgencia);
-		cargarLogo(idAgencia);
-		System.out.println("Logo URL desde la BD: " + logoUrl);
 
 	}
 
