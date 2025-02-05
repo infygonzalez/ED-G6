@@ -218,13 +218,18 @@ public class CrearCuenta extends JFrame {
 		
 	}
 	public void mandarAgencia(String nombre, String contra, String logo, String color, String empleados, String tipoAgencia) {
-		Agencia agencia = new Agencia();
-		agencia.setNombre(nombre);
-		agencia.setContra(contra);
-		agencia.setLogo(logo);
-		agencia.setColor(color);
-		agencia.setNumeroEmpleados(empleados);
-		agencia.setTipoAgencia(tipoAgencia);
-		gestorAgencias.crearAgencia(agencia);
+	    Agencia agencia = new Agencia();
+	    agencia.setNombre(nombre);
+	    agencia.setContra(contra);
+	    agencia.setLogo(logo);
+	    agencia.setColor(color);
+	    agencia.setNumeroEmpleados(empleados);
+	    agencia.setTipoAgencia(tipoAgencia);
+
+	    // Guardar el logo en la sesión
+	    Sesion.setLogo(logo);
+	    
+	    gestorAgencias.crearAgencia(agencia);
 	}
+
 }

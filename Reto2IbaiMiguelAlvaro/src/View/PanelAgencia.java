@@ -365,8 +365,37 @@ public class PanelAgencia extends JFrame {
 		lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(0, 0, 186, 129);
+		panelLogo.setBounds(10, 10, 100, 100);
 		contentPane.add(panelLogo);
+		
+		String logoPath = Sesion.getLogo(); // Obtiene la ruta desde la sesión
+
+		if (logoPath != null && !logoPath.isEmpty()) {
+		    try {
+		        ImageIcon icon;
+		        if (logoPath.startsWith("http") || logoPath.startsWith("https")) {
+		            // Cargar imagen desde una URL
+		            URL url = new URL(logoPath);
+		            icon = new ImageIcon(url);
+		        } else {
+		            // Cargar imagen desde una ruta local
+		            icon = new ImageIcon(logoPath);
+		        }
+
+		        // Escalar la imagen
+		        Image img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
+		        JLabel logoLabel = new JLabel(new ImageIcon(img));
+		        panelLogo.removeAll();  // Limpia el panel antes de agregar la imagen
+		        panelLogo.add(logoLabel);
+		        panelLogo.revalidate();
+		        panelLogo.repaint();
+		        
+		    } catch (Exception e) {
+		        System.out.println("Error al cargar el logo: " + e.getMessage());
+		    }
+		} else {
+		    System.out.println("No se encontró un logo en la sesión.");
+		}
 
 	}
 
