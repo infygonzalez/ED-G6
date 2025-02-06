@@ -54,5 +54,9 @@ function calcularDias() {
     }
 }
 
+function subirdatos(){
+    
+}
+
 document.getElementById("fechaInicio").addEventListener("change", calcularDias);
 document.getElementById("fechaFin").addEventListener("change", calcularDias);

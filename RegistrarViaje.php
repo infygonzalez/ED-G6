@@ -20,7 +20,7 @@
     <br>
 
     <div class="formulario">
-        <form name="mensaje_dfb" action="#" method="post" class="mensaje_dfb">
+        <form action="procesar_viaje.php" name="mensaje_dfb" action="#" method="post" class="mensaje_dfb">
             <div>
                 <label for="nombre">Nombre</label>
                 <input type="text" id="nombre" name="nombre" placeholder="Escriba aquí su nombre" required>
