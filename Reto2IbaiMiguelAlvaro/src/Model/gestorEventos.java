@@ -66,14 +66,14 @@ public class gestorEventos {
 		}
 	}
 
-	public void añadirVueloVuelta(int idEvento, String fechaVuelta, String codigoVuelta, String aerolineaVuelta, String horarioVuelta, String duracionVuelta) {
+	public void añadirVueloVuelta(int idViaje,String fechaVuelta, String codigoVuelta, String aerolineaVuelta, String horarioVuelta, String duracionVuelta) {
 	    Connection conexion = null;
 	    PreparedStatement stmt = null;
 
 	    try {
 	        Class.forName(DBUtils.DRIVER);
 	        conexion = DBUtils.getConexion();
-
+	       
 	        // Actualizar el vuelo para agregar la información de vuelta
 	        String sql = "UPDATE vuelos SET fecha_vuelta = ?, hora_vuelta = ?, duracion_viaje_vuelta = ?, codigo_vuelo_vuelta = ?, aerolinea_vuelta = ?, tipo_vuelo = 'ida_y_vuelta' WHERE id_evento = ?";
 	        stmt = conexion.prepareStatement(sql);
@@ -82,7 +82,7 @@ public class gestorEventos {
 	        stmt.setInt(3, Integer.parseInt(duracionVuelta));
 	        stmt.setString(4, codigoVuelta);
 	        stmt.setString(5, aerolineaVuelta);
-	        stmt.setInt(6, idEvento); // Aquí deberías obtener el id_evento correspondiente
+	        stmt.setInt(6, obtenerIdEvento(idViaje)); // Aquí deberías obtener el id_evento correspondiente
 	        stmt.executeUpdate();
 
 	    } catch (Exception e) {

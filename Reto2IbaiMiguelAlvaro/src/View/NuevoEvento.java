@@ -499,14 +499,6 @@ public class NuevoEvento extends JFrame {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
 				SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
 				
-				int idEvento = gestor.obtenerIdEvento(idViaje);
-				if (idEvento == -1) {
-				    System.out.println("Error: No se encontró id_evento para idViaje = " + idViaje);
-				    return;
-				}else {
-					System.out.println("Viaje seleccionado: " + idViaje);
-				}
-				
 				String nombreEvento = txtNombreEvento.getText();
 				String tipo = comboBoxTipoEvento.getSelectedItem().toString();
 				if(tipo == "Vuelo") {
@@ -526,7 +518,7 @@ public class NuevoEvento extends JFrame {
 						String aerolineaVuelta = txtAerolineaVuelta.getText();
 						String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
 						String duracionVuelta = txtDuracionVuelta.getText();
-						gestor.añadirVueloVuelta(idEvento, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+						gestor.añadirVueloVuelta(idViaje, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
 						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 						frame3.setVisible(true);
 						dispose();
