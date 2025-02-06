@@ -167,12 +167,7 @@ public class gestorEventos {
 	        stmt.setInt(5, Integer.parseInt(precio));
 	        stmt.executeUpdate();
 
-	        // Obtener el id_evento generado
-	        rs = stmt.getGeneratedKeys();
-	        int idEvento = 0;
-	        if (rs.next()) {
-	            idEvento = rs.getInt(1);
-	        }
+	        int idEvento = obtenerIdEvento(idViaje);
 
 	        // Insertar en la tabla alojamientos
 	        String sqlAlojamiento = "INSERT INTO alojamientos (id_evento, nombre_hotel, ciudad, precio_euros, fecha_entrada, fecha_salida, tipo_habitacion) VALUES (?, ?, ?, ?, ?, ?, ?)";
