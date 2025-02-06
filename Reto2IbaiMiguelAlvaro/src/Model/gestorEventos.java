@@ -48,11 +48,11 @@ public class gestorEventos {
     }
 
     public void anadirActividad(int idEvento, String nombre, String tipo, String descripcion, String precio, String fechaActividad) {
-        String sql = "INSERT INTO otroseventos (id_evento, nombre, fecha, descripcion, precio_euros) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO otroseventos (id_evento, nombre, fecha, descripcion, precio_euros) VALUES (?, ?, ?, ?, ?, ?)";
         
         try (Connection conexion = DBUtils.getConexion(); PreparedStatement stmt = conexion.prepareStatement(sql)) {
         	stmt.setInt(1, idEvento);
-            stmt.setString(2, tipo);
+        	stmt.setString(2, nombre);
             stmt.setDate(3, java.sql.Date.valueOf(fechaActividad));
             stmt.setString(4, descripcion);
             stmt.setBigDecimal(5, new java.math.BigDecimal(precio));
