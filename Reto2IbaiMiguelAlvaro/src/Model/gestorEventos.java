@@ -24,7 +24,7 @@ public class gestorEventos {
 	        String sqlEvento = "INSERT INTO eventos (tipo_evento, id_viaje, nombre, fecha, precio) VALUES (?, ?, ?, ?, ?)";
 	        stmt = conexion.prepareStatement(sqlEvento, PreparedStatement.RETURN_GENERATED_KEYS);
 	        stmt.setString(1, "vuelo");
-	        stmt.setInt(2, idViaje); // Aquí deberías obtener el id_viaje correspondiente
+	        stmt.setInt(2, idViaje); // Usamos el idViaje proporcionado
 	        stmt.setString(3, nombreEvento);
 	        stmt.setString(4, fechaIda);
 	        stmt.setInt(5, Integer.parseInt(precio));
@@ -54,7 +54,16 @@ public class gestorEventos {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+		}
 	}
 
 	public void añadirVueloVuelta(int idEvento, String fechaVuelta, String codigoVuelta, String aerolineaVuelta, String horarioVuelta, String duracionVuelta) {
@@ -78,7 +87,15 @@ public class gestorEventos {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }finally {
+            // Cerrar recursos
+            try {
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+		}
 	}
 
 	public void añadirActividad(int idViaje, String nombreEvento, String tipo, String descripcion, String precio, String fechaActividad) {
@@ -94,7 +111,7 @@ public class gestorEventos {
 	        String sqlEvento = "INSERT INTO eventos (tipo_evento, id_viaje, nombre, fecha, precio) VALUES (?, ?, ?, ?, ?)";
 	        stmt = conexion.prepareStatement(sqlEvento, PreparedStatement.RETURN_GENERATED_KEYS);
 	        stmt.setString(1, "otros");
-	        stmt.setInt(2, idViaje); // Aquí deberías obtener el id_viaje correspondiente
+	        stmt.setInt(2, idViaje); // Usamos el idViaje proporcionado
 	        stmt.setString(3, nombreEvento);
 	        stmt.setString(4, fechaActividad);
 	        stmt.setInt(5, Integer.parseInt(precio));
@@ -119,7 +136,16 @@ public class gestorEventos {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+		}
 	}
 
 	public void añadirAlojamiento(int idViaje, String nombreEvento, String tipo, String tipoAlojamiento, String ciudad, String precio, String fechaEntrada, String fechaSalida) {
@@ -162,7 +188,16 @@ public class gestorEventos {
 
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	    }
+	    }finally {
+            // Cerrar recursos
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conexion != null) conexion.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+		}
 	}
     public int obtenerIdEvento(int idViaje) {
         String sql = "SELECT id_evento FROM eventos WHERE id_viaje = ?";
