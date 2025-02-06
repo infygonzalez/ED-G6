@@ -89,7 +89,7 @@ public class NuevoEvento extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public NuevoEvento(int idAgencia, String nombreID, String logoUrl) {
+	public NuevoEvento(int idAgencia, String nombreID, String logoUrl, int idViaje) {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 965, 616);
@@ -168,18 +168,6 @@ public class NuevoEvento extends JFrame {
 		
 		
 		JButton btnGuardar = new JButton("Guardar");
-		btnGuardar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				String tipoEvento = comboBoxTipoEvento.getSelectedItem().toString();
-				gestorEventos gestor = new gestorEventos();
-				gestor.añadirEvento(tipoEvento);
-				
-				PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
-				frame3.setVisible(true);
-				dispose();
-			}
-		});
 		btnGuardar.setForeground(Color.WHITE);
 		btnGuardar.setFont(new Font("Verdana", Font.PLAIN, 13));
 		btnGuardar.setBackground(new Color(73, 120, 171));
@@ -504,6 +492,62 @@ public class NuevoEvento extends JFrame {
 		txtPrecioAlojamiento.setBounds(309, 89, 86, 20);
 		panelAlojamiento.add(txtPrecioAlojamiento);
 		
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				gestorEventos gestor = new gestorEventos();
+				 
+				String nombreEvento = txtNombreEvento.getText();
+				String tipo = comboBoxTipoEvento.getSelectedItem().toString();
+				if(tipo == "Vuelo") {
+					String trayecto = comboBoxTrayecto.getSelectedItem().toString();
+					String aeropuertoOrigen = comboBoxOrigen.getSelectedItem().toString();
+					String aeropuertoDestino = comboBoxDestino.getSelectedItem().toString();
+					String fechaIda = dateChooserIda.getDate().toString();
+					String codigoVuelo = txtCodigoVuelo.getText();
+					String aerolinea = txtAerolinea.getText();
+					String horarioSalida = spinnerHorarioSalida.getValue().toString();
+					String duracion = txtDuracion.getText();
+					String precio = txtPrecioVuelo.getText();
+					gestor.anadirVueloIda(idViaje, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio, nombreEvento);
+					if(trayecto == "Ida y Vuelta") {
+						String fechaVuelta = dateChooserVuelta.getDate().toString();
+						String codigoVuelta = txtCodigoVuelta.getText();
+						String aerolineaVuelta = txtAerolineaVuelta.getText();
+						String horarioVuelta = spinnerHorarioVuelta1.getValue().toString();
+						String duracionVuelta = txtDuracionVuelta.getText();
+						gestor.anadirVueloVuelta(idViaje,fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+						frame3.setVisible(true);
+						dispose();
+					}
+					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+					frame3.setVisible(true);
+					dispose();
+				}
+				if(tipo == "Actividades") {
+					String descripcion = txtAreaDescripcion.getText();
+					String precio = txtPrecioActividad.getText();
+					String fechaActividad = dateChooserIda_1.getDate().toString();
+					gestor.anadirActividad(idViaje,nombreEvento, tipo ,descripcion, precio, fechaActividad);
+					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+					frame3.setVisible(true);
+					dispose();
+				}
+				if(tipo == "Alojamiento") {
+					String tipoAlojamiento = comboBoxTipoAlojamiento.getSelectedItem().toString();
+					String ciudad = txtCiudad.getText();
+					String precio = txtPrecioAlojamiento.getText();
+					String fechaEntrada = dateChooserFechaEntrada.getDate().toString();
+					String fechaSalida = dateChooserFechaSalida.getDate().toString();
+					gestor.anadirAlojamiento(idViaje,nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
+					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+					frame3.setVisible(true);
+					dispose();
+				}
+				
+			}
+		});
+		
 		JButton btnBuscarAlojamiento = new JButton("Buscar Alojamiento");
 		btnBuscarAlojamiento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -520,7 +564,7 @@ public class NuevoEvento extends JFrame {
 		btnBuscarAlojamiento.setBounds(94, 159, 160, 28);
 		panelAlojamiento.add(btnBuscarAlojamiento);
 		panelActividades.setVisible(false);
-
+		
 	}
 }
 	

@@ -210,7 +210,9 @@ public class PanelAgencia extends JFrame {
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				NuevoEvento frame5 = new NuevoEvento(idAgencia, nombreID, logoUrl);
+				int filaSeleccionada = tablaViajes.getSelectedRow();
+				int idViaje = (int) modelViajes.getValueAt(filaSeleccionada, 0);//almacenamos la id del viaje seleccionado
+				NuevoEvento frame5 = new NuevoEvento(idAgencia, nombreID, logoUrl, idViaje);
 				frame5.setVisible(true);
 				dispose();
 			}
@@ -362,32 +364,6 @@ public class PanelAgencia extends JFrame {
         panel_1.add(lblIdAgencia);
         lblIdAgencia.setFont(new Font("Verdana", Font.PLAIN, 13));
         lblIdAgencia.setHorizontalAlignment(SwingConstants.RIGHT);
-	/*	if (logoPath != null && !logoPath.isEmpty()) {
-		    try {
-		        ImageIcon icon;
-		        if (logoPath.startsWith("http") || logoPath.startsWith("https")) {
-		            // Cargar imagen desde una URL
-		            URL url = new URL(logoPath);
-		            icon = new ImageIcon(url);
-		        } else {
-		            // Cargar imagen desde una ruta local
-		            icon = new ImageIcon(logoPath);
-		        }
-
-		        // Escalar la imagen
-		        Image img = icon.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
-		        JLabel logoLabel = new JLabel(new ImageIcon(img));
-		        panelLogo.removeAll();  // Limpia el panel antes de agregar la imagen
-		        panelLogo.add(logoLabel);
-		        panelLogo.revalidate();
-		        panelLogo.repaint();
-		        
-		    } catch (Exception e) {
-		        System.out.println("Error al cargar el logo: " + e.getMessage());
-		    }
-		} else {
-		    System.out.println("No se encontró un logo en la sesión.");
-		}*/
         cargarDatosViaje(idAgencia);
 	}
 
