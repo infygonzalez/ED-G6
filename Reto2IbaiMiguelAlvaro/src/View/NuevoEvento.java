@@ -498,7 +498,7 @@ public class NuevoEvento extends JFrame {
 				gestorEventos gestor = new gestorEventos();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
 				SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
-				 
+				int idEvento = gestor.obtenerIdEvento(idViaje);
 				String nombreEvento = txtNombreEvento.getText();
 				String tipo = comboBoxTipoEvento.getSelectedItem().toString();
 				if(tipo == "Vuelo") {
@@ -511,14 +511,14 @@ public class NuevoEvento extends JFrame {
 					String horarioSalida = sdfHora.format(spinnerHorarioSalida.getValue());
 					String duracion = txtDuracion.getText();
 					String precio = txtPrecioVuelo.getText();
-					gestor.anadirVueloIda(idViaje, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio, nombreEvento);
+					gestor.anadirVueloIda(idEvento, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio, nombreEvento);
 					if(trayecto == "Ida y Vuelta") {
 						String fechaVuelta = sdf.format(dateChooserVuelta.getDate());
 						String codigoVuelta = txtCodigoVuelta.getText();
 						String aerolineaVuelta = txtAerolineaVuelta.getText();
 						String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
 						String duracionVuelta = txtDuracionVuelta.getText();
-						gestor.anadirVueloVuelta(idViaje,fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+						gestor.anadirVueloVuelta(idEvento, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
 						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 						frame3.setVisible(true);
 						dispose();
@@ -531,7 +531,7 @@ public class NuevoEvento extends JFrame {
 					String descripcion = txtAreaDescripcion.getText();
 					String precio = txtPrecioActividad.getText();
 					String fechaActividad = sdf.format(dateChooserIda_1.getDate());
-					gestor.anadirActividad(idViaje,nombreEvento, tipo ,descripcion, precio, fechaActividad);
+					gestor.anadirActividad(idEvento, nombreEvento, tipo ,descripcion, precio, fechaActividad);
 					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
@@ -542,7 +542,7 @@ public class NuevoEvento extends JFrame {
 					String precio = txtPrecioAlojamiento.getText();
 					String fechaEntrada = sdf.format(dateChooserFechaEntrada.getDate());
 					String fechaSalida = sdf.format(dateChooserFechaSalida.getDate());
-					gestor.anadirAlojamiento(idViaje,nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
+					gestor.anadirAlojamiento(idEvento, nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
 					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
