@@ -519,14 +519,14 @@ public class NuevoEvento extends JFrame {
 					String horarioSalida = sdfHora.format(spinnerHorarioSalida.getValue());
 					String duracion = txtDuracion.getText();
 					String precio = txtPrecioVuelo.getText();
-					gestor.anadirVueloIda(idEvento, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio, nombreEvento);
+					gestor.añadirVueloIda(idViaje, nombreEvento, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio);
 					if(trayecto == "Ida y Vuelta") {
 						String fechaVuelta = sdf.format(dateChooserVuelta.getDate());
 						String codigoVuelta = txtCodigoVuelta.getText();
 						String aerolineaVuelta = txtAerolineaVuelta.getText();
 						String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
 						String duracionVuelta = txtDuracionVuelta.getText();
-						gestor.anadirVueloVuelta(idEvento, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+						gestor.añadirVueloVuelta(idEvento, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
 						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 						frame3.setVisible(true);
 						dispose();
@@ -539,7 +539,7 @@ public class NuevoEvento extends JFrame {
 					String descripcion = txtAreaDescripcion.getText();
 					String precio = txtPrecioActividad.getText();
 					String fechaActividad = sdf.format(dateChooserIda_1.getDate());
-					gestor.anadirActividad(idEvento, nombreEvento, tipo ,descripcion, precio, fechaActividad);
+					gestor.añadirActividad(idViaje, nombreEvento, tipo ,descripcion, precio, fechaActividad);
 					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
@@ -550,7 +550,7 @@ public class NuevoEvento extends JFrame {
 					String precio = txtPrecioAlojamiento.getText();
 					String fechaEntrada = sdf.format(dateChooserFechaEntrada.getDate());
 					String fechaSalida = sdf.format(dateChooserFechaSalida.getDate());
-					gestor.anadirAlojamiento(idEvento, nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
+					gestor.añadirAlojamiento(idViaje, nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
 					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 					frame3.setVisible(true);
 					dispose();
