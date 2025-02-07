@@ -100,6 +100,13 @@ public class NuevoEvento extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		gestorAgencias gestor = new gestorAgencias();
+
+		JPanel panelColor1 = new JPanel();
+		panelColor1.setBackground(gestor.seleccionarColor(idAgencia));
+		panelColor1.setBounds(0, 231, 10, 346);
+		contentPane.add(panelColor1);
+		
 		JPanel panelLogo = new JPanel();
 		panelLogo.setBounds(711, 22, 199, 209);
 		contentPane.add(panelLogo);
@@ -567,6 +574,21 @@ public class NuevoEvento extends JFrame {
 		btnBuscarAlojamiento.setBounds(94, 159, 160, 28);
 		panelAlojamiento.add(btnBuscarAlojamiento);
 		panelActividades.setVisible(false);
+		
+
+		
+		JPanel panelColor3 = new JPanel();
+        panelColor3.setBackground(gestor.seleccionarColor(idAgencia));
+		panelColor3.setBounds(0, 49, 613, 10);
+		contentPane.add(panelColor3);
+		panelColor3.setLayout(null);
+
+		JPanel panelColor2 = new JPanel();
+        panelColor2.setBackground(gestor.seleccionarColor(idAgencia));
+		panelColor2.setBounds(0, 567, 286, 10);
+		contentPane.add(panelColor2);
+		panelActividades.setVisible(false);
+		
 		
 	}
 }

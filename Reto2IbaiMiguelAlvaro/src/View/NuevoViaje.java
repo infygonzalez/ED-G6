@@ -218,7 +218,19 @@ public class NuevoViaje extends JFrame {
         lblLogo.setBounds(0, 0, 199, 209);
         panelLogo.add(lblLogo);
 
+		gestorAgencias gestor = new gestorAgencias();
+
         
+        JPanel panelColor4 = new JPanel();
+        panelColor4.setBackground(gestor.seleccionarColor(id));
+        panelColor4.setBounds(0, 51, 493, 10);
+        contentPane.add(panelColor4);
+
+
+        JPanel panelColor3 = new JPanel();
+        panelColor3.setBackground(gestor.seleccionarColor(id));
+        panelColor3.setBounds(249, 641, 546, 10);
+        contentPane.add(panelColor3);
         
 
 		// Agregar PropertyChangeListener a los JDateChooser

@@ -51,7 +51,7 @@ public class PanelAgencia extends JFrame {
 		gestorAgencias gestor = new gestorAgencias();
 		
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setBounds(100, 100, 774, 554);
+		setBounds(100, 100, 774, 565);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -303,7 +303,7 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnGeneraOferta);
 		
 		JPanel panelLogo = new JPanel();
-		panelLogo.setBounds(10, 10, 169, 100);
+		panelLogo.setBounds(0, 0, 179, 110);
 		contentPane.add(panelLogo);
 		
 		URL imgUrl = null;
@@ -317,7 +317,7 @@ public class PanelAgencia extends JFrame {
         ImageIcon image = new ImageIcon(imgUrl);
         panelLogo.setLayout(null);
         JLabel lblLogo = new JLabel(new ImageIcon(image.getImage().getScaledInstance(169, 129, Image.SCALE_SMOOTH)));
-        lblLogo.setBounds(0, 0, 169, 100);
+        lblLogo.setBounds(0, 0, 179, 110);
         panelLogo.add(lblLogo);
         
         
@@ -329,12 +329,13 @@ public class PanelAgencia extends JFrame {
         colorAgencia.setLayout(null);
         
         JPanel panel = new JPanel();
-        panel.setBounds(191, 11, 363, 32);
+        panel.setBounds(191, 11, 414, 32);
         colorAgencia.add(panel);
         panel.setLayout(null);
         
         JLabel lblNewLabel = new JLabel("¡Bienvenido " + nombreID + "!");
-        lblNewLabel.setBounds(76, 5, 211, 21);
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setBounds(10, 5, 394, 21);
         panel.add(lblNewLabel);
         lblNewLabel.setBackground(new Color(192, 192, 192));
         lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 16));
