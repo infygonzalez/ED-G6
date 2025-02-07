@@ -261,6 +261,7 @@ public class NuevoViaje extends JFrame {
 		Agencia agencia = new Agencia();
 		agencia.setID(id);
 		viajes.setNombre(nombre);
+		viajes.setTipo_viaje(tipoViaje);
 		viajes.setDescripcion(descripcion);
 		viajes.setDuracion(dias);
 		viajes.setFecFin(fecFin);
