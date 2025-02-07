@@ -66,7 +66,7 @@ public class PanelAgencia extends JFrame {
 		// Inicializa el modelo de la tabla de viajes
         modelViajes = new DefaultTableModel(
             new Object[][] {},
-            new String[] { "Viaje", "Tipo", "Días", "Fecha Inicio", "Fecha Fin", "País" }
+            new String[] { "Viaje", "Nombre", "Tipo", "Días", "Fecha Inicio", "Fecha Fin", "País" }
         ) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -85,7 +85,7 @@ public class PanelAgencia extends JFrame {
         });
         
         JScrollPane scrollPane = new JScrollPane(tablaViajes);
-        scrollPane.setBounds(47, 152, 464, 129);
+        scrollPane.setBounds(23, 152, 509, 129);
         contentPane.add(scrollPane);
 		
 		JLabel lblNewLabel_1 = new JLabel("Eventos");
@@ -105,7 +105,7 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(tablaEventos);
 		
 		JScrollPane scrollPane_1 = new JScrollPane(tablaEventos);
-		scrollPane_1.setBounds(47, 321, 464, 129);
+		scrollPane_1.setBounds(23, 321, 509, 129);
 		contentPane.add(scrollPane_1);
 		
 		JButton btnNewButton = new JButton("Desconectar");
@@ -386,7 +386,7 @@ public class PanelAgencia extends JFrame {
 	        // Agregar filas con datos de la base de datos
 	        while (rs.next()) {
 	            modelViajes.addRow(new Object[]{
-	                rs.getInt("id_viaje"),  // Agregamos id_viaje como columna oculta
+	                rs.getInt("id_viaje"),
 	                rs.getString("nombre"),
 	                rs.getString("tipo_viaje"),
 	                rs.getInt("duracion"),
@@ -489,43 +489,5 @@ public class PanelAgencia extends JFrame {
 	    }
 	    return logoUrl;
 	}
-
-	private void cargarLogo(int idAgencia) {
-	    JPanel panelLogo = new JPanel();
-	    panelLogo.setBounds(0, 0, 186, 129);
-	    contentPane.add(panelLogo);
-
-	    // Obtener la URL del logo desde la base de datos
-	    String logoUrl = obtenerLogoURLDesdeBD(idAgencia);
-
-	    if (logoUrl != null && !logoUrl.isEmpty()) {
-	        try {
-	            ImageIcon icon = new ImageIcon(new java.net.URL(logoUrl));
-	            Image img = icon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
-	            JLabel logoLabel = new JLabel(new ImageIcon(img));
-	            panelLogo.removeAll();  // Elimina imágenes previas
-	            panelLogo.add(logoLabel);
-	            panelLogo.revalidate();
-	            panelLogo.repaint();
-	        } catch (Exception e) {
-	            System.out.println("Error al cargar el logo desde la URL: " + e.getMessage());
-	            // Puedes mostrar un mensaje de error o un icono por defecto
-	            JLabel errorLabel = new JLabel("Logo no disponible");
-	            panelLogo.removeAll();
-	            panelLogo.add(errorLabel);
-	            panelLogo.revalidate();
-	            panelLogo.repaint();
-	        }
-	    } else {
-	        System.out.println("No se encontró un logo en la base de datos.");
-	        // Puedes mostrar un mensaje o un icono por defecto
-	        JLabel noLogoLabel = new JLabel("No logo");
-	        panelLogo.removeAll();
-	        panelLogo.add(noLogoLabel);
-	        panelLogo.revalidate();
-	        panelLogo.repaint();
-	    }
-	}
-
 
 }
