@@ -32,6 +32,7 @@ public class GestorViajes {
             stmt.setString(8, viajes.getServicios());
             stmt.setInt(9, viajes.getAgencia().getID());
 
+            
             int filasAfectadas = stmt.executeUpdate();
             if (filasAfectadas > 0) {
                 System.out.println("Viaje creado exitosamente.");

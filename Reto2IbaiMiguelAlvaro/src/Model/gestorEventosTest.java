@@ -12,6 +12,7 @@ public class gestorEventosTest {
     private gestorEventos gestor;
     private Connection conexion;
     
+    
     @Before
     public void setUp() throws Exception {
         gestor = new gestorEventos();

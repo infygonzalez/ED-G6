@@ -19,6 +19,7 @@ public class gestorAgenciasTest {
         agencia.setColor("#FF5733");
         agencia.setNumeroEmpleados("10");
         agencia.setTipoAgencia("Mayorista");
+        
     }
 
    @Test
