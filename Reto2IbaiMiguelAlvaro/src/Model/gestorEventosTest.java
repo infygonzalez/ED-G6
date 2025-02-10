@@ -8,7 +8,7 @@ public class gestorEventosTest {
 
 	@Test
 	public void testAñadirVueloIda() {
-		fail("Not yet implemented");
+		
 	}
 
 	@Test

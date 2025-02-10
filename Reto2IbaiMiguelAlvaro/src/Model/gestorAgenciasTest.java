@@ -26,7 +26,6 @@ public class gestorAgenciasTest {
     public void testComprobarAgencia() {
         Agencia resultado = gestor.comprobarAgencia(agencia);
         assertNull("La agencia no debería existir inicialmente", null);
-      
     }
 
     @Test
