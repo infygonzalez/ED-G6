@@ -534,7 +534,7 @@ public class NuevoEvento extends JFrame {
 					frame3.setVisible(true);
 					dispose();
 				}
-				if(tipo == "Actividades") {
+				if(tipo == "Actividad") {
 					String descripcion = txtAreaDescripcion.getText();
 					String precio = txtPrecioActividad.getText();
 					String fechaActividad = sdf.format(dateChooserIda_1.getDate());
