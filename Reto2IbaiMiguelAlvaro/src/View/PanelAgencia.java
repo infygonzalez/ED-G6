@@ -224,63 +224,71 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnCrearEvento);
 		
 		JButton btnBorrarEvento = new JButton("Borrar evento");
-		btnBorrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                // Obtener la fila seleccionada
-                int filaSeleccionada = tablaViajes.getSelectedRow();
-                
-                if (filaSeleccionada == -1) {
-                    JOptionPane.showMessageDialog(null, "Por favor, selecciona un viaje para borrar.");
-                    return;
-                }
+		btnBorrarEvento.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        int filaSeleccionada = tablaEventos.getSelectedRow();
+		        
+		        if (filaSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Por favor, selecciona un evento para borrar.");
+		            return;
+		        }
 
-                // Obtener el ID del viaje desde la tabla (columna 0)
-                int idViaje = (int) modelViajes.getValueAt(filaSeleccionada, 0);
+		        // Obtener el nombre del evento desde la tabla (columna 0)
+		        String nombreEvento = (String) tablaEventos.getValueAt(filaSeleccionada, 0);
+		        
+		        // Obtener el ID del viaje seleccionado en la tabla de viajes
+		        int filaViajeSeleccionada = tablaViajes.getSelectedRow();
+		        if (filaViajeSeleccionada == -1) {
+		            JOptionPane.showMessageDialog(null, "Por favor, selecciona un viaje antes de borrar un evento.");
+		            return;
+		        }
+		        int idViaje = (int) modelViajes.getValueAt(filaViajeSeleccionada, 0);
+		        
+		        // Confirmación antes de eliminar
+		        int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el evento: " + nombreEvento + "?", 
+		                "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
 
-                // Confirmación antes de eliminar
-                int confirmacion = JOptionPane.showConfirmDialog(null, "¿Estás seguro de que deseas eliminar el viaje seleccionado?", 
-                        "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
+		        if (confirmacion == JOptionPane.YES_OPTION) {
+		            Connection conexion = null;
+		            PreparedStatement stmt = null;
 
-                if (confirmacion == JOptionPane.YES_OPTION) {
-                    Connection conexion = null;
-                    PreparedStatement stmt = null;
+		            try {
+		                // Conectar con la base de datos
+		                Class.forName(DBUtils.DRIVER);
+		                conexion = DBUtils.getConexion();
 
-                    try {
-                        // Conectar con la base de datos
-                        Class.forName(DBUtils.DRIVER);
-                        conexion = DBUtils.getConexion();
+		                // Sentencia SQL para eliminar el evento
+		                String sql = "DELETE FROM eventos WHERE nombre = ? AND id_viaje = ?";
+		                stmt = conexion.prepareStatement(sql);
+		                stmt.setString(1, nombreEvento);
+		                stmt.setInt(2, idViaje);
 
-                        // Sentencia SQL para eliminar el viaje
-                        String sql = "DELETE FROM viajes WHERE id_viaje = ?";
-                        stmt = conexion.prepareStatement(sql);
-                        stmt.setInt(1, idViaje);
+		                int filasAfectadas = stmt.executeUpdate();
 
-                        int filasAfectadas = stmt.executeUpdate();
+		                if (filasAfectadas > 0) {
+		                    // Eliminar del modelo de la tabla
+		                    DefaultTableModel modelEventos = (DefaultTableModel) tablaEventos.getModel();
+		                    modelEventos.removeRow(filaSeleccionada);
+		                    JOptionPane.showMessageDialog(null, "Evento eliminado correctamente.");
+		                } else {
+		                    JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el evento.");
+		                }
 
-                        if (filasAfectadas > 0) {
-                            // Eliminar del modelo de la tabla
-                            modelViajes.removeRow(filaSeleccionada);
-                            JOptionPane.showMessageDialog(null, "Viaje eliminado correctamente.");
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Error: No se pudo eliminar el viaje.");
-                        }
-
-                    } catch (SQLException ex) {
-                        ex.printStackTrace();
-                        JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
-                    } catch (ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    } finally {
-                        try {
-                            if (stmt != null) stmt.close();
-                            if (conexion != null) conexion.close();
-                        } catch (SQLException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                    
-                }
-            }
+		            } catch (SQLException ex) {
+		                ex.printStackTrace();
+		                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + ex.getMessage());
+		            } catch (ClassNotFoundException ex) {
+		                ex.printStackTrace();
+		            } finally {
+		                try {
+		                    if (stmt != null) stmt.close();
+		                    if (conexion != null) conexion.close();
+		                } catch (SQLException ex) {
+		                    ex.printStackTrace();
+		                }
+		            }
+		        }
+		    }
 		});
 		btnBorrarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrarEvento.setForeground(Color.WHITE);
