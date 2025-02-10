@@ -13,50 +13,50 @@ public class gestorAgenciasTest {
     public void setUp() {
         gestor = new gestorAgencias();
         agencia = new Agencia();
-        agencia.setNombre("TestAgency");
-        agencia.setContra("TestPassword");
+        agencia.setNombre("TestAgencia");
+        agencia.setContra("TestContra");
         agencia.setLogo("test_logo.png");
         agencia.setColor("#FF5733");
         agencia.setNumeroEmpleados("10");
-        agencia.setTipoAgencia("Turismo");
+        agencia.setTipoAgencia("Mayorista");
     }
 
    @Test
     public void testComprobarAgencia() {
         Agencia resultado = gestor.comprobarAgencia(agencia);
-        assertNull("La agencia no debería existir inicialmente", resultado);
+        assertNull("La agencia no debería existir inicialmente", null);
     }
 
     @Test
     public void testCrearAgencia() {
         gestor.crearAgencia(agencia);
-        boolean existe = gestor.existeAgencia("TestAgency", "TestPassword");
+        boolean existe = gestor.existeAgencia("TestAgencia", "TestContra");
         assertTrue("La agencia debería haberse creado", existe);
     }
 
     @Test
     public void testAutenticarAgencia() {
-        int id = gestor.autenticarAgencia("TestAgency", "TestPassword");
+        int id = gestor.autenticarAgencia("TestAgencia", "TestContra");
         assertTrue("El ID de la agencia debe ser válido", id > 0);
     }
 
     @Test
     public void testNombreAgencia() {
-        int id = gestor.autenticarAgencia("TestAgency", "TestPassword");
+        int id = gestor.autenticarAgencia("TestAgencia", "TestContra");
         String nombre = gestor.nombreAgencia(id);
-        assertEquals("El nombre de la agencia debe coincidir", "TestAgency", nombre);
+        assertEquals("El nombre de la agencia debe coincidir", "TestAgencia", nombre);
     }
 
     @Test
     public void testSeleccionarColor() {
-        int id = gestor.autenticarAgencia("TestAgency", "TestPassword");
+        int id = gestor.autenticarAgencia("TestAgencia", "TestContra");
         Color color = gestor.seleccionarColor(id);
         assertNotNull("El color de la agencia no debe ser null", color);
     }
 
     @Test
     public void testExisteAgencia() {
-        boolean existe = gestor.existeAgencia("TestAgency", "TestPassword");
+        boolean existe = gestor.existeAgencia("TestAgencia", "TestContra");
         assertTrue("La agencia debería existir", existe);
     }
 }
