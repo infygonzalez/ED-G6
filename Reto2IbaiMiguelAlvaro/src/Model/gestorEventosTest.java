@@ -15,8 +15,8 @@ public class gestorEventosTest {
     @Before
     public void setUp() throws Exception {
         gestor = new gestorEventos();
-        conexion = DriverManager.getConnection("jdbc:h2:mem:testdb", "sa", ""); // Base de datos en memoria para pruebas
-        crearTablas(); // Método para inicializar estructura de base de datos
+        conexion = DriverManager.getConnection("jdbc:h2:mem:testdb", "sa", "");
+        crearTablas(); 
     }
     
     private void crearTablas() throws SQLException {

@@ -54,6 +54,12 @@ public class GestorViajes {
 	    }
 
 	}
+
+
+	public static Viajes obtenerViajePorNombre(String string) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }
