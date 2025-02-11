@@ -551,7 +551,7 @@ public class PanelAgencia extends JFrame {
 	        String tipoEvento = (String) modelEventos.getValueAt(i, 1);
 	        String fechaEvento = (String) modelEventos.getValueAt(i, 2);
 	        double precioEvento = (double) modelEventos.getValueAt(i, 3);
-	        oferta.append("- " + nombreEvento + " (" + tipoEvento + ", " + fechaEvento + ") - Precio: $" + precioEvento + "\n");
+	        oferta.append("- " + nombreEvento + " (" + tipoEvento + ", " + fechaEvento + ") - Precio: " + precioEvento + "€\n");
 	    }
 
 	    try {

@@ -640,4 +640,3 @@ public class NuevoEvento extends JFrame {
 	 }
 }
 	
-
