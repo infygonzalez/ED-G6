@@ -564,6 +564,6 @@ public class PanelAgencia extends JFrame {
 	        JOptionPane.showMessageDialog(null, "Error al generar la oferta: " + e.getMessage());
 	    }
 	}
-
+	
 
 }

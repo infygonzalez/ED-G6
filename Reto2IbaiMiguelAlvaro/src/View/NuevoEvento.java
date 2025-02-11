@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Panel;
@@ -90,6 +92,12 @@ public class NuevoEvento extends JFrame {
 	private JComboBox comboBoxDestino;
 	private JComboBox comboBoxAerolinea;
 	private JComboBox comboBoxAerolineaVuelta;
+	private JDateChooser dateChooserIda;
+	private JDateChooser dateChooserVuelta;
+	private JDateChooser dateChooserFechaEntrada;
+	private JDateChooser dateChooserFechaSalida;
+	private JComboBox comboBoxTipoAlojamiento;
+	private JTextArea txtAreaDescripcion;
 
 	
 
@@ -97,6 +105,7 @@ public class NuevoEvento extends JFrame {
 	 * Create the frame.
 	 */
 	public NuevoEvento(int idAgencia, String nombreID, String logoUrl, int idViaje) {
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 965, 616);
@@ -219,9 +228,10 @@ public class NuevoEvento extends JFrame {
 		lblFechaVuelta.setFont(new Font("Verdana", Font.PLAIN, 13));
 		panelVueloVuelta.add(lblFechaVuelta);
 		
-		JDateChooser dateChooserVuelta = new JDateChooser();
+		dateChooserVuelta = new JDateChooser();
 		dateChooserVuelta.setBounds(153, 0, 185, 22);
 		panelVueloVuelta.add(dateChooserVuelta);
+		
 		
 		JLabel lblCdigoVueloDe = new JLabel("Código vuelo vuelta:");
 		lblCdigoVueloDe.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -361,7 +371,7 @@ public class NuevoEvento extends JFrame {
 		lblDuración.setBounds(94, 270, 153, 20);
 		panelVuelo.add(lblDuración);
 		
-		JDateChooser dateChooserIda = new JDateChooser();
+		dateChooserIda = new JDateChooser();
 		dateChooserIda.setBounds(309, 126, 185, 22);
 		panelVuelo.add(dateChooserIda);
 		
@@ -423,7 +433,7 @@ public class NuevoEvento extends JFrame {
 		lblDescripcion.setBounds(94, 11, 137, 26);
 		panelActividades.add(lblDescripcion);
 		
-		JTextArea txtAreaDescripcion = new JTextArea();
+		txtAreaDescripcion = new JTextArea();
 		txtAreaDescripcion.setWrapStyleWord(true);
 		txtAreaDescripcion.setLineWrap(true);
 		txtAreaDescripcion.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -481,15 +491,16 @@ public class NuevoEvento extends JFrame {
 		lblFechaSalida.setBounds(580, 122, 153, 26);
 		panelAlojamiento.add(lblFechaSalida);
 		
-		JDateChooser dateChooserFechaEntrada = new JDateChooser();
+		dateChooserFechaEntrada = new JDateChooser();
 		dateChooserFechaEntrada.setBounds(309, 126, 185, 22);
 		panelAlojamiento.add(dateChooserFechaEntrada);
 		
-		JDateChooser dateChooserFechaSalida = new JDateChooser();
+		dateChooserFechaSalida = new JDateChooser();
 		dateChooserFechaSalida.setBounds(684, 126, 185, 22);
 		panelAlojamiento.add(dateChooserFechaSalida);
 		
-		JComboBox comboBoxTipoAlojamiento = new JComboBox();
+		
+		comboBoxTipoAlojamiento = new JComboBox();
 		comboBoxTipoAlojamiento.setFont(new Font("Verdana", Font.PLAIN, 13));
 		comboBoxTipoAlojamiento.setModel(new DefaultComboBoxModel(new String[] {"Habitación doble", "Habitación  Individual", "Habitación  Doble (individual)", "Habitación  Triple"}));
 		comboBoxTipoAlojamiento.setBounds(309, 13, 185, 22);
@@ -509,6 +520,7 @@ public class NuevoEvento extends JFrame {
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				validarCampos();
 				gestorEventos gestor = new gestorEventos();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
 				SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
@@ -638,5 +650,82 @@ public class NuevoEvento extends JFrame {
             e.printStackTrace();
         }
 	 }
+	private boolean validarCampos() {
+	    String tipo = comboBoxTipoEvento.getSelectedItem().toString();
+	    
+	    if (txtNombreEvento.getText().trim().isEmpty()) {
+	        JOptionPane.showMessageDialog(this, "El nombre del evento es obligatorio.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return false;
+	    }
+	    
+	    if (tipo.equals("Vuelo")) {
+	        if (comboBoxTrayecto.getSelectedItem().toString().isEmpty() ||
+	            comboBoxOrigen.getSelectedItem().toString().isEmpty() ||
+	            comboBoxDestino.getSelectedItem().toString().isEmpty() ||
+	            dateChooserIda.getDate() == null ||
+	            txtCodigoVuelo.getText().trim().isEmpty() ||
+	            comboBoxAerolinea.getSelectedItem().toString().isEmpty() ||
+	            txtDuracion.getText().trim().isEmpty() ||
+	            txtPrecioVuelo.getText().trim().isEmpty()) {
+	            
+	            JOptionPane.showMessageDialog(this, "Todos los campos del vuelo son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	        
+	        if (comboBoxTrayecto.getSelectedItem().equals("Ida y vuelta")) {
+	            if (dateChooserVuelta.getDate() == null ||
+	                txtCodigoVuelta.getText().trim().isEmpty() ||
+	                comboBoxAerolineaVuelta.getSelectedItem().toString().isEmpty() ||
+	                txtDuracionVuelta.getText().trim().isEmpty()) {
+	                
+	                JOptionPane.showMessageDialog(this, "Todos los campos del vuelo de vuelta son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+	                return false;
+	            }
+	        }
+	    }
+	    
+	    if (tipo.equals("Alojamiento")) {
+	        if (comboBoxTipoAlojamiento.getSelectedItem().toString().isEmpty() ||
+	            txtCiudad.getText().trim().isEmpty() ||
+	            txtPrecioAlojamiento.getText().trim().isEmpty() ||
+	            dateChooserFechaEntrada.getDate() == null ||
+	            dateChooserFechaSalida.getDate() == null) {
+	            
+	            JOptionPane.showMessageDialog(this, "Todos los campos del alojamiento son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	    
+	    if (tipo.equals("Actividad")) {
+	        if (txtAreaDescripcion.getText().trim().isEmpty() ||
+	            txtPrecioActividad.getText().trim().isEmpty() ||
+	            dateChooserIda_1.getDate() == null) {
+	            
+	            JOptionPane.showMessageDialog(this, "Todos los campos de la actividad son obligatorios.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	    
+	    return validarFechas();
+	}
+
+	private boolean validarFechas() {
+	    if (dateChooserIda.getDate() != null && dateChooserVuelta.getDate() != null) {
+	        if (dateChooserIda.getDate().after(dateChooserVuelta.getDate())) {
+	            JOptionPane.showMessageDialog(this, "La fecha de ida no puede ser posterior a la de vuelta.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	    
+	    if (dateChooserFechaEntrada.getDate() != null && dateChooserFechaSalida.getDate() != null) {
+	        if (dateChooserFechaEntrada.getDate().after(dateChooserFechaSalida.getDate())) {
+	            JOptionPane.showMessageDialog(this, "La fecha de entrada no puede ser posterior a la de salida.", "Error", JOptionPane.ERROR_MESSAGE);
+	            return false;
+	        }
+	    }
+	    
+	    return true;
+	}
+
 }
 	
