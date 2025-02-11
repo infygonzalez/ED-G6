@@ -21,6 +21,8 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.ListSelectionModel;
 import Model.*;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.sql.Connection;
@@ -304,6 +306,11 @@ public class PanelAgencia extends JFrame {
 		contentPane.add(btnEditarEvento);
 		
 		JButton btnGeneraOferta = new JButton("Generar oferta para cliente");
+		btnGeneraOferta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				generarOfertaCliente();
+			}
+		});
 		btnGeneraOferta.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnGeneraOferta.setForeground(Color.WHITE);
 		btnGeneraOferta.setBackground(new Color(98, 143, 200));
@@ -498,5 +505,52 @@ public class PanelAgencia extends JFrame {
 	    }
 	    return logoUrl;
 	}
+	private void generarOfertaCliente() {
+	    int filaSeleccionada = tablaViajes.getSelectedRow();
+	    if (filaSeleccionada == -1) {
+	        JOptionPane.showMessageDialog(null, "Por favor, selecciona un viaje para generar la oferta.");
+	        return;
+	    }
+
+	    // Obtener los datos del viaje seleccionado
+	    String nombreViaje = (String) modelViajes.getValueAt(filaSeleccionada, 1);
+	    String tipoViaje = (String) modelViajes.getValueAt(filaSeleccionada, 2);
+	    int duracion = (int) modelViajes.getValueAt(filaSeleccionada, 3);
+	    String fechaInicio = (String) modelViajes.getValueAt(filaSeleccionada, 4);
+	    String fechaFin = (String) modelViajes.getValueAt(filaSeleccionada, 5);
+	    String paisDestino = (String) modelViajes.getValueAt(filaSeleccionada, 6);
+
+	    // Construir el contenido de la oferta
+	    StringBuilder oferta = new StringBuilder();
+	    oferta.append("*** OFERTA DE VIAJE ***\n\n");
+	    oferta.append("Nombre del Viaje: " + nombreViaje + "\n");
+	    oferta.append("Tipo de Viaje: " + tipoViaje + "\n");
+	    oferta.append("Duración: " + duracion + " días\n");
+	    oferta.append("Fecha de Inicio: " + fechaInicio + "\n");
+	    oferta.append("Fecha de Fin: " + fechaFin + "\n");
+	    oferta.append("Destino: " + paisDestino + "\n\n");
+	    oferta.append("Eventos incluidos:\n");
+
+	    // Obtener los eventos relacionados con el viaje
+	    DefaultTableModel modelEventos = (DefaultTableModel) tablaEventos.getModel();
+	    for (int i = 0; i < modelEventos.getRowCount(); i++) {
+	        String nombreEvento = (String) modelEventos.getValueAt(i, 0);
+	        String tipoEvento = (String) modelEventos.getValueAt(i, 1);
+	        String fechaEvento = (String) modelEventos.getValueAt(i, 2);
+	        double precioEvento = (double) modelEventos.getValueAt(i, 3);
+	        oferta.append("- " + nombreEvento + " (" + tipoEvento + ", " + fechaEvento + ") - Precio: $" + precioEvento + "\n");
+	    }
+
+	    try {
+	        // Guardar la oferta en un archivo de texto
+	        FileWriter writer = new FileWriter("Oferta_" + nombreViaje.replace(" ", "_") + ".txt");
+	        writer.write(oferta.toString());
+	        writer.close();
+	        JOptionPane.showMessageDialog(null, "Oferta generada exitosamente en un archivo de texto.");
+	    } catch (IOException e) {
+	        JOptionPane.showMessageDialog(null, "Error al generar la oferta: " + e.getMessage());
+	    }
+	}
+
 
 }
