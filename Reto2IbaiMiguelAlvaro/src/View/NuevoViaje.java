@@ -110,10 +110,14 @@ public class NuevoViaje extends JFrame {
 		lblPaises.setBounds(71, 293, 121, 35);
 		contentPane.add(lblPaises);
 		
+		
+		
 		JComboBox<String> comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setModel(new DefaultComboBoxModel(new String[] {"", "ALEMANIA", "ARGENTINA", "AUSTRIA", "BÉLGICA", "BRASIL", "CANADA", "CROACIA", "REPUBLICA CHECA", "CUBA", "CHINA", "CHIPRE", "DINAMARCA", "EGIPTO", "ESPAÑA", "ESTADOS UNIDOS", "ESTONIA", "FINLANDIA", "FRANCIA", "GRECIA", "GUATEMALA", "HONG-KONG", "HUNGRIA", "INDIA", "INDONESIA", "IRLANDA", "ISLANDIA", "ISRAEL", "ITALIA", "jAMAICA", "JAPÓN", "KENIA", "LUXEMBURGO", "MALDIVAS", "MALTA", "MARRUECOS", "MEXICO", "MÓNACO", "NORUEGA", "PAISES BAJOS", "PANAMÁ", "PERÚ", "POLONIA", "PORTUGAL", "PUERTO RICO", "QATAR", "REINO UNIDO", "RUMANIA", "RUSIA", "SEYCHELLES", "SINGAPUR", "SUDÁFRICA", "SUECIA", "SUIZA", "TAILANDIA", "TANZANIA (INCLUYE ZANZIBAR)", "TÚNEZ", "TURQUIA", "VENEZUELA", "VIETNAM"}));
 		comboBoxPaises.setBounds(237, 300, 212, 22);
 		contentPane.add(comboBoxPaises);
+		
+
 		
 		JLabel lblDescripcion = new JLabel("Descripción:");
 		lblDescripcion.setFont(new Font("Verdana", Font.PLAIN, 13));
