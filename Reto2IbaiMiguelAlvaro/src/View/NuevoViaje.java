@@ -13,6 +13,10 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -41,6 +45,7 @@ public class NuevoViaje extends JFrame {
 	private JDateChooser dateFin;
 	private JButton btnBorrar;
 	private JButton btnGuardar;
+	private JComboBox<String> comboBoxPaises;
 
 	
 
@@ -112,11 +117,10 @@ public class NuevoViaje extends JFrame {
 		
 		
 		
-		JComboBox<String> comboBoxPaises = new JComboBox<String>();
-		comboBoxPaises.setModel(new DefaultComboBoxModel(new String[] {"", "ALEMANIA", "ARGENTINA", "AUSTRIA", "BÉLGICA", "BRASIL", "CANADA", "CROACIA", "REPUBLICA CHECA", "CUBA", "CHINA", "CHIPRE", "DINAMARCA", "EGIPTO", "ESPAÑA", "ESTADOS UNIDOS", "ESTONIA", "FINLANDIA", "FRANCIA", "GRECIA", "GUATEMALA", "HONG-KONG", "HUNGRIA", "INDIA", "INDONESIA", "IRLANDA", "ISLANDIA", "ISRAEL", "ITALIA", "jAMAICA", "JAPÓN", "KENIA", "LUXEMBURGO", "MALDIVAS", "MALTA", "MARRUECOS", "MEXICO", "MÓNACO", "NORUEGA", "PAISES BAJOS", "PANAMÁ", "PERÚ", "POLONIA", "PORTUGAL", "PUERTO RICO", "QATAR", "REINO UNIDO", "RUMANIA", "RUSIA", "SEYCHELLES", "SINGAPUR", "SUDÁFRICA", "SUECIA", "SUIZA", "TAILANDIA", "TANZANIA (INCLUYE ZANZIBAR)", "TÚNEZ", "TURQUIA", "VENEZUELA", "VIETNAM"}));
+		comboBoxPaises = new JComboBox<String>();
 		comboBoxPaises.setBounds(237, 300, 212, 22);
 		contentPane.add(comboBoxPaises);
-		
+        cargarPaisesDesdeDB();
 
 		
 		JLabel lblDescripcion = new JLabel("Descripción:");
@@ -292,4 +296,22 @@ public class NuevoViaje extends JFrame {
 		GestorViajes.crearViaje(viajes);
 		
 	}
+	
+	 private void cargarPaisesDesdeDB() {
+         try (Connection conn = DBUtils.getConexion()) {
+             String sql = "SELECT nombre FROM paises"; 
+             PreparedStatement stmt = conn.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery();
+
+             comboBoxPaises.addItem(""); 
+             while (rs.next()) {
+                 comboBoxPaises.addItem(rs.getString("nombre"));
+             }
+
+             rs.close();
+             stmt.close();
+         } catch (Exception e) {
+             e.printStackTrace();
+         }
+	 }
 }

@@ -21,6 +21,7 @@ import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
 import com.toedter.components.JSpinField;
 
+import Model.DBUtils;
 import Model.Sesion;
 import Model.gestorAgencias;
 import Model.gestorEventos;
@@ -34,6 +35,9 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.awt.event.ActionEvent;
@@ -84,6 +88,8 @@ public class NuevoEvento extends JFrame {
 	private JPanel panelLogo;
 	private JLabel lblLogo;
 	private JLabel lblLogo1;
+	private JComboBox comboBoxOrigen;
+	private JComboBox comboBoxDestino;
 
 	
 
@@ -303,17 +309,19 @@ public class NuevoEvento extends JFrame {
 		lblAeropuertoDestino.setBounds(94, 85, 153, 26);
 		panelVuelo.add(lblAeropuertoDestino);
 		
-		JComboBox comboBoxOrigen = new JComboBox();
+		comboBoxOrigen = new JComboBox();
 		comboBoxOrigen.setFont(new Font("Verdana", Font.PLAIN, 13));
-		comboBoxOrigen.setModel(new DefaultComboBoxModel(new String[] {"", "Acapulco", "Lanzarote", "Malaga", "Alicante", "Amman", "Amsterdam", "Atenas", "Barcelona", "Berlin", "Bilbao", "Badajoz", "Bagkok", "Bogota", "Boston", "Bruselas", "Brasilia", "Buenos Aires", "El Cairo", "Casablanca", "Caracas", "Paris, Aeropuerto Charles de Gaulle", "Dinamarca", "Detroit", "Dublin", "Dusseldof", "San Sebastian", "Frankfurt", "Fuenteventura", "La Gomera", "Gerona", "Granada", "Ginebra", "Hamburgo", "Helsinki", "Houston", "Ibiza", "Estambul", "Nueva York", "Kingston", "Los Angeles", "Le Bourget", "La Coruña LCG", "Gatwick", "Heathrow", "PERU, Lima", "Lisboa", "Gran Canaria", "Lyon", "Madrid", "Mahon", "Melbourne", "Mexico D.F", "Miami", "Milan", "Murcia", "Moscu", "Marsella", "Munich", "Nairobi", "Cordoba", "Orly", "Oslo", "Asturias", "Philadelfia PHL", "Palma de Mayorca", "Pamplona", "Praga", "Marrakech", "Reus", "Rio de Janeiro", "Sao Paulo", "Santiago de Compostela", "Santo Domingo", "Santander", "Seatle", "San Francisco", "Salamanca", "Santa Cruz de la Palma", "Standed", "Estocolmo", "Stuttgart", "Sydney", "Tenerife Norte", "Tenerife Sur", "Tunez", "Hierro", "Vigo", "Viena", "Vitoria", "Valencia", "Washington", "Varsovia", "Jerez de la Frontera", "Montreal, Quebec", "Otawwa, Ontario YOW", "Toronto, Ontario YTO", "Vancouver", "Zaragoza", "Zurich"}));
 		comboBoxOrigen.setBounds(309, 52, 185, 22);
 		panelVuelo.add(comboBoxOrigen);
+		 cargarPaisesDesdeDB();
 		
-		JComboBox comboBoxDestino = new JComboBox();
+		
+		comboBoxDestino = new JComboBox();
 		comboBoxDestino.setFont(new Font("Verdana", Font.PLAIN, 13));
-		comboBoxDestino.setModel(new DefaultComboBoxModel(new String[] {"", "Acapulco", "Lanzarote", "Malaga", "Alicante", "Amman", "Amsterdam", "Atenas", "Barcelona", "Berlin", "Bilbao", "Badajoz", "Bagkok", "Bogota", "Boston", "Bruselas", "Brasilia", "Buenos Aires", "El Cairo", "Casablanca", "Caracas", "Paris, Aeropuerto Charles de Gaulle", "Dinamarca", "Detroit", "Dublin", "Dusseldof", "San Sebastian", "Frankfurt", "Fuenteventura", "La Gomera", "Gerona", "Granada", "Ginebra", "Hamburgo", "Helsinki", "Houston", "Ibiza", "Estambul", "Nueva York", "Kingston", "Los Angeles", "Le Bourget", "La Coruña LCG", "Gatwick", "Heathrow", "PERU, Lima", "Lisboa", "Gran Canaria", "Lyon", "Madrid", "Mahon", "Melbourne", "Mexico D.F", "Miami", "Milan", "Murcia", "Moscu", "Marsella", "Munich", "Nairobi", "Cordoba", "Orly", "Oslo", "Asturias", "Philadelfia PHL", "Palma de Mayorca", "Pamplona", "Praga", "Marrakech", "Reus", "Rio de Janeiro", "Sao Paulo", "Santiago de Compostela", "Santo Domingo", "Santander", "Seatle", "San Francisco", "Salamanca", "Santa Cruz de la Palma", "Standed", "Estocolmo", "Stuttgart", "Sydney", "Tenerife Norte", "Tenerife Sur", "Tunez", "Hierro", "Vigo", "Viena", "Vitoria", "Valencia", "Washington", "Varsovia", "Jerez de la Frontera", "Montreal, Quebec", "Otawwa, Ontario YOW", "Toronto, Ontario YTO", "Vancouver", "Zaragoza", "Zurich"}));
 		comboBoxDestino.setBounds(309, 89, 185, 22);
 		panelVuelo.add(comboBoxDestino);
+		cargarPaisesDesdeDB();
+		
 		
 		lblFechaIda = new JLabel("Fecha Ida:");
 		lblFechaIda.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -591,6 +599,25 @@ public class NuevoEvento extends JFrame {
 		
 		
 	}
+	
+	private void cargarPaisesDesdeDB() {
+        try (Connection conn = DBUtils.getConexion()) {
+            String sql = "SELECT nombre_aeropuerto FROM codigosaeropuerto"; 
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            comboBoxOrigen.addItem("");
+            comboBoxDestino.addItem("");
+            while (rs.next()) {
+            	comboBoxOrigen.addItem(rs.getString("nombre_aeropuerto"));
+            	comboBoxDestino.addItem(rs.getString("nombre_aeropuerto"));
+            }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	 }
 }
 	
 
