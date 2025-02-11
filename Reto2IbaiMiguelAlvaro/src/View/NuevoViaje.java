@@ -13,6 +13,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
@@ -140,10 +141,12 @@ public class NuevoViaje extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Paises paises = new Paises();
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
+				
 				String nombre = txtNombre.getText();
 				String tipoViaje = comboBoxViaje.getSelectedItem().toString();
-				String fecInicio = dateInicio.getDate().toString();
-				String fecFin = dateFin.getDate().toString();
+				String fecInicio = sdf.format(dateInicio.getDate());
+				String fecFin = sdf.format(dateFin.getDate());
 				String dias = txtDias.getText();
 				String descripcion = txtAreaDescripcion.getText();
 				String servicios = txtAreaServicios.getText();
