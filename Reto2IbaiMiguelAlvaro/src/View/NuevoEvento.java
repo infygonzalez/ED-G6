@@ -68,10 +68,8 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblHoraSalida;
 	private JLabel lblDuración;
 	private JTextField txtCodigoVuelo;
-	private JTextField txtAerolinea;
 	private JTextField txtDuracion;
 	private JTextField txtCodigoVuelta;
-	private JTextField txtAerolineaVuelta;
 	private JLabel lblDuracionVuelta;
 	private JTextField txtDuracionVuelta;
 	private JPanel panelAlojamiento;
@@ -90,6 +88,8 @@ public class NuevoEvento extends JFrame {
 	private JLabel lblLogo1;
 	private JComboBox comboBoxOrigen;
 	private JComboBox comboBoxDestino;
+	private JComboBox comboBoxAerolinea;
+	private JComboBox comboBoxAerolineaVuelta;
 
 	
 
@@ -239,12 +239,6 @@ public class NuevoEvento extends JFrame {
 		lblAerolineaVuelta.setBounds(0, 71, 153, 26);
 		panelVueloVuelta.add(lblAerolineaVuelta);
 		
-		txtAerolineaVuelta = new JTextField();
-		txtAerolineaVuelta.setFont(new Font("Verdana", Font.PLAIN, 13));
-		txtAerolineaVuelta.setColumns(10);
-		txtAerolineaVuelta.setBounds(153, 76, 185, 20);
-		panelVueloVuelta.add(txtAerolineaVuelta);
-		
 		Calendar then = Calendar.getInstance();
         int hour2 = then.get(Calendar.AM_PM);
         int minute2 = then.get(Calendar.MINUTE);
@@ -274,7 +268,12 @@ public class NuevoEvento extends JFrame {
 		txtDuracionVuelta.setColumns(10);
 		txtDuracionVuelta.setBounds(153, 145, 86, 20);
 		panelVueloVuelta.add(txtDuracionVuelta);
+		
+		comboBoxAerolineaVuelta = new JComboBox();
+		comboBoxAerolineaVuelta.setBounds(153, 75, 185, 22);
+		panelVueloVuelta.add(comboBoxAerolineaVuelta);
 		panelVueloVuelta.setVisible(false);
+		cargarAerolineasDesdeDB();
 		
 		JLabel lblTrayecto = new JLabel("Trayecto:");
 		lblTrayecto.setFont(new Font("Verdana", Font.PLAIN, 13));
@@ -372,12 +371,6 @@ public class NuevoEvento extends JFrame {
 		txtCodigoVuelo.setBounds(309, 164, 185, 20);
 		panelVuelo.add(txtCodigoVuelo);
 		
-		txtAerolinea = new JTextField();
-		txtAerolinea.setFont(new Font("Verdana", Font.PLAIN, 13));
-		txtAerolinea.setColumns(10);
-		txtAerolinea.setBounds(309, 201, 185, 20);
-		panelVuelo.add(txtAerolinea);
-		
 		txtDuracion = new JTextField();
 		txtDuracion.setFont(new Font("Verdana", Font.PLAIN, 13));
 		txtDuracion.setColumns(10);
@@ -412,6 +405,12 @@ public class NuevoEvento extends JFrame {
 		txtPrecioVuelo.setBounds(309, 307, 86, 20);
 		panelVuelo.add(txtPrecioVuelo);
 		txtPrecioVuelo.setColumns(10);
+		
+		comboBoxAerolinea = new JComboBox();
+		comboBoxAerolinea.setBounds(309, 200, 185, 22);
+		panelVuelo.add(comboBoxAerolinea);
+		cargarAerolineasDesdeDB();
+		
 		
 		panelActividades = new JPanel();
 		panelActividades.setBounds(0, 131, 939, 379);
@@ -522,7 +521,7 @@ public class NuevoEvento extends JFrame {
 					String aeropuertoDestino = comboBoxDestino.getSelectedItem().toString();
 					String fechaIda = sdf.format(dateChooserIda.getDate());
 					String codigoVuelo = txtCodigoVuelo.getText();
-					String aerolinea = txtAerolinea.getText();
+					String aerolinea = comboBoxAerolinea.getSelectedItem().toString();
 					String horarioSalida = sdfHora.format(spinnerHorarioSalida.getValue());
 					String duracion = txtDuracion.getText();
 					String precio = txtPrecioVuelo.getText();
@@ -530,7 +529,7 @@ public class NuevoEvento extends JFrame {
 					if(trayecto == "Ida y Vuelta") {
 						String fechaVuelta = sdf.format(dateChooserVuelta.getDate());
 						String codigoVuelta = txtCodigoVuelta.getText();
-						String aerolineaVuelta = txtAerolineaVuelta.getText();
+						String aerolineaVuelta = comboBoxAerolineaVuelta.getSelectedItem().toString();
 						String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
 						String duracionVuelta = txtDuracionVuelta.getText();
 						gestor.añadirVueloVuelta(idViaje, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
@@ -612,6 +611,27 @@ public class NuevoEvento extends JFrame {
             	comboBoxOrigen.addItem(rs.getString("nombre_aeropuerto"));
             	comboBoxDestino.addItem(rs.getString("nombre_aeropuerto"));
             }
+            rs.close();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+	 }
+	
+	private void cargarAerolineasDesdeDB() {
+        try (Connection conn = DBUtils.getConexion()) {
+            String sql = "SELECT nombre FROM aerolineas"; 
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ResultSet rs = stmt.executeQuery();
+
+            comboBoxAerolinea.addItem("");
+            comboBoxAerolineaVuelta.addItem("");
+            while (rs.next()) {
+                comboBoxAerolinea.addItem(rs.getString("nombre"));
+                comboBoxAerolineaVuelta.addItem(rs.getString("nombre"));
+
+            }
+
             rs.close();
             stmt.close();
         } catch (Exception e) {
