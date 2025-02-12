@@ -2,7 +2,7 @@ function login() {
     const usuario = document.getElementById("usuario").value;
     const contrasena = document.getElementById("contrasena").value;
 
-    // Aquí puedes agregar la lógica para validar el usuario y la contraseña
+    
     if (usuario === "admin" && contrasena === "1234") {
         window.location.href = "eleccion.php";
     } else {
@@ -19,7 +19,7 @@ function index(){
     window.location.href = "index.php"
 }
 function logout() {
-    window.location.replace("index.php");
+    window.location.href = "logout.php";
 }
 
 function registrarViaje() {
