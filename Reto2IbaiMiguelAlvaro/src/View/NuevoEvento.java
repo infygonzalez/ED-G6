@@ -50,6 +50,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import java.awt.TextArea;
+import javax.swing.SwingConstants;
 
 public class NuevoEvento extends JFrame {
 
@@ -98,6 +99,8 @@ public class NuevoEvento extends JFrame {
 	private JDateChooser dateChooserFechaSalida;
 	private JComboBox comboBoxTipoAlojamiento;
 	private JTextArea txtAreaDescripcion;
+	private JPanel panelColor1_1;
+	private JLabel lblNewLabel;
 
 	
 
@@ -604,8 +607,22 @@ public class NuevoEvento extends JFrame {
 
 		JPanel panelColor2 = new JPanel();
         panelColor2.setBackground(gestor.seleccionarColor(idAgencia));
-		panelColor2.setBounds(0, 567, 286, 10);
+		panelColor2.setBounds(0, 567, 949, 10);
 		contentPane.add(panelColor2);
+		
+		panelColor1_1 = new JPanel();
+		panelColor1_1.setBackground(gestor.seleccionarColor(idAgencia));
+		panelColor1_1.setBounds(939, 231, 10, 346);
+		contentPane.add(panelColor1_1);
+		
+		lblNewLabel = new JLabel("NUEVO EVENTO");
+		lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(382, 11, 185, 40);
+		contentPane.add(lblNewLabel);
+		
+		
+		
 		panelActividades.setVisible(false);
 		
 		

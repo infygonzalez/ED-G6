@@ -198,7 +198,7 @@ public class PanelAgencia extends JFrame {
 		btnBorrar.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrar.setForeground(Color.WHITE);
 		btnBorrar.setBackground(new Color(98, 143, 200));
-		btnBorrar.setBounds(559, 196, 141, 37);
+		btnBorrar.setBounds(559, 228, 141, 53);
 		contentPane.add(btnBorrar);
 		
 		JButton btnCrearViaje = new JButton("Crear viaje");
@@ -212,15 +212,8 @@ public class PanelAgencia extends JFrame {
 		});
 		btnCrearViaje.setForeground(Color.WHITE);
 		btnCrearViaje.setBackground(new Color(98, 143, 200));
-		btnCrearViaje.setBounds(559, 148, 141, 37);
+		btnCrearViaje.setBounds(559, 148, 141, 53);
 		contentPane.add(btnCrearViaje);
-		
-		JButton btnEditar = new JButton("Editar viaje");
-		btnEditar.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnEditar.setForeground(Color.WHITE);
-		btnEditar.setBackground(new Color(98, 143, 200));
-		btnEditar.setBounds(559, 244, 141, 37);
-		contentPane.add(btnEditar);
 		
 		JButton btnCrearEvento = new JButton("Crear evento");
 		btnCrearEvento.addActionListener(new ActionListener() {
@@ -235,7 +228,7 @@ public class PanelAgencia extends JFrame {
 		btnCrearEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnCrearEvento.setForeground(Color.WHITE);
 		btnCrearEvento.setBackground(new Color(98, 143, 200));
-		btnCrearEvento.setBounds(559, 318, 141, 37);
+		btnCrearEvento.setBounds(559, 318, 141, 53);
 		contentPane.add(btnCrearEvento);
 		
 		JButton btnBorrarEvento = new JButton("Borrar evento");
@@ -308,15 +301,8 @@ public class PanelAgencia extends JFrame {
 		btnBorrarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
 		btnBorrarEvento.setForeground(Color.WHITE);
 		btnBorrarEvento.setBackground(new Color(98, 143, 200));
-		btnBorrarEvento.setBounds(559, 366, 141, 37);
+		btnBorrarEvento.setBounds(559, 397, 141, 53);
 		contentPane.add(btnBorrarEvento);
-		
-		JButton btnEditarEvento = new JButton("Editar evento");
-		btnEditarEvento.setFont(new Font("Tahoma", Font.BOLD, 13));
-		btnEditarEvento.setForeground(Color.WHITE);
-		btnEditarEvento.setBackground(new Color(98, 143, 200));
-		btnEditarEvento.setBounds(559, 414, 141, 37);
-		contentPane.add(btnEditarEvento);
 		
 		JButton btnGeneraOferta = new JButton("Generar oferta para cliente");
 		btnGeneraOferta.addActionListener(new ActionListener() {

@@ -33,6 +33,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import Model.*;
+import javax.swing.SwingConstants;
  
 
 public class NuevoViaje extends JFrame {
@@ -240,8 +241,14 @@ public class NuevoViaje extends JFrame {
 
         JPanel panelColor3 = new JPanel();
         panelColor3.setBackground(gestor.seleccionarColor(id));
-        panelColor3.setBounds(249, 641, 546, 10);
+        panelColor3.setBounds(237, 595, 556, 10);
         contentPane.add(panelColor3);
+        
+        JLabel lblNewLabel = new JLabel("NUEVO VIAJE");
+        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lblNewLabel.setFont(new Font("Verdana", Font.BOLD, 15));
+        lblNewLabel.setBounds(303, 11, 189, 35);
+        contentPane.add(lblNewLabel);
         
 
 		// Agregar PropertyChangeListener a los JDateChooser
