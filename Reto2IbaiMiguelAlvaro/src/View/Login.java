@@ -1,0 +1,130 @@
+package View;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import Model.*;
+
+public class Login extends JFrame {
+
+	private static final long serialVersionUID = 1L;
+	private JPanel contentPane;
+	private JTextField txtNombre;
+	private JTextField txtContraseña;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Login() {
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 673, 437);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblNombre = new JLabel("Nombre:");
+		lblNombre.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblNombre.setBounds(141, 88, 78, 31);
+		contentPane.add(lblNombre);
+		
+		txtNombre = new JTextField();
+		txtNombre.setFont(new Font("Verdana", Font.PLAIN, 13));
+		txtNombre.setBounds(292, 88, 150, 31);
+		contentPane.add(txtNombre);
+		txtNombre.setColumns(10);
+		
+		JLabel lblContraseña = new JLabel("Contraseña:");
+		lblContraseña.setFont(new Font("Verdana", Font.PLAIN, 13));
+		lblContraseña.setBounds(141, 156, 104, 31);
+		contentPane.add(lblContraseña);
+		
+		txtContraseña = new JTextField();
+		txtContraseña.setFont(new Font("Verdana", Font.PLAIN, 13));
+		txtContraseña.setColumns(10);
+		txtContraseña.setBounds(292, 156, 150, 31);
+		contentPane.add(txtContraseña);
+		
+		JButton btnValidar = new JButton("Siguiente");
+		btnValidar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Agencia agencia = new Agencia();
+				gestorAgencias gestor = new gestorAgencias();
+				String nombre = txtNombre.getText();
+				String contraseña = txtContraseña.getText();
+				String logoUrl = Sesion.getLogo();
+				validarCredenciales(agencia, nombre, contraseña, gestor, logoUrl);
+				
+			}
+		});
+		btnValidar.setForeground(new Color(255, 255, 255));
+		btnValidar.setBackground(new Color(0, 128, 64));
+		btnValidar.setBounds(292, 233, 150, 31);
+		contentPane.add(btnValidar);
+		
+		JButton btnCrearCuenta = new JButton("Crear una cuenta");
+		btnCrearCuenta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				CrearCuenta frame2 = new CrearCuenta();
+				frame2.setVisible(true);
+				dispose();
+			}
+		});
+		btnCrearCuenta.setForeground(new Color(255, 255, 255));
+		btnCrearCuenta.setBackground(new Color(98, 143, 200));
+		btnCrearCuenta.setBounds(141, 233, 141, 31);
+		contentPane.add(btnCrearCuenta);
+	}
+	public void validarCredenciales(Agencia agencia, String nombre, String contraseña, gestorAgencias gestor, String logoUrl) {
+		agencia.setNombre(nombre);
+		agencia.setContra(contraseña);
+		Agencia agenciaLogin = gestor.comprobarAgencia(agencia);
+		if (agenciaLogin!= null) {
+			int id = gestor.autenticarAgencia(nombre, contraseña);
+			if (id != -1) {
+			    Sesion.setIdAgencia(id); // Guarda el ID de la agencia en la sesión
+			    System.out.println("Sesión iniciada con ID: " + Sesion.getIdAgencia());
+			} else {
+			    System.out.println("Credenciales incorrectas");
+			}
+			logoUrl = agenciaLogin.getLogo();
+			int idAgencia = agenciaLogin.getID();
+			String nombreID = agenciaLogin.getNombre();
+			PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+			frame3.setVisible(true);
+			dispose();
+		} else {
+			JOptionPane.showMessageDialog(this, "Usuario o contraseña incorrectos", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+}
