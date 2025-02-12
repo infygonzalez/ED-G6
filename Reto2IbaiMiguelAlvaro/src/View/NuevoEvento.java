@@ -523,60 +523,61 @@ public class NuevoEvento extends JFrame {
 		
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				validarCampos();
-				gestorEventos gestor = new gestorEventos();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
-				SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
+				if (validarCampos()==true) {
+					gestorEventos gestor = new gestorEventos();
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//modelo por defecto para guardar la fecha
+					SimpleDateFormat sdfHora = new SimpleDateFormat("HH:mm:ss");
 				
-				String nombreEvento = txtNombreEvento.getText();
-				String tipo = comboBoxTipoEvento.getSelectedItem().toString();
-				if(tipo == "Vuelo") {
-					String trayecto = comboBoxTrayecto.getSelectedItem().toString();
-					String aeropuertoOrigen = comboBoxOrigen.getSelectedItem().toString();
-					String aeropuertoDestino = comboBoxDestino.getSelectedItem().toString();
-					String fechaIda = sdf.format(dateChooserIda.getDate());
-					String codigoVuelo = txtCodigoVuelo.getText();
-					String aerolinea = comboBoxAerolinea.getSelectedItem().toString();
-					String horarioSalida = sdfHora.format(spinnerHorarioSalida.getValue());
-					String duracion = txtDuracion.getText();
-					String precio = txtPrecioVuelo.getText();
-					gestor.añadirVueloIda(idViaje, nombreEvento, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio);
-					if(trayecto == "Ida y Vuelta") {
-						String fechaVuelta = sdf.format(dateChooserVuelta.getDate());
-						String codigoVuelta = txtCodigoVuelta.getText();
-						String aerolineaVuelta = comboBoxAerolineaVuelta.getSelectedItem().toString();
-						String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
-						String duracionVuelta = txtDuracionVuelta.getText();
-						gestor.añadirVueloVuelta(idViaje, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+					String nombreEvento = txtNombreEvento.getText();
+					String tipo = comboBoxTipoEvento.getSelectedItem().toString();
+					if(tipo == "Vuelo") {
+						String trayecto = comboBoxTrayecto.getSelectedItem().toString();
+						String aeropuertoOrigen = comboBoxOrigen.getSelectedItem().toString();
+						String aeropuertoDestino = comboBoxDestino.getSelectedItem().toString();
+						String fechaIda = sdf.format(dateChooserIda.getDate());
+						String codigoVuelo = txtCodigoVuelo.getText();
+						String aerolinea = comboBoxAerolinea.getSelectedItem().toString();
+						String horarioSalida = sdfHora.format(spinnerHorarioSalida.getValue());
+						String duracion = txtDuracion.getText();
+						String precio = txtPrecioVuelo.getText();
+						gestor.añadirVueloIda(idViaje, nombreEvento, tipo, trayecto, aeropuertoOrigen, aeropuertoDestino, fechaIda, codigoVuelo, aerolinea, horarioSalida, duracion, precio);
+						if(trayecto == "Ida y Vuelta") {
+							String fechaVuelta = sdf.format(dateChooserVuelta.getDate());
+							String codigoVuelta = txtCodigoVuelta.getText();
+							String aerolineaVuelta = comboBoxAerolineaVuelta.getSelectedItem().toString();
+							String horarioVuelta = sdfHora.format(spinnerHorarioVuelta1.getValue());
+							String duracionVuelta = txtDuracionVuelta.getText();
+							gestor.añadirVueloVuelta(idViaje, fechaVuelta, codigoVuelta, aerolineaVuelta, horarioVuelta, duracionVuelta);
+							PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+							frame3.setVisible(true);
+							dispose();
+						}
 						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
 						frame3.setVisible(true);
 						dispose();
 					}
-					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
-					frame3.setVisible(true);
-					dispose();
-				}
-				if(tipo == "Actividad") {
-					String descripcion = txtAreaDescripcion.getText();
-					String precio = txtPrecioActividad.getText();
-					String fechaActividad = sdf.format(dateChooserIda_1.getDate());
-					gestor.añadirActividad(idViaje, nombreEvento, tipo ,descripcion, precio, fechaActividad);
-					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
-					frame3.setVisible(true);
-					dispose();
-				}
-				if(tipo == "Alojamiento") {
-					String tipoAlojamiento = comboBoxTipoAlojamiento.getSelectedItem().toString();
-					String ciudad = txtCiudad.getText();
-					String precio = txtPrecioAlojamiento.getText();
-					String fechaEntrada = sdf.format(dateChooserFechaEntrada.getDate());
-					String fechaSalida = sdf.format(dateChooserFechaSalida.getDate());
-					gestor.añadirAlojamiento(idViaje, nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
-					PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
-					frame3.setVisible(true);
-					dispose();
-				}
+					if(tipo == "Actividad") {
+						String descripcion = txtAreaDescripcion.getText();
+						String precio = txtPrecioActividad.getText();
+						String fechaActividad = sdf.format(dateChooserIda_1.getDate());
+						gestor.añadirActividad(idViaje, nombreEvento, tipo ,descripcion, precio, fechaActividad);
+						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+						frame3.setVisible(true);
+						dispose();
+					}
+					if(tipo == "Alojamiento") {
+						String tipoAlojamiento = comboBoxTipoAlojamiento.getSelectedItem().toString();
+						String ciudad = txtCiudad.getText();
+						String precio = txtPrecioAlojamiento.getText();
+						String fechaEntrada = sdf.format(dateChooserFechaEntrada.getDate());
+						String fechaSalida = sdf.format(dateChooserFechaSalida.getDate());
+						gestor.añadirAlojamiento(idViaje, nombreEvento, tipo, tipoAlojamiento, ciudad, precio, fechaEntrada, fechaSalida);
+						PanelAgencia frame3 = new PanelAgencia(idAgencia, nombreID, logoUrl);
+						frame3.setVisible(true);
+						dispose();
+					}
 				
+				}
 			}
 		});
 		
