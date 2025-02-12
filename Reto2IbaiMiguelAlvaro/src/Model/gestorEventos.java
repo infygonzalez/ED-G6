@@ -27,7 +27,7 @@ public class gestorEventos {
 	        stmt.setInt(2, idViaje); // Usamos el idViaje proporcionado
 	        stmt.setString(3, nombreEvento);
 	        stmt.setString(4, fechaIda);
-	        stmt.setInt(5, Integer.parseInt(precio));
+	        stmt.setDouble(5, Double.parseDouble(precio));
 	        stmt.executeUpdate();
 
 	        // Obtener el id_evento generado
@@ -114,7 +114,7 @@ public class gestorEventos {
 	        stmt.setInt(2, idViaje); // Usamos el idViaje proporcionado
 	        stmt.setString(3, nombreEvento);
 	        stmt.setString(4, fechaActividad);
-	        stmt.setInt(5, Integer.parseInt(precio));
+	        stmt.setDouble(5, Double.parseDouble(precio));
 	        stmt.executeUpdate();
 
 	        // Obtener el id_evento generado
@@ -164,7 +164,7 @@ public class gestorEventos {
 	        stmt.setInt(2, idViaje); // Aquí deberías obtener el id_viaje correspondiente
 	        stmt.setString(3, nombreEvento);
 	        stmt.setString(4, fechaEntrada);
-	        stmt.setInt(5, Integer.parseInt(precio));
+	        stmt.setDouble(5, Double.parseDouble(precio));
 	        stmt.executeUpdate();
 
 	        int idEvento = obtenerIdEvento(idViaje);
