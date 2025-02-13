@@ -102,7 +102,7 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
 
             <div id="form-vuelo" class="hidden">
                 <label for="tipoVuelo">Tipo de vuelo</label>
-                <select id="tipoVuelo" name="tipoVuelo" onchange="mostrarVuelo()" disabled required>
+                <select id="tipoVuelo" name="tipoVuelo" onchange="mostrarVuelo()" required>
                     <option value="" disabled selected>----Seleccione----</option>
                     <option value="ida">Ida</option>
                     <option value="ida_vuelta">Ida y vuelta</option>
@@ -111,7 +111,7 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
                 <div id="form-vuelo-ida" class="vuelo-bloque hidden">
                     <h2>Vuelo de Ida</h2>
                     <label for="origen">Aeropuerto de origen</label>
-                    <select id="origen" name="origen" disabled required>
+                    <select id="origen" name="origen" required>
                         <option value="" disabled selected>----Seleccione----</option>
                         <?php
                         $sql_aeropuertos = "SELECT codigo, nombre_aeropuerto FROM codigosaeropuerto ORDER BY nombre_aeropuerto ASC";
@@ -123,7 +123,7 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
                     </select>
 
                     <label for="destino">Aeropuerto de llegada</label>
-                    <select id="destino" name="destino" disabled required>
+                    <select id="destino" name="destino" required>
                         <option value="" disabled selected>----Seleccione----</option>
                         <?php
                         $resultado_aeropuertos->data_seek(0); // Reset result pointer
@@ -134,10 +134,10 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
                     </select>
 
                     <label for="codigoVuelo">Código de vuelo</label>
-                    <input type="text" id="codigoVuelo" name="codigoVuelo" disabled required>
+                    <input type="text" id="codigoVuelo" name="codigoVuelo" required>
 
                     <label for="aerolinea">Aerolínea</label>
-                    <select id="aerolinea" name="aerolinea" disabled required>
+                    <select id="aerolinea" name="aerolinea" required>
                         <option value="" disabled selected>----Seleccione----</option>
                         <?php
                         $sql_aerolineas = "SELECT id_aerolinea, nombre FROM aerolineas ORDER BY nombre ASC";
@@ -149,34 +149,34 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
                     </select>
 
                     <label for="precioVuelo">Precio</label>
-                    <input type="number" id="precioVuelo" name="precioVuelo" min="0" disabled required>
+                    <input type="number" id="precioVuelo" name="precioVuelo" min="0" required>
 
                     <label for="fechaSalida">Fecha de salida</label>
-                    <input type="date" id="fechaSalida" name="fechaSalida" disabled required>
+                    <input type="date" id="fechaSalida" name="fechaSalida" required>
 
                     <label for="horaSalida">Hora de salida</label>
-                    <input type="time" id="horaSalida" name="horaSalida" disabled required>
+                    <input type="time" id="horaSalida" name="horaSalida" required>
 
                     <label for="duracion">Duración del vuelo (horas)</label>
-                    <input type="number" id="duracion" name="duracion" min="0" disabled required>
+                    <input type="number" id="duracion" name="duracion" min="0" required>
                 </div>
 
                 <div id="form-vuelo-vuelta" class="vuelo-bloque hidden">
                     <h2>Vuelo de Vuelta</h2>
                     <label for="fechaVuelta">Fecha de vuelta</label>
-                    <input type="date" id="fechaVuelta" name="fechaVuelta" disabled required>
+                    <input type="date" id="fechaVuelta" name="fechaVuelta" required>
 
                     <label for="horaVuelta">Hora de vuelta</label>
-                    <input type="time" id="horaVuelta" name="horaVuelta" disabled required>
+                    <input type="time" id="horaVuelta" name="horaVuelta" required>
 
                     <label for="duracionVuelta">Duración del vuelo de vuelta (horas)</label>
-                    <input type="number" id="duracionVuelta" name="duracionVuelta" min="0" disabled required>
+                    <input type="number" id="duracionVuelta" name="duracionVuelta" min="0" required>
 
                     <label for="codigoVueloVuelta">Código de vuelo de vuelta</label>
-                    <input type="text" id="codigoVueloVuelta" name="codigoVueloVuelta" disabled required>
+                    <input type="text" id="codigoVueloVuelta" name="codigoVueloVuelta" required>
 
                     <label for="aerolineaVuelta">Aerolínea de vuelta</label>
-                    <select id="aerolineaVuelta" name="aerolineaVuelta" disabled required>
+                    <select id="aerolineaVuelta" name="aerolineaVuelta" required>
                         <option value="" disabled selected>----Seleccione----</option>
                         <?php
                         $resultado_aerolineas->data_seek(0); // Reset result pointer
@@ -205,8 +205,6 @@ $colorMarca = $agencia['color_marca'] ?? '#000000';
             <button type="submit">Guardar Servicio</button>
         </form>
     </div>
-
-                        <br><br><br>
 
     <footer class="footer">
         <div class="footer-content">

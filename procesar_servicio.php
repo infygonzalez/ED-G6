@@ -41,12 +41,18 @@ if ($tipoServicio == "alojamiento") {
     $horaSalida = $_POST['horaSalida'] ?? '';
     $duracion = $_POST['duracion'] ?? 0;
 
+    $fechaVuelta = $_POST['fechaVuelta'] ?? NULL;
+    $horaVuelta = $_POST['horaVuelta'] ?? NULL;
+    $duracionVuelta = $_POST['duracionVuelta'] ?? NULL;
+    $codigoVueloVuelta = $_POST['codigoVueloVuelta'] ?? NULL;
+    $aerolineaVuelta = $_POST['aerolineaVuelta'] ?? NULL;
+
     $sql_evento = "INSERT INTO eventos (tipo_evento, id_viaje, nombre, fecha, precio) VALUES ('vuelo', '$id_viaje', '$codigoVuelo', '$fechaSalida', '$precioVuelo')";
     if ($conexion->query($sql_evento) === TRUE) {
         $id_evento = $conexion->insert_id;
 
-        $sql = "INSERT INTO vuelos (id_evento, tipo_vuelo, aeropuerto_origen, aeropuerto_destino, codigo_vuelo, aerolinea, precio_euros, fecha_salida, hora_salida, duracion_viaje)
-                VALUES ('$id_evento', '$tipoVuelo', '$aeropuertoOrigen', '$aeropuertoDestino', '$codigoVuelo', '$aerolinea', '$precioVuelo', '$fechaSalida', '$horaSalida', '$duracion')";
+        $sql = "INSERT INTO vuelos (id_evento, aeropuerto_origen, aeropuerto_destino, codigo_vuelo, aerolinea, precio_euros, fecha_salida, hora_salida, duracion_viaje, tipo_vuelo, fecha_vuelta, hora_vuelta, duracion_viaje_vuelta, codigo_vuelo_vuelta, aerolinea_vuelta)
+                VALUES ('$id_evento', '$aeropuertoOrigen', '$aeropuertoDestino', '$codigoVuelo', '$aerolinea', '$precioVuelo', '$fechaSalida', '$horaSalida', '$duracion', '$tipoVuelo', '$fechaVuelta', '$horaVuelta', '$duracionVuelta', '$codigoVueloVuelta', '$aerolineaVuelta')";
         if ($conexion->query($sql) === TRUE) {
             echo "<script>
                     alert('Datos guardados correctamente');
